@@ -1,5 +1,6 @@
 <template>
-  <div>
-    <h1 class="flex">Groshev housing estate</h1>
-  </div>
+  <section-video />
+  <section-location />
+  <section-techonology />
+  <section-contact />
 </template>

@@ -8,6 +8,10 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-h1 {
+h1, .h1 {
+  margin-bottom: 16px;
   font-size: 64px;
+  line-height: 64px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }

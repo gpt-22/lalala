@@ -8,4 +8,16 @@ export default defineNuxtConfig({
     },
   },
   css: ['~/assets/styles/main.scss'],
+  // gsap: {
+  //   extraPlugins: {
+  //     scrollTrigger: true,
+  //     scrollTo: true
+  //   }
+  // },
+  plugins: [
+    '~/plugins/gsap.client'
+  ],
 })
+
+// custom scroll
+//
