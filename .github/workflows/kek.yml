@@ -1,4 +1,4 @@
-name: Deploy Back
+name: Deploy Remote
 
 on:  workflow_dispatch
 
@@ -61,6 +61,12 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
+
+      - name: List workspace contents
+        run: |
+          echo "Listing deployment folder contents:"
+          ls -la
+
 
   deploy:
     runs-on: ubuntu-latest
