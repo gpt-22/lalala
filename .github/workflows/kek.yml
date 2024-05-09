@@ -68,7 +68,7 @@ jobs:
     env:
       HOST: root@80.93.190.84
       DEPLOY_DIRECTORY: /root/apps/landing
-      ENV_FILE_PATH: /root/apps/landing/config.env
+#      ENV_FILE_PATH: /root/apps/landing/config.env
 
     steps:
       - name: Checkout repository
@@ -93,7 +93,7 @@ jobs:
       - name: List workspace contents
         run: |
           echo "Listing deployment folder contents:"
-          ls -la ${{ github.workspace }}/deployment
+          ls -la .output/public
 
 #      - name: Create environment file on server
 #        run: |
