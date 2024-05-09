@@ -1,7 +1,7 @@
 <template>
  <section class="section-location">
    <app-container>
-     <h1 id="section-location-title">Location</h1>
+     <h1 id="section-location-title">3D визуализация</h1>
    </app-container>
  </section>
 </template>

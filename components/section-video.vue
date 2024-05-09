@@ -48,6 +48,14 @@ const show2 = ref(false)
 const show3 = ref(false)
 const show4 = ref(false)
 
+function debounce(func, ms) {
+  let timeout;
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, arguments), ms);
+  };
+}
+
 const toEnd = () => {
   show2.value = true
   setTimeout(() => {
@@ -57,6 +65,7 @@ const toEnd = () => {
     show1.value = false
   }, 200)
 }
+const toEndDebounced = debounce(toEnd, 50)
 
 const toStart = () => {
   show4.value = true
@@ -67,6 +76,8 @@ const toStart = () => {
     show4.value = false
   }, 200)
 }
+const toStartDebounced = debounce(toStart, 50)
+
 
 const main = ref();
 
@@ -74,14 +85,14 @@ onMounted(() => {
   $ScrollTrigger.create({
     trigger: screen2.value,
     start: 'top 50%',
-    markers: true,
+    // markers: true,
     // endTrigger: "#otherID",
     // end: "bottom 50%+=100px",
     onToggle: (self) => {
       if (self.isActive) {
-        toEnd()
+        toEndDebounced()
       } else {
-        toStart()
+        toStartDebounced()
       }
 
       console.log("toggled, isActive:", self.isActive)

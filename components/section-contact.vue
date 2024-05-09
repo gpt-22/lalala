@@ -2,12 +2,18 @@
   <section class="section-contact">
     <app-container>
       <h1 id="section-contact-title">Let's talk!</h1>
+
+      <canvas id="canvas3d" ref="canvas3d" />
     </app-container>
   </section>
 </template>
 
 <script setup>
 const { $gsap } = useNuxtApp();
+
+import { Application } from '@splinetool/runtime';
+
+const canvas3d = ref()
 
 onMounted(() => {
   $gsap.to(".section-contact", {
@@ -30,12 +36,18 @@ onMounted(() => {
     },
     x: 0,
   });
+
+  // setTimeout(async () => {
+  //   const app = new Application(canvas3d.value);
+  //   app.load('https://prod.spline.design/RwCLYGRD28qBtsqC/scene.splinecode');
+  //
+  // }, 3000)
 })
 </script>
 
 <style scoped lang="scss">
 .section-contact {
-  @apply h-[750px] pt-[96px] bg-dark text-white;
+  @apply h-[1200px] pt-[96px] bg-dark text-white;
 }
 
 #section-contact-title {

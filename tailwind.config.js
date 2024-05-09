@@ -28,7 +28,7 @@ module.exports = {
       'text-gray-dark': '#888888',
     },
     fontFamily: {
-      sans: ['Poppins', 'sans-serif'],
+      sans: ['Montserrat', 'sans-serif'],
     },
     extend: {},
   },

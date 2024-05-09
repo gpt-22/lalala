@@ -1,7 +1,8 @@
 <template>
   <footer class="footer">
     <app-container>
-      123
+      <a href="tel:+79852997894" class="text-xl text-white font-semibold">+7-985-299-78-94</a>
+      
     </app-container>
   </footer>
 </template>
@@ -12,3 +13,5 @@
   background-color: #0f0f0f;
 }
 </style>
+<script setup lang="ts">
+</script>
