@@ -9,6 +9,7 @@ jobs:
     env:
       HOST: root@80.93.190.84
       DEPLOY_DIRECTORY: /var/www
+      NGINX_DIRECTORY: /etc/nginx/sites-enabled
 
     steps:
       - name: Checkout
@@ -43,6 +44,7 @@ jobs:
           chmod 600 deploy_key.pem
           ssh -i deploy_key.pem -o StrictHostKeyChecking=no ${{ env.HOST }} "mkdir -p ${{ env.DEPLOY_DIRECTORY }}"
           rsync -avz -e 'ssh -i deploy_key.pem -o StrictHostKeyChecking=no' --exclude='.git' ./.output/public ${{ env.HOST }}:${{ env.DEPLOY_DIRECTORY }}
+          rsync -avz -e 'ssh -i deploy_key.pem -o StrictHostKeyChecking=no' --exclude='.git' ./nginx.conf ${{ env.HOST }}:${{ env.NGINX_DIRECTORY }}
         env:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
 
