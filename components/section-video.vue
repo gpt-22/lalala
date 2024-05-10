@@ -21,7 +21,7 @@
         </div>
 
         <div ref="screen3" class="h-screen end">
-          <h1 id="h2" class="h1 kek">Select your house 3</h1>
+          <h1 id="h2" class="h1 kek">Select your house 4</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur distinctio fugiat incidunt labore, nihil nisi possimus quo sit ut? Accusamus architecto assumenda consectetur distinctio earum error exercitationem explicabo fugit, harum inventore magni modi nesciunt, nisi pariatur porro quisquam quo quos repellendus rerum soluta, temporibus totam ullam voluptas! Dolorem ipsa, magnam minima molestiae, molestias natus, officia quos repudiandae similique temporibus totam voluptatibus voluptatum! Accusamus accusantium at corporis deleniti dolor dolore ducimus ea eaque eius eligendi enim error est, eveniet ex expedita fuga fugit ipsum laborum maiores nemo non obcaecati omnis quaerat quas quibusdam quis saepe sed, similique, sint velit vero voluptas.
           </p>
