@@ -47,7 +47,7 @@ jobs:
           rsync -avz -e 'ssh -i deploy_key.pem -o StrictHostKeyChecking=no' --exclude='.git' ./nginx.conf ${{ env.HOST }}:${{ env.NGINX_DIRECTORY }}
           ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled
           sudo nginx -s reload
-      env:
+        env:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
 
       - name: List workspace contents
