@@ -9,7 +9,9 @@
     </p>
 
     <div class="mt-5">
-      <button type="button" class="appear-from-right text-text-dark leading-3 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-bold rounded-full uppercase px-7 py-4 bg-white">Pick a house</button>
+      <button type="button" class="appear-from-right text-text-dark leading-3 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-bold rounded-full uppercase px-7 py-4 bg-white">
+        Взломать пентагон
+      </button>
     </div>
   </div>
 </template>
@@ -32,7 +34,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .section-video-info {
-  @apply max-w-[500px] flex flex-col pt-[200px];
+  @apply h-screen max-w-[500px] flex flex-col pt-[200px];
 }
 
 .appear-from-right {

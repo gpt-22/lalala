@@ -1,17 +1,17 @@
 <template>
   <div class="section-intro">
     <div class="section-intro-media">
-      <video v-show="show1" :src="video1" autoplay muted loop class="video" />
-      <video v-show="show3" :src="video3" autoplay muted loop class="video" />
-      <video v-show="show2" :src="video2" autoplay muted loop class="video" />
-      <video v-show="show4" :src="video4" autoplay muted loop class="video" />
+      <video v-show="show1" :src="video1" preload="auto" autoplay muted loop class="video" controlslist="nodownload nofullscreen" disablepictureinpicture playsinline webkit-playsinline />
+      <video v-show="show3" :src="video3" preload="auto" autoplay muted loop class="video" controlslist="nodownload nofullscreen" disablepictureinpicture playsinline webkit-playsinline />
+      <video v-show="show2" :src="video2" preload="auto" autoplay muted loop class="video" controlslist="nodownload nofullscreen" disablepictureinpicture playsinline webkit-playsinline />
+      <video v-show="show4" :src="video4" preload="auto" autoplay muted loop class="video" controlslist="nodownload nofullscreen" disablepictureinpicture playsinline webkit-playsinline />
     </div>
 
     <div class="section-intro-content" ref="main">
       <app-container>
         <div class="parent">
           <div id="start" ref="screen1" class="item">
-            <section-video-info class="h-screen"/>
+            <section-start />
           </div>
 
           <div id="roadmap" ref="screen2" class="item h-screen end">
@@ -93,16 +93,12 @@ onMounted(() => {
     // end: "bottom 50%+=100px",
     onToggle: (self) => {
       if (self.isActive) {
-        // screen2.value.scrollIntoView()
-        // location.hash = '#roadmap'
         toEndDebounced()
       } else {
-        // screen1.value.scrollIntoView()
-        // location.hash = '#start'
         toStartDebounced()
       }
 
-      // console.log("toggled, isActive:", self.isActive)
+      console.log("toggled, isActive:", self.isActive)
     }
   })
 
