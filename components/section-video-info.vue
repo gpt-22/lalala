@@ -1,8 +1,8 @@
 <template>
-  <div class="w-[500px] start flex flex-col justify-center">
-    <h1 class="appear-from-right kek">Groshev <br> housing estate</h1>
+  <div id="start" class="section-video-info">
+    <h1 class="appear-from-right kek">3D Визуализация</h1>
 
-    <p class="appear-from-right text-[18px] text-[#d1d1d1] w-[400px] mt-5">
+    <p class="appear-from-right text-[18px] text-[#d1d1d1] max-w-[400px] mt-5">
       A quiet place in a great neighborhood. Enjoy
       unlimited nature and the charms of city life in
       Józefów.
@@ -24,12 +24,17 @@ onMounted(() => {
     stagger: 0.2,
     x: 0,
     opacity: 1,
-    duration: 0.4
+    duration: 0.4,
+    delay: 1.9
   });
 })
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+.section-video-info {
+  @apply max-w-[500px] flex flex-col pt-[200px];
+}
+
 .appear-from-right {
   opacity: 0;
   transform: translate(50px, 0);

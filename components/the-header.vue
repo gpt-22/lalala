@@ -1,27 +1,29 @@
 <template>
-  <header id="header" class="header">
+  <header id="header" class="header" :class="{ 'open': isOpen }">
     <app-container class="h-full">
-      <div class="h-full flex item-center justify-between">
-        <div class="flex flex-col uppercase leading-4">
-          <span class="">Groshev</span>
-          <span class="font-bold">real estate</span>
-        </div>
+      <div class="header-content">
+        <nuxt-link to="/" class="flex items-center">
+          <icon-logo class="w-[147px] h-[20px]" />
+        </nuxt-link>
 
-        <nav class="flex gap-8 items-center uppercase text-sm font-medium">
-          <nuxt-link to="#">Segments</nuxt-link>
-          <nuxt-link to="/">Map</nuxt-link>
-          <nuxt-link to="/">Technology</nuxt-link>
+        <nav class="links">
+          <nuxt-link to="#roadmap">Обзор</nuxt-link>
+          <nuxt-link to="#projects">Проекты</nuxt-link>
+          <nuxt-link to="#about">О нас</nuxt-link>
         </nav>
 
+        <contacts class="contacts" />
 
-        <div class="flex gap-4">
-          <button type="button" class="text-white leading-3 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5">
-            Язык: Русский
-          </button>
-          <button type="button" class="text-text-dark leading-3 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 bg-white">
-            Связаться с нами
-          </button>
+        <menu-burger v-model="isOpen" class="menu-burger-button" />
+
+        <div class="burger-menu">
+          <nav class="links-burger">
+            <nuxt-link to="#roadmap" class="burger-link">Обзор</nuxt-link>
+            <nuxt-link to="#projects" class="burger-link">Проекты</nuxt-link>
+            <nuxt-link to="#about" class="burger-link">О нас</nuxt-link>
+          </nav>
         </div>
+
       </div>
     </app-container>
   </header>
@@ -29,31 +31,125 @@
 
 
 <script setup>
+import IconLogo from "~/components/icons/icon-logo.vue"
+import Contacts from "~/components/contacts.vue"
+
 const { $gsap } = useNuxtApp();
+
+let burgerLinksTimeline
 
 onMounted(() => {
   $gsap.to("#header", {
     y: 0,
     opacity: 1,
     duration: 0.3,
-    delay: 0.3
+    delay: 1.6
   });
+
+  burgerLinksTimeline = $gsap.timeline({ delay: 0.5 });
+  burgerLinksTimeline.to(".burger-link", {
+    stagger: 0.15,
+    // x: 0,
+    opacity: 1,
+    duration: 0.3,
+  });
+})
+
+const isOpen = ref(false)
+
+
+watch(isOpen, () => {
+  if (isOpen) {
+    burgerLinksTimeline.restart()
+  }
 })
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .header {
   position: fixed;
+  max-width: 100vw;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1;
   color: #fff;
+  background: rgba(22, 22, 23, .2);// linear-gradient(rgba(22, 22, 23, .5), transparent);
   backdrop-filter: blur(10px);
-  padding: 1em;
+  padding: 1em 0;
 
   // animation
   opacity: 0;
   transform: translate(0, -60px);
+  transition: background-color .2s;
+
+  &.open {
+    height: 100vh;
+    background: white;
+  }
+}
+
+.header-content {
+  @apply h-full flex items-center justify-between;
+}
+
+.menu-burger-button {
+  display: none;
+}
+.burger-menu {
+  display: none;
+}
+
+.burger-link {
+  opacity: 0;
+  //transform: translate(-150px, 0);
+}
+
+.links {
+  @apply flex gap-8 items-center uppercase text-sm font-medium;
+}
+
+.header.open {
+  .header-content {
+    display: grid;
+    grid-template-rows: 24px 1fr;
+    grid-template-columns: 1fr 24px;
+    grid-area: logo burger-button / menu;
+  }
+
+  .burger-menu {
+    height: 100%;
+    display: flex;
+  }
+
+  .links-burger {
+    //height: 100%;
+    margin-top: 112px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: 30px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    background: rgba(22, 22, 23, .8);
+  }
+
+  .header.open .header-content {
+    @apply text-text-dark;
+  }
+
+  .links,
+  .contacts {
+    display: none;
+  }
+
+  .menu-burger-button {
+    display: inline-flex;
+    //margin-left: auto;
+  }
 }
 </style>

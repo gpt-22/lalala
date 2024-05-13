@@ -2,29 +2,31 @@
   <div class="section-intro">
     <div class="section-intro-media">
       <video v-show="show1" :src="video1" autoplay muted loop class="video" />
-      <video v-show="show2" :src="video2" autoplay muted loop class="video" />
       <video v-show="show3" :src="video3" autoplay muted loop class="video" />
+      <video v-show="show2" :src="video2" autoplay muted loop class="video" />
       <video v-show="show4" :src="video4" autoplay muted loop class="video" />
     </div>
 
     <div class="section-intro-content" ref="main">
       <app-container>
-        <div ref="screen1">
-          <section-video-info class="h-screen"/>
-        </div>
+        <div class="parent">
+          <div id="start" ref="screen1" class="item">
+            <section-video-info class="h-screen"/>
+          </div>
 
-        <div ref="screen2" class="h-screen end">
-          <h1 id="h1" class="h1 kek">Select your house 2</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur distinctio fugiat incidunt labore, nihil nisi possimus quo sit ut? Accusamus architecto assumenda consectetur distinctio earum error exercitationem explicabo fugit, harum inventore magni modi nesciunt, nisi pariatur porro quisquam quo quos repellendus rerum soluta, temporibus totam ullam voluptas! Dolorem ipsa, magnam minima molestiae, molestias natus, officia quos repudiandae similique temporibus totam voluptatibus voluptatum! Accusamus accusantium at corporis deleniti dolor dolore ducimus ea eaque eius eligendi enim error est, eveniet ex expedita fuga fugit ipsum laborum maiores nemo non obcaecati omnis quaerat quas quibusdam quis saepe sed, similique, sint velit vero voluptas.
-          </p>
-        </div>
+          <div id="roadmap" ref="screen2" class="item h-screen end">
+            <h1 id="h1" class="h1 kek">Описание</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur distinctio fugiat incidunt labore, nihil nisi possimus quo sit ut? Accusamus architecto assumenda consectetur distinctio earum error exercitationem explicabo fugit, harum inventore magni modi nesciunt, nisi pariatur porro quisquam quo quos repellendus rerum soluta, temporibus totam ullam voluptas!
+            </p>
+          </div>
 
-        <div ref="screen3" class="h-screen end">
-          <h1 id="h2" class="h1 kek">Select your house 4</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur distinctio fugiat incidunt labore, nihil nisi possimus quo sit ut? Accusamus architecto assumenda consectetur distinctio earum error exercitationem explicabo fugit, harum inventore magni modi nesciunt, nisi pariatur porro quisquam quo quos repellendus rerum soluta, temporibus totam ullam voluptas! Dolorem ipsa, magnam minima molestiae, molestias natus, officia quos repudiandae similique temporibus totam voluptatibus voluptatum! Accusamus accusantium at corporis deleniti dolor dolore ducimus ea eaque eius eligendi enim error est, eveniet ex expedita fuga fugit ipsum laborum maiores nemo non obcaecati omnis quaerat quas quibusdam quis saepe sed, similique, sint velit vero voluptas.
-          </p>
+          <div id="screen3" ref="screen3" class="item h-screen end">
+            <h1 id="h2" class="h1 kek">Еще описание</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur distinctio fugiat incidunt labore, nihil nisi possimus quo sit ut? Accusamus architecto assumenda consectetur distinctio earum error exercitationem explicabo fugit, harum inventore magni modi nesciunt, nisi pariatur porro quisquam quo quos repellendus rerum soluta, temporibus totam ullam voluptas!
+            </p>
+          </div>
         </div>
       </app-container>
     </div>
@@ -84,18 +86,23 @@ const main = ref();
 onMounted(() => {
   $ScrollTrigger.create({
     trigger: screen2.value,
+    // markers: true,
     start: 'top 50%',
     // markers: true,
     // endTrigger: "#otherID",
     // end: "bottom 50%+=100px",
     onToggle: (self) => {
       if (self.isActive) {
+        // screen2.value.scrollIntoView()
+        // location.hash = '#roadmap'
         toEndDebounced()
       } else {
+        // screen1.value.scrollIntoView()
+        // location.hash = '#start'
         toStartDebounced()
       }
 
-      console.log("toggled, isActive:", self.isActive)
+      // console.log("toggled, isActive:", self.isActive)
     }
   })
 
@@ -192,9 +199,17 @@ onMounted(() => {
 
 .section-intro-content {
   position: relative;
-  //z-index: 1;
-  //height: 100vh;
-  //overflow-y: scroll;
   color: #fff;
+}
+
+.parent {
+  //overflow-y: scroll;
+  //scroll-snap-type: y mandatory;
+  //height: 100vh;
+}
+.item {
+  padding-top: 100px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 </style>

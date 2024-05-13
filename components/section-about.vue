@@ -1,9 +1,9 @@
 <template>
-  <section class="section-contact">
+  <section id="about" class="section-contact">
     <app-container>
-      <h1 id="section-contact-title">Let's talk!</h1>
+      <h1 id="section-contact-title">О нас</h1>
 
-      <canvas id="canvas3d" ref="canvas3d" />
+<!--      <canvas id="canvas3d" ref="canvas3d" />-->
     </app-container>
   </section>
 </template>
@@ -13,7 +13,7 @@ const { $gsap } = useNuxtApp();
 
 import { Application } from '@splinetool/runtime';
 
-const canvas3d = ref()
+// const canvas3d = ref()
 
 onMounted(() => {
   $gsap.to(".section-contact", {
@@ -31,7 +31,7 @@ onMounted(() => {
     scrollTrigger:  {
       trigger: "#section-contact-title",
       start: 'top 95%',
-      end: 'top 65%',
+      end: 'top 15%',
       scrub: true,
     },
     x: 0,
@@ -47,7 +47,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .section-contact {
-  @apply h-[1200px] pt-[96px] bg-dark text-white;
+  @apply h-screen pt-[96px] bg-dark text-white;
 }
 
 #section-contact-title {

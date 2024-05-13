@@ -1,5 +1,6 @@
 <template>
-  <the-cursor />
+<!--  <the-cursor />-->
+  <the-loader />
 
   <div class="app">
     <the-header />
@@ -9,21 +10,13 @@
 </template>
 
 <script setup>
-// TODO:
-// video transitions
-// custom cursor
-// smooth scroll
-// custom scroll
-
-// menu burger
-
 import Lenis from "lenis";
 
 const { $gsap, $ScrollTrigger } = useNuxtApp();
 
 const initLenis = () => {
   const lenis = new Lenis({
-    duration: 1,
+    duration: 1.2,
   })
 
   lenis.on('scroll', $ScrollTrigger.update)
