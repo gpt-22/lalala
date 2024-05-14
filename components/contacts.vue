@@ -10,7 +10,7 @@
       <icon-tg class="w-[20px] h-[20px]" />
     </a>
     <a href="https://t.me/freedomerr" target="_blank" class="contact-button">
-      <icon-whatsapp class="w-[20px] h-[20px]" />
+      <icon-whatsapp class="w-[22px] h-[22px]" />
     </a>
     <a href="mailto:gregoryrulit@gmail.com" target="_blank" class="contact-button">
       <icon-mail class="w-[20px] h-[20px]" />
@@ -29,17 +29,14 @@ import IconMail from "~/components/icons/icon-mail.vue"
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  //border: 1px solid white;
-  outline: 1.5px solid currentColor;
+  outline: 1px solid currentColor;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: .2s;
 
   &:hover {
-    outline-width: 2px;
-    //color: black;
-    //border-color: black;
+    box-shadow: 0 0 4px 2px #ccc;
   }
 }
 </style>

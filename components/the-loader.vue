@@ -66,7 +66,7 @@ onMounted(() => {
   inset: 0px;
   border-radius: 50%;
   border: 5px solid #FFF;
-  animation: prixClipFix 1s linear ;
+  animation: prixClipFix 1s linear;
 }
 
 @keyframes fadeIn {
@@ -83,6 +83,9 @@ onMounted(() => {
   25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
   50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
   75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
-  100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+  100% {
+    clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0);
+    transform: rotate(235deg);
+  }
 }
 </style>

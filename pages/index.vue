@@ -2,7 +2,7 @@
   <div class="parent">
     <section-video />
     <section-projects class="item" />
-<!--    <section-techonology class="item" />-->
+    <section-interiors class="item" />
     <section-about class="item" />
   </div>
 </template>
@@ -30,10 +30,10 @@
 
 <style lang="scss">
 .parent {
-//  display: contents;
-//  height: 100%;
-//  overflow-y: auto;
-//  scroll-snap-type: y mandatory;
+  display: contents;
+  height: 100%;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
 }
 .item {
   scroll-snap-align: start;

@@ -5,14 +5,34 @@
 @tailwind utilities;
 
 html {
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
+  //scroll-behavior: smooth;
+  //scroll-snap-type: y mandatory;
   //scroll-padding-top: 100px;
 }
 
 ::-webkit-scrollbar {
   display: none;
 }
+
+//html.lenis, html.lenis body {
+//  height: auto;
+//}
+//
+//.lenis.lenis-smooth {
+//  scroll-behavior: auto !important;
+//}
+//
+//.lenis.lenis-smooth [data-lenis-prevent] {
+//  overscroll-behavior: contain;
+//}
+//
+//.lenis.lenis-stopped {
+//  overflow: hidden;
+//}
+//
+//.lenis.lenis-scrolling iframe {
+//  pointer-events: none;
+//}
 
 body {
   font-family: "Montserrat", sans-serif;

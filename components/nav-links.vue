@@ -1,16 +1,31 @@
 <template>
   <nav class="flex items-center uppercase text-sm font-medium">
-    <nuxt-link to="#roadmap" class="link">
-      <span class="link-text">Обзор</span>
-    </nuxt-link>
-    <nuxt-link to="#projects" class="link">
-      <span class="link-text">Проекты</span>
-    </nuxt-link>
-    <nuxt-link to="#about" class="link">
-      <span class="link-text">О нас</span>
+    <nuxt-link v-for="link in links" :to="link.to" class="link" @click="onClick(link.to)">
+      <span class="link-text">{{ link.text }}</span>
     </nuxt-link>
   </nav>
 </template>
+
+<script setup>
+const route = useRoute()
+const router = useRouter()
+const { $lenis } = useNuxtApp()
+
+const links = [
+  { to: '#roadmap', text: 'Обзор' },
+  { to: '#projects', text: 'Проекты' },
+  { to: '#about', text: 'О нас' },
+]
+
+const onClick = (to) => {
+  if (route.name !== 'index') {
+    router.push(`/${to}`)
+  }
+
+  console.log($lenis, route)
+  $lenis.scrollTo(to)
+}
+</script>
 
 <style scoped lang="scss">
 .link {
