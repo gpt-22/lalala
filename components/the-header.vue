@@ -6,11 +6,7 @@
           <icon-logo class="w-[147px] h-[20px]" />
         </nuxt-link>
 
-        <nav class="links">
-          <nuxt-link to="#roadmap">Обзор</nuxt-link>
-          <nuxt-link to="#projects">Проекты</nuxt-link>
-          <nuxt-link to="#about">О нас</nuxt-link>
-        </nav>
+        <nav-links class="links" />
 
         <contacts class="contacts" />
 
@@ -102,11 +98,6 @@ watch(isOpen, () => {
 
 .burger-link {
   opacity: 0;
-  //transform: translate(-150px, 0);
-}
-
-.links {
-  @apply flex gap-8 items-center uppercase text-sm font-medium;
 }
 
 .header.open {
@@ -149,7 +140,6 @@ watch(isOpen, () => {
 
   .menu-burger-button {
     display: inline-flex;
-    //margin-left: auto;
   }
 }
 </style>

@@ -6,11 +6,7 @@
           <icon-logo class="w-[147px] h-[20px]" />
         </nuxt-link>
 
-        <nav class="flex flex-col gap-4 uppercase text-sm font-medium order-1  sm:order-2">
-          <nuxt-link to="#roadmap">Обзор</nuxt-link>
-          <nuxt-link to="#projects">Проекты</nuxt-link>
-          <nuxt-link to="#about">О нас</nuxt-link>
-        </nav>
+        <nav-links class="links" />
 
         <contacts class="contacts order-2  sm:order-3" />
       </div>
@@ -42,6 +38,13 @@ import Contacts from "~/components/contacts.vue"
   padding: 16px 0;
 }
 
+.links {
+  @apply flex-col gap-4 items-start justify-start order-1 sm:order-2;
+
+  &:deep(.link) {
+    padding: 0;
+  }
+}
 
 @media (max-width: 640px) {
   .footer-content {
