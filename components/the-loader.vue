@@ -22,11 +22,11 @@ onMounted(() => {
     }
   });
 
-  $gsap.to(".loader", {
-    duration: 0.3,
-    ease: 'power2.in',
-    delay: 1.5,
-  });
+  // $gsap.to(".loader", {
+  //   duration: 0.3,
+  //   ease: 'power2.in',
+  //   delay: 1.5,
+  // });
 })
 </script>
 

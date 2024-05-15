@@ -10,7 +10,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@splinetool/runtime": "^1.2.4",
     "gsap": "^3.12.5",
     "lenis": "^1.0.45",
     "nuxt": "^3.11.2",

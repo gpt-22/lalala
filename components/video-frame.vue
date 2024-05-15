@@ -1,21 +1,23 @@
 <template>
   <div class="section-intro-media">
-    <video
-      v-for="(video, idx) in frames"
-      v-show="video.playing"
-      ref="videoRefs"
-      :id="`video${idx}`"
-      :src="video.src"
-      preload="auto"
-      autoplay
-      muted
-      :loop="!video.isTransition"
-      class="video"
-      controlslist="nodownload nofullscreen"
-      disablepictureinpicture
-      playsinline
-      webkit-playsinline
-    />
+<!--   :preload="idx < 2 ? 'auto' : ''"  -->
+    <template v-for="(video, idx) in frames">
+      <video
+        v-show="video.playing"
+        ref="videoRefs"
+        :id="`video${idx}`"
+        :src="video.src"
+        preload="none"
+        autoplay
+        muted
+        :loop="!video.isTransition"
+        class="video"
+        controlslist="nodownload nofullscreen"
+        disablepictureinpicture
+        playsinline
+        webkit-playsinline
+      />
+    </template>
   </div>
 </template>
 
@@ -23,7 +25,7 @@
 const config = useRuntimeConfig()
 import { useVideoFrame } from "../composables/useVideoFrame"
 
-const { frameKeys, frames } = useVideoFrame()
+const { frameKeys, frames, loadedCount } = useVideoFrame()
 
 const videoRefs = ref([])
 
@@ -36,7 +38,7 @@ const onLoad = () => {
         frames.value[key].loaded = true
         frames.value[key].element = videoRefs.value[key - 1]
 
-        console.log('loaded', key)
+        console.log('loaded', key, loadedCount.value)
       }
     });
   })

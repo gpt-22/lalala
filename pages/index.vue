@@ -44,13 +44,7 @@ const setGsapAnimations = () => {
 
 <style lang="scss">
 .parent {
-  display: contents;
-  height: 100%;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-}
-.item {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  //display: contents;
+  //height: 100%;
 }
 </style>

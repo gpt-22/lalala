@@ -1,6 +1,6 @@
 <template>
   <section id="section-2" class="section">
-    2
+    <app-container>2</app-container>
   </section>
 </template>
 
