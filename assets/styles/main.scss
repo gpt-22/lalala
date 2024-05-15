@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 html {
-  //scroll-behavior: smooth;
-  //scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
   //scroll-padding-top: 100px;
 }
 
@@ -55,4 +55,13 @@ h1, .h1 {
     font-weight: 600;
     letter-spacing: -0.03em;
   }
+}
+
+.section,
+.footer {
+  height: 100vh;
+  padding: 100px;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }

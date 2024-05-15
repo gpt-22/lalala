@@ -26,9 +26,6 @@ import Contacts from "~/components/contacts.vue"
   height: 280px;
   background-color: #0f0f0f;
   padding: 32px 0;
-
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 
 .footer-content {

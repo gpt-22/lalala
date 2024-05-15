@@ -1,25 +1,50 @@
 <template>
   <div class="section-intro-media">
-    <video v-show="show1" :src="video1" preload="auto" autoplay muted loop class="video" controlslist="nodownload nofullscreen" disablepictureinpicture playsinline webkit-playsinline />
-    <video v-show="show3" :src="video3" preload="auto" autoplay muted loop class="video" controlslist="nodownload nofullscreen" disablepictureinpicture playsinline webkit-playsinline />
-    <video v-show="show2" :src="video2" preload="auto" autoplay muted loop class="video" controlslist="nodownload nofullscreen" disablepictureinpicture playsinline webkit-playsinline />
-    <video v-show="show4" :src="video4" preload="auto" autoplay muted loop class="video" controlslist="nodownload nofullscreen" disablepictureinpicture playsinline webkit-playsinline />
+    <video
+      v-for="(video, idx) in frames"
+      v-show="video.playing"
+      ref="videoRefs"
+      :id="`video${idx}`"
+      :src="`${config.public.baseURL}/${video.src}`"
+      preload="auto"
+      autoplay
+      muted
+      :loop="!video.isTransition"
+      class="video"
+      controlslist="nodownload nofullscreen"
+      disablepictureinpicture
+      playsinline
+      webkit-playsinline
+    />
   </div>
 </template>
 
 <script setup>
+const config = useRuntimeConfig()
 import { useVideoFrame } from "../composables/useVideoFrame"
 
-import video1 from '~/public/video/test_01.mp4'
-import video2 from '~/public/video/test_02.mp4'
-import video3 from '~/public/video/test_03.mp4'
-import video4 from '~/public/video/test_04.mp4'
+const { frameKeys, frames } = useVideoFrame()
 
-const { show1, show2, show3, show4 } = useVideoFrame()
+const videoRefs = ref([])
 
-// watchEffect(() => {
-//   console.log('here', show1.value)
-// })
+// TODO: load 1 => then others
+
+const onLoad = () => {
+  frameKeys.value.forEach((key) => {
+    videoRefs.value[key - 1].addEventListener("loadeddata", () => {
+      if (videoRefs.value[key - 1].readyState === 4) {
+        frames.value[key].loaded = true
+        frames.value[key].element = videoRefs.value[key - 1]
+
+        console.log('loaded', key)
+      }
+    });
+  })
+}
+
+onMounted(() => {
+  onLoad()
+})
 </script>
 
 <style scoped lang="scss">
@@ -32,7 +57,7 @@ const { show1, show2, show3, show4 } = useVideoFrame()
   right: 0;
   min-height: 100vh;
   overflow: hidden;
-  background: url("~/public/video/placeholder.jpeg") no-repeat center center;
+  //background: url("~/public/video/placeholder.jpeg") no-repeat center center;
   background-size: cover;
   z-index: -1;
   opacity: .9;

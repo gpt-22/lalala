@@ -1,30 +1,44 @@
 <template>
   <div class="parent">
-    <section-video />
-    <section-projects class="item" />
-    <section-interiors class="item" />
-    <section-about class="item" />
+    <section-1 />
+    <section-2 />
+    <section-3 />
+    <section-4 />
+    <section-5 />
+    <section-6 />
+
+    <!--    <section-video />-->
+<!--    <section-projects class="item" />-->
+<!--    <section-interiors class="item" />-->
+<!--    <section-about class="item" />-->
   </div>
 </template>
 
 <script setup>
-// const { $gsap, $Observer } = useNuxtApp();
-//
-// console.log('Observer', $Observer)
-// // onMounted(() => {
-// //   console.log($Observer, $gsap)
-// // })
-//
-// $Observer.create({
-//   target: window, // can be any element (selector text is fine)
-//   type: "wheel,touch", // comma-delimited list of what to listen for
-//   onUp: () => {
-//     console.log('go to prev')
-//   },
-//   onDown: () => {
-//     console.log('go to next')
-//   },
-// });
+import {useVideoFrame} from "~/composables/useVideoFrame"
+
+const { $gsap, $ScrollTrigger } = useNuxtApp();
+const { showFrame } = useVideoFrame()
+
+const setGsapAnimations = () => {
+  $ScrollTrigger.create({
+    trigger: '.section',
+    // markers: true,
+    start: 'top 60%',
+    // markers: true,
+    // endTrigger: "#otherID",
+    // end: "bottom 50%+=100px",
+    onToggle: (self) => {
+      if (self.isActive) {
+        // toEnd()
+      } else {
+        // toStart()
+      }
+
+      // console.log("toggled, isActive:", self.isActive)
+    }
+  })
+}
 </script>
 
 

@@ -22,4 +22,9 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/gsap.client'
   ],
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL || 'https://archigrade.ru/',
+    },
+  },
 })

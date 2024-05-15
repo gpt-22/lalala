@@ -115,7 +115,7 @@ export const useSectionScroll = (lenis) => {
     }
     const throttled = debounce(scrollBack, 200)
 
-    lenis.on('scroll', throttled)
+    // lenis.on('scroll', throttled)
 
     elements.forEach((element) => {
       // const beforeElement = createBeforeElement(element)

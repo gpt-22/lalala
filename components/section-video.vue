@@ -79,7 +79,7 @@ const setGsapAnimations = () => {
 
 onMounted(() => {
   setGsapAnimations()
-  startScrollObserver(sections.value)
+  // startScrollObserver(sections.value)
 });
 </script>
 
@@ -110,6 +110,8 @@ onMounted(() => {
 }
 
 .section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   height: 100vh;
   box-sizing: border-box;
   padding-top: 100px;

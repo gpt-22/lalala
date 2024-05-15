@@ -7,24 +7,25 @@
 </template>
 
 <script setup>
-
 const { $gsap } = useNuxtApp();
+const { showFrame } = useVideoFrame()
 
 onMounted(() => {
   $gsap.to("#site-loader", {
     opacity: 0,
     duration: 0.5,
     delay: 1.5,
-    display: 'none'
+    display: 'none',
+    onStart: () => {
+      console.log('start')
+      showFrame(2)
+    }
   });
+
   $gsap.to(".loader", {
-    // opacity: 0,
     duration: 0.3,
     ease: 'power2.in',
     delay: 1.5,
-    // width: '1500px',
-    // height: '1500px',
-    // background: 'white'
   });
 })
 </script>
@@ -39,12 +40,12 @@ onMounted(() => {
   height: 100vh;
   width: 100vw;
   z-index: 1000000;
-  background-color: #fff;
+  background-color: transparent; // #fff;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @apply bg-dark;
+  //@apply bg-dark;
   animation: fadeOut 1.5s linear;
 }
 

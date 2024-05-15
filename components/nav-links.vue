@@ -9,7 +9,7 @@
 <script setup>
 const route = useRoute()
 const router = useRouter()
-const { $lenis } = useNuxtApp()
+// const { $lenis } = useNuxtApp()
 
 const links = [
   { to: '#roadmap', text: 'Обзор' },
@@ -22,7 +22,8 @@ const onClick = (to) => {
     router.push(`/${to}`)
   }
 
-  $lenis.scrollTo(to)
+  document.querySelector(to).scrollIntoView()
+  // $lenis.scrollTo(to)
 }
 </script>
 
