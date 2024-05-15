@@ -34,7 +34,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .section-video-info {
-  @apply h-screen max-w-[500px] flex flex-col pt-[200px];
+  @apply max-w-[500px] flex flex-col pt-[200px];
 }
 
 .appear-from-right {

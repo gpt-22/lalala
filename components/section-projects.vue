@@ -1,5 +1,5 @@
 <template>
- <section id="projects" ref="projectsRef" class="section-projects">
+ <section id="projects" ref="projectsRef" data-scroll-section class="section-projects">
    <app-container>
      <h1 id="section-projects-title">Наши проекты</h1>
 

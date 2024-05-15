@@ -1,5 +1,5 @@
 <template>
-  <section class="h-screen pt-[96px] bg-gray section-technology">
+  <section data-scroll-section class="h-screen pt-[96px] bg-gray section-technology">
    <app-container>
      <h1 id="section-technology-title">Еще проекты</h1>
 

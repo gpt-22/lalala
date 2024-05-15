@@ -21,7 +21,7 @@ import {waitForScrollEnd} from "~/utils/waitForScrollStop"
 // Если пролистнули секицю
 
 export const useSectionScroll = (lenis) => {
-  const SECTION_THRESHOLD = 0.25
+  const SECTION_THRESHOLD = 0.2
   const BEFORE_OFFSET_PX = 200
   const scrolling = ref(false)
   const activeElement = ref(null)
@@ -99,11 +99,12 @@ export const useSectionScroll = (lenis) => {
     const scrollBack = async (e) => {
       if (!activeElement.value || scrolling.value) return
 
+      await waitForScrollEnd()
       const rect = activeElement.value.getBoundingClientRect()
-      if (rect.y < rect.height * SECTION_THRESHOLD) {
-        await waitForScrollEnd()
+      console.log('back', Math.abs(rect.y), rect.height, SECTION_THRESHOLD, rect.height * SECTION_THRESHOLD)
+
+      if (Math.abs(rect.y) < rect.height * SECTION_THRESHOLD) {
         scrollTo(activeElement.value)
-        console.log('back', activeElement.value)
       }
 
       // if (e.direction) {
