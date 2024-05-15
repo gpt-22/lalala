@@ -7,7 +7,7 @@
             <section-start />
           </div>
 
-          <div id="roadmap" ref="screen2" class="project-overview item h-screen end">
+          <div id="roadmap" ref="roadmapElement" class="project-overview item h-screen end">
             <h1 id="h1" class="h1 kek">Обзор проекта</h1>
 <!--            <div class="project-overview-overlay">-->
 <!--              <text-highlight top="76%" left="50%" to="/elevator">-->
@@ -26,7 +26,7 @@
 
           </div>
 
-          <div id="screen3" ref="screen3" class="item h-screen end">
+          <div id="screen3" ref="screen3" class="screen-3 item h-screen end">
             <h1 id="h2" class="h1 kek">Еще описание</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur distinctio fugiat incidunt labore, nihil nisi possimus quo sit ut? Accusamus architecto assumenda consectetur distinctio earum error exercitationem explicabo fugit, harum inventore magni modi nesciunt, nisi pariatur porro quisquam quo quos repellendus rerum soluta, temporibus totam ullam voluptas!
@@ -40,19 +40,26 @@
 
 <script setup>
 import { useVideoFrame } from "../composables/useVideoFrame"
+import { useSectionScroll } from "../composables/useSectionScroll"
 
-const { $gsap, $ScrollTrigger } = useNuxtApp();
+const { $gsap, $ScrollTrigger, $lenis } = useNuxtApp();
 const { toStart, toEnd } = useVideoFrame()
 
 const screen1 = ref()
-const screen2 = ref()
+const roadmapElement = ref()
 const screen3 = ref()
 
 const main = ref();
 
-onMounted(() => {
+const { startScrollObserver } = useSectionScroll($lenis)
+
+
+const sections = computed(() => [screen1.value, roadmapElement.value, screen3.value])
+
+
+const setGsapAnimations = () => {
   $ScrollTrigger.create({
-    trigger: screen2.value,
+    trigger: roadmapElement.value,
     // markers: true,
     start: 'top 60%',
     // markers: true,
@@ -65,9 +72,14 @@ onMounted(() => {
         toStart()
       }
 
-      console.log("toggled, isActive:", self.isActive)
+      // console.log("toggled, isActive:", self.isActive)
     }
   })
+}
+
+onMounted(() => {
+  setGsapAnimations()
+  startScrollObserver(sections.value)
 });
 </script>
 
@@ -89,13 +101,18 @@ onMounted(() => {
   //height: 100vh;
 }
 .item {
-  padding-top: 100px;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  //padding-top: 100px;
+  //scroll-snap-align: start;
+  //scroll-snap-stop: always;
+}
+
+.project-overview,
+.screen-3 {
+  position: relative;
 }
 
 .project-overview {
-  position: relative;
+  border: 1px solid red;
 }
 .project-overview-overlay {
   position: fixed;
@@ -103,6 +120,10 @@ onMounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0;
+  opacity: 1;
+}
+
+.screen-3 {
+  border: 1px solid blue;
 }
 </style>

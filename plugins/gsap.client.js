@@ -16,7 +16,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     })
     lenis.on('scroll', ScrollTrigger.update)
     gsap.ticker.add((time)=> {
-      lenis.raf(time * 1000)
+      lenis.raf(time * 3000)
     })
     gsap.ticker.lagSmoothing(0)
   }

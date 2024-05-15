@@ -1,11 +1,3 @@
-function debounce(func, ms) {
-  let timeout;
-  return function() {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, arguments), ms);
-  };
-}
-
 const animating = ref(false)
 const show1 = ref(true)
 const show2 = ref(false)

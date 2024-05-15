@@ -17,9 +17,9 @@ import video4 from '~/public/video/test_04.mp4'
 
 const { show1, show2, show3, show4 } = useVideoFrame()
 
-watchEffect(() => {
-  console.log('here', show1.value)
-})
+// watchEffect(() => {
+//   console.log('here', show1.value)
+// })
 </script>
 
 <style scoped lang="scss">

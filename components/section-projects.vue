@@ -72,13 +72,14 @@ onMounted(() => {
 .slider {
   position: relative;
   //height: 500px;
-  display: grid;
+  display: flex;
+  //display: grid;
   gap: 40px;
-  grid-template-areas:
-      "a b b"
-      "a c d"
-      "e e f"
-      "g h f";
+  //grid-template-areas:
+  //    "a b b"
+  //    "a c d"
+  //    "e e f"
+  //    "g h f";
 }
 
 

@@ -1,6 +1,7 @@
 <template>
   <div id="site-loader" class="site-loader">
     <div class="loader text-white">
+      AG
     </div>
   </div>
 </template>
@@ -21,9 +22,9 @@ onMounted(() => {
     duration: 0.3,
     ease: 'power2.in',
     delay: 1.5,
-    width: '1500px',
-    height: '1500px',
-    background: 'white'
+    // width: '1500px',
+    // height: '1500px',
+    // background: 'white'
   });
 })
 </script>
@@ -57,7 +58,10 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  letter-spacing: .3em;
+
+  font-size: 60px;
+  font-weight: 700;
+  //letter-spacing: .3em;
 }
 .loader::before {
   content: "";

@@ -22,7 +22,6 @@ const onClick = (to) => {
     router.push(`/${to}`)
   }
 
-  console.log($lenis, route)
   $lenis.scrollTo(to)
 }
 </script>
