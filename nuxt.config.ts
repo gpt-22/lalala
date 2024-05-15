@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL || 'https://archigrade.ru/',
+      baseURL: process.env.BASE_URL || 'https://archigrade.ru',
     },
   },
 })
