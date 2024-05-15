@@ -5,7 +5,7 @@
       v-show="video.playing"
       ref="videoRefs"
       :id="`video${idx}`"
-      :src="`${config.public.baseURL}/${video.src}`"
+      :src="video.src"
       preload="auto"
       autoplay
       muted

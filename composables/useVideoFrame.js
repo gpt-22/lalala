@@ -8,15 +8,15 @@
 // import video8 from '~/public/video/01_08.mp4'
 // import video9 from '~/public/video/01_09.mp4'
 
-const video1 = 'public/video/01_01.mp4'
-const video2 = 'public/video/01_02.mp4'
-const video3 = 'public/video/01_03.mp4'
-const video4 = 'public/video/01_04.mp4'
-const video5 = 'public/video/01_05.mp4'
-const video6 = 'public/video/01_06.mp4'
-const video7 = 'public/video/01_07.mp4'
-const video8 = 'public/video/01_08.mp4'
-const video9 = 'public/video/01_09.mp4'
+const video1 = '/video/01_01.mp4'
+const video2 = '/video/01_02.mp4'
+const video3 = '/video/01_03.mp4'
+const video4 = '/video/01_04.mp4'
+const video5 = '/video/01_05.mp4'
+const video6 = '/video/01_06.mp4'
+const video7 = '/video/01_07.mp4'
+const video8 = '/video/01_08.mp4'
+const video9 = '/video/01_09.mp4'
 
 const animating = ref(false)
 const frames = ref({
