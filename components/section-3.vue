@@ -1,6 +1,8 @@
 <template>
   <section id="section-3" class="section">
-    <app-container>3</app-container>
+    <app-container>
+      <h1>Еще описание</h1>
+    </app-container>
   </section>
 </template>
 
