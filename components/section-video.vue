@@ -111,9 +111,6 @@ onMounted(() => {
   position: relative;
 }
 
-.project-overview {
-  border: 1px solid red;
-}
 .project-overview-overlay {
   position: fixed;
   top: 0;
@@ -123,7 +120,4 @@ onMounted(() => {
   opacity: 1;
 }
 
-.screen-3 {
-  border: 1px solid blue;
-}
 </style>
