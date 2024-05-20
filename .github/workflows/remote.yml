@@ -39,7 +39,8 @@ jobs:
 
       - name: Deploy to VM
         run: |
-           cp -TRv ./.output/public ${{ env.HOST }}:${{ env.DEPLOY_DIRECTORY }}
+           ls
+#          cp -TRv ./.output/public ${{ env.HOST }}:${{ env.DEPLOY_DIRECTORY }}
 #          sudo apt-get install -y ssh rsync
 #          echo "$DEPLOY_SSH_KEY" > deploy_key.pem
 #          chmod 600 deploy_key.pem

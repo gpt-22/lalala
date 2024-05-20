@@ -2,11 +2,7 @@
   <div class="section-intro-media">
     <video
       v-for="(video, idx) in frames"
-      :style="{
-        display: video.playing ? 'block' : 'none',
-        opacity: video.playing ? 1 : 0,
-        zIndex: video.playing ? 1 : 0
-      }"
+      :class="{ playing: video.playing }"
       :key="video.key"
       :ref="setVideoRef"
       :id="`video-${idx}`"
@@ -35,6 +31,7 @@ const setVideoRef = (element) => {
   if (frames.value[index].element) return
 
   console.log('setVideoRef', index, frames.value[index].element)
+
   frames.value[index].element = element
 
   element.addEventListener("loadeddata", () => {
@@ -78,6 +75,8 @@ const setVideoRef = (element) => {
 }
 
 .video {
+  display: none;
+
   position: absolute;
   top: 50%;
   left: 50%;
@@ -86,5 +85,23 @@ const setVideoRef = (element) => {
   min-height: 100%;
   object-fit: cover;
   transition: opacity .3s;
+}
+
+.video.playing {
+  display: block;
+  z-index: 1;
+  opacity: 1;
+}
+
+@keyframes fade-out {
+  0% {
+    display: block;
+  }
+  99% {
+
+  }
+  100% {
+    display: none;
+  }
 }
 </style>
