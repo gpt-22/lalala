@@ -1,108 +1,172 @@
-const animating = ref(false)
-const frames = ref({
-  1: {
-    playing: true,
-    loaded: false,
-    src: '/video/01_01.mp4',
-    isTransition: false,
-    element: null,
-  },
-  2: {
-    playing: false,
-    loaded: false,
-    src: '/video/01_02.mp4',
-    isTransition: true,
-    element: null,
-  },
-  3: {
-    playing: false,
-    loaded: false,
-    src: '/video/01_03.mp4',
-    isTransition: false,
-    element: null,
-  },
-  4: {
-    playing: false,
-    loaded: false,
-    src: '/video/01_04.mp4',
-    isTransition: true,
-    element: null,
-  },
-  5: {
-    playing: false,
-    loaded: false,
-    src: '/video/01_05.mp4',
-    isTransition: false,
-    element: null,
-  },
-  6: {
-    playing: false,
-    loaded: false,
-    src: '/video/01_06.mp4',
-    isTransition: true,
-    element: null,
-  },
-  7: {
-    playing: false,
-    loaded: false,
-    src: '/video/01_07.mp4',
-    isTransition: false,
-    element: null,
-  },
-  8: {
-    playing: false,
-    loaded: false,
-    src: '/video/01_08.mp4',
-    isTransition: true,
-    element: null,
-  },
-  9: {
-    playing: false,
-    loaded: false,
-    src: '/video/01_09.mp4',
-    isTransition: false,
-    element: null,
-  },
-})
-const frameKeys = computed(() => Object.keys(frames.value))
-const loadedCount = computed(() => {
-  return frameKeys.value.reduce((acc, key) => acc + frames.value[key].loaded, 0)
-})
+import { allFrames } from "./useVideoFrame.data"
+
+const startLoading = ref(true)
+const isTransition = ref(false)
+const frames = ref([])
+
+const currentVideoKey = ref('1')
+
+// TODO:
+// + при перезагрузке показывать лоадер к секции
+//
+
+// insert in dom
+// ekkekekek
+// play
+// replay
+
+
+const defaultShowOptions = {
+  play: true,
+  playNext: false,
+  playTime: Infinity
+}
 
 export const useVideoFrame = () => {
-  const showFrame = (n) => {
-    if (animating.value) return
+  const router = useRouter()
 
-    const nKey = n.toString()
-    animating.value = true
+  const getFrame = (key) => {
+    return frames.value.find((frame) => frame.key === key)
+  }
 
-    frames.value[nKey].playing = true
+  const loadFrame = (key, options) => {
+    let frame = getFrame(key)
+    if (!frame) {
+      frame = allFrames.find((frame) => frame.key === key)
 
-    if (frames.value[nKey].isTransition) {
-      // когда закончится
-      frames.value[nKey].element.addEventListener("ended", () => {
-        console.log('ended')
-        // переключить на следующее
-        showFrame(n + 1)
-      })
+      if (!frame) return
+
+      console.log('LOADING', key)
+      frames.value.push(frame)
+
+      frame.onLoaded['onloaded'] = () => {
+        console.log('ON LOADED', frame.key)
+
+        // TODO
+        if (frame.isTransition) {
+          frame.element.addEventListener("ended", () => {
+            isTransition.value = false
+          })
+        }
+
+        if (options?.playTime && options?.playTime !== Infinity) {
+          console.log('settimeout')
+          setTimeout(() => {
+            console.log('ON ENDED TIME', frame.key)
+            playFrame(frame.nextKey)
+          }, options.playTime)
+
+          return
+        }
+
+        frame.element.addEventListener("ended", () => {
+          console.log('ON ENDED', frame.key)
+          playFrame(frame.nextKey)
+        })
+      }
     }
 
-    Object.keys(frames.value).forEach((key) => {
-      if (key === nKey) return
+    return frame
+  }
 
-      frames.value[key].playing = false
+  const playFrame = (key) => {
+    currentVideoKey.value = key
+
+    const playingFrame = getFrame(key)
+
+    loadFrame(playingFrame.nextKey)
+    loadFrame(playingFrame.prevKey)
+
+    playingFrame.element?.play()
+    Object.keys(playingFrame.onPlay).forEach((key) => playingFrame.onPlay[key]())
+
+    if (key !== '1' && !playingFrame.isTransition) {
+      startLoading.value = false
+    }
+
+    frames.value.forEach((frame) => {
+      frame.playing = frame.key === key
     })
 
-    setTimeout(() => {
-      animating.value = false
-    }, 150)
+    console.log("PLAY", key)
+  }
+
+  const playNextAfterFrame = (key, options) => {
+    const frame = getFrame(key)
+
+    console.log('playNextAfterFrame', key, frame.nextKey)
+
+    showFrame(frame.nextKey, { play: false })
+
+    // frame.onLoaded['onloaded'] = () => {
+    //   console.log('ON LOADED', frame.key)
+    //
+    //   if (frame.isTransition) {
+    //     frame.element.addEventListener("ended", () => {
+    //       isTransition.value = false
+    //     })
+    //   }
+    //
+    //   if (options.playTime && options.playTime !== Infinity) {
+    //     setTimeout(() => {
+    //       console.log('ON ENDED TIME', frame.key)
+    //       playFrame(frame.nextKey)
+    //     }, options.playTime)
+    //
+    //     return
+    //   }
+    //
+    //   frame.element.addEventListener("ended", () => {
+    //     console.log('ON ENDED', frame.key)
+    //     playFrame(frame.nextKey)
+    //   })
+    // }
+  }
+
+  const showFrame = (key, options) => {
+    console.log('SHOW FRAME', key)
+    const mergedOptions = { ...defaultShowOptions, ...options}
+
+    const frame = loadFrame(key, mergedOptions)
+
+    if (frame.section && !frame.onPlay['onplay']) {
+      frame.onPlay['onplay'] = () => router.push(`/${frame.section}`)
+    }
+
+    if (mergedOptions.play) {
+      playFrame(key)
+    }
+
+    if (frame.isTransition) {
+      isTransition.value = true
+    }
+
+    if (frame.isTransition || mergedOptions.playNext) {
+      playNextAfterFrame(key, mergedOptions)
+    }
   }
 
   return {
     frames,
-    frameKeys,
-    animating,
-    loadedCount,
+    isTransition,
+    allFrames,
+    currentVideoKey,
+    startLoading,
     showFrame
   }
 }
+
+
+
+/*
+* 1, 2, 3
+*
+*
+*
+*
+*
+*
+*
+*
+*
+* */

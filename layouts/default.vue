@@ -2,16 +2,16 @@
   <div class="app">
     <video-frame />
 
-    <the-header />
+    <the-header v-if="!startLoading" />
     <div class="flex-1">
       <slot />
     </div>
-    <the-footer />
+<!--    <the-footer />-->
   </div>
 </template>
 
-<script>
-
+<script setup>
+const { startLoading } = useVideoFrame()
 </script>
 
 <style scoped>

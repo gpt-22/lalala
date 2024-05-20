@@ -6,7 +6,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
 }
 
 ::-webkit-scrollbar {
@@ -18,6 +17,7 @@ html {
 body {
   font-family: "Montserrat", sans-serif;
   @apply bg-dark;
+  color: white;
 }
 
 h1, .h1 {
@@ -42,7 +42,4 @@ h1, .h1 {
 .footer {
   height: 100vh;
   padding-top: 100px;
-
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }

@@ -1,20 +1,11 @@
 <template>
   <div class="parent">
-    <section-1 />
-    <section-2 />
-    <section-3 />
-    <section-4 />
-    <section-5 />
-    <section-6 />
-
-<!--    <section-projects class="item" />-->
-<!--    <section-interiors class="item" />-->
-<!--    <section-about class="item" />-->
+    <router-view v-if="!startLoading" />
   </div>
 </template>
 
 <script setup>
-//
+const { startLoading } = useVideoFrame()
 </script>
 
 

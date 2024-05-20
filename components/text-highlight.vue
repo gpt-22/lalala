@@ -50,6 +50,8 @@ $color: white;
   transition: letter-spacing .2s;
 
   &:hover {
+    //width: 20px;
+    //height: 20px;
     //letter-spacing: 1px;
     //font-weight: 500;
     //font-size: 12px;

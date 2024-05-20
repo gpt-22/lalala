@@ -39,7 +39,7 @@ onMounted(() => {
     y: 0,
     opacity: 1,
     duration: 0.3,
-    delay: 1.6
+    delay: 1
   });
 
   burgerLinksTimeline = $gsap.timeline({ delay: 0.5 });
@@ -52,7 +52,6 @@ onMounted(() => {
 })
 
 const isOpen = ref(false)
-
 
 watch(isOpen, () => {
   if (isOpen) {

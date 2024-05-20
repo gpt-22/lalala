@@ -8,7 +8,7 @@
 
 <script setup>
 const { $gsap } = useNuxtApp();
-const { showFrame } = useVideoFrame()
+const { showFrame, startLoading } = useVideoFrame()
 
 onMounted(() => {
   $gsap.to("#site-loader", {
@@ -17,8 +17,8 @@ onMounted(() => {
     delay: 1.5,
     display: 'none',
     onStart: () => {
-      console.log('start')
-      showFrame(2)
+      // console.log('start')
+      // showFrame('2', true, true)
     }
   });
 

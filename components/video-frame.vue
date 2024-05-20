@@ -1,57 +1,58 @@
 <template>
   <div class="section-intro-media">
-<!--   :preload="idx < 2 ? 'auto' : ''"  -->
-    <template v-for="(video, idx) in frames">
-      <video
-        v-show="video.playing"
-        ref="videoRefs"
-        :id="`video${idx}`"
-        :src="video.src"
-        preload="none"
-        autoplay
-        muted
-        :loop="!video.isTransition"
-        class="video"
-        controlslist="nodownload nofullscreen"
-        disablepictureinpicture
-        playsinline
-        webkit-playsinline
-      />
-    </template>
+    <video
+      v-for="(video, idx) in frames"
+      :style="{
+        display: video.playing ? 'block' : 'none',
+        opacity: video.playing ? 1 : 0,
+        zIndex: video.playing ? 1 : 0
+      }"
+      :key="video.key"
+      :ref="setVideoRef"
+      :id="`video-${idx}`"
+      :src="video.src"
+      preload="auto"
+      autoplay
+      muted
+      :loop="!video.isTransition"
+      class="video"
+      controlslist="nodownload nofullscreen"
+      disablepictureinpicture
+      playsinline
+      webkit-playsinline
+    />
   </div>
 </template>
 
 <script setup>
 const config = useRuntimeConfig()
-import { useVideoFrame } from "../composables/useVideoFrame"
 
-const { frameKeys, frames, loadedCount } = useVideoFrame()
+const { frames } = useVideoFrame()
 
-const videoRefs = ref([])
+const setVideoRef = (element) => {
+  const index = element.id.split('-')[1]
 
-// TODO: load 1 => then others
+  if (frames.value[index].element) return
 
-const onLoad = () => {
-  frameKeys.value.forEach((key) => {
-    videoRefs.value[key - 1].addEventListener("loadeddata", () => {
-      if (videoRefs.value[key - 1].readyState === 4) {
-        frames.value[key].loaded = true
-        frames.value[key].element = videoRefs.value[key - 1]
+  console.log('setVideoRef', index, frames.value[index].element)
+  frames.value[index].element = element
 
-        console.log('loaded', key, loadedCount.value)
-      }
-    });
+  element.addEventListener("loadeddata", () => {
+    if (element.readyState === 4) {
+      frames.value[index].loaded = true
+
+      const frame = frames.value[index]
+      Object.keys(frame.onLoaded).forEach((key) => {
+        frame.onLoaded[key]()
+      })
+
+      console.log(`VIDEO ${frames.value[index].key} LOADED`)
+    }
   })
 }
-
-onMounted(() => {
-  onLoad()
-})
 </script>
 
 <style scoped lang="scss">
-
-
 .section-intro-media {
   position: fixed;
   top: 0;
@@ -59,7 +60,7 @@ onMounted(() => {
   right: 0;
   min-height: 100vh;
   overflow: hidden;
-  //background: url("~/public/video/placeholder.jpeg") no-repeat center center;
+  //background: url("/video/01_01.png") no-repeat center center;
   background-size: cover;
   z-index: -1;
   opacity: .9;
@@ -84,5 +85,6 @@ onMounted(() => {
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
+  transition: opacity .3s;
 }
 </style>
