@@ -76,6 +76,7 @@ const setVideoRef = (element) => {
 
 .video {
   display: none;
+  visibility: hidden;
 
   position: absolute;
   top: 50%;
@@ -85,11 +86,15 @@ const setVideoRef = (element) => {
   min-height: 100%;
   object-fit: cover;
   transition: opacity .3s;
+  z-index: 1;
+
+  animation: fade-out;
 }
 
 .video.playing {
   display: block;
-  z-index: 1;
+  visibility: visible;
+  z-index: 2;
   opacity: 1;
 }
 

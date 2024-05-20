@@ -134,6 +134,7 @@ export const useVideoFrame = () => {
     }
 
     if (mergedOptions.play) {
+      console.log("HERE", key)
       playFrame(key)
     }
 
