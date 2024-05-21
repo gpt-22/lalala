@@ -2,7 +2,10 @@
   <div class="section-intro-media">
     <video
       v-for="(video, idx) in frames"
-      :class="{ playing: video.playing }"
+      :class="{
+        playing: video.playing,
+        saturated: videoSaturated
+      }"
       :key="video.key"
       :ref="setVideoRef"
       :id="`video-${idx}`"
@@ -23,18 +26,16 @@
 <script setup>
 const config = useRuntimeConfig()
 
-const { frames } = useVideoFrame()
+const { frames, showFrame, videoSaturated } = useVideoFrame()
 
 const setVideoRef = (element) => {
   const index = element.id.split('-')[1]
 
   if (frames.value[index].element) return
 
-  console.log('setVideoRef', index, frames.value[index].element)
-
   frames.value[index].element = element
 
-  element.addEventListener("loadeddata", () => {
+  element.addEventListener('loadeddata', () => {
     if (element.readyState === 4) {
       frames.value[index].loaded = true
 
@@ -60,7 +61,7 @@ const setVideoRef = (element) => {
   //background: url("/video/01_01.png") no-repeat center center;
   background-size: cover;
   z-index: -1;
-  opacity: .9;
+  opacity: 0.9;
 
   &::before {
     content: '';
@@ -85,10 +86,10 @@ const setVideoRef = (element) => {
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
-  transition: opacity .3s;
+  transition:
+    opacity 0.3s,
+    filter 1s;
   z-index: 1;
-
-  animation: fade-out;
 }
 
 .video.playing {
@@ -98,15 +99,7 @@ const setVideoRef = (element) => {
   opacity: 1;
 }
 
-@keyframes fade-out {
-  0% {
-    display: block;
-  }
-  99% {
-
-  }
-  100% {
-    display: none;
-  }
+.saturated {
+  filter: saturate(50%);
 }
 </style>

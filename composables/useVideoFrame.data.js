@@ -135,7 +135,7 @@ export const allFrames = [
     onPlay: {}
   },
   {
-    prevKey: '8',
+    prevKey: '8r',
     key: '9',
     nextKey: '9',
     playing: false,
@@ -153,5 +153,5 @@ export const sectionToTransition = {
   'section-1': '2',
   'section-2': '4',
   'section-3': '6',
-  'section-4': '8',
+  'section-4': '8'
 }

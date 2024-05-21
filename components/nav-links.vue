@@ -12,7 +12,7 @@ const router = useRouter()
 // const { $lenis } = useNuxtApp()
 
 const links = [
-  { to: '#roadmap', text: 'Обзор' },
+  { to: 'section-2', text: 'Обзор' },
   { to: '#projects', text: 'Проекты' },
   { to: '#about', text: 'О нас' },
 ]

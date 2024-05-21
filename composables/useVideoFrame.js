@@ -1,10 +1,15 @@
-import { allFrames } from "./useVideoFrame.data"
+import { nextTick } from 'vue'
+import { allFrames } from './useVideoFrame.data'
 
 const startLoading = ref(true)
 const isTransition = ref(false)
+const videoSaturated = ref(false)
 const frames = ref([])
 
 const currentVideoKey = ref('1')
+const currentVideo = computed(() => {
+  return frames.value.find((frame) => frame.key === currentVideoKey.value)
+})
 
 // TODO:
 // + при перезагрузке показывать лоадер к секции
@@ -14,7 +19,6 @@ const currentVideoKey = ref('1')
 // ekkekekek
 // play
 // replay
-
 
 const defaultShowOptions = {
   play: true,
@@ -44,7 +48,7 @@ export const useVideoFrame = () => {
 
         // TODO
         if (frame.isTransition) {
-          frame.element.addEventListener("ended", () => {
+          frame.element.addEventListener('ended', () => {
             isTransition.value = false
           })
         }
@@ -59,7 +63,7 @@ export const useVideoFrame = () => {
           return
         }
 
-        frame.element.addEventListener("ended", () => {
+        frame.element.addEventListener('ended', () => {
           console.log('ON ENDED', frame.key)
           playFrame(frame.nextKey)
         })
@@ -69,7 +73,7 @@ export const useVideoFrame = () => {
     return frame
   }
 
-  const playFrame = (key) => {
+  const playFrame = async (key) => {
     currentVideoKey.value = key
 
     const playingFrame = getFrame(key)
@@ -88,7 +92,7 @@ export const useVideoFrame = () => {
       frame.playing = frame.key === key
     })
 
-    console.log("PLAY", key)
+    console.log('PLAY', key)
   }
 
   const playNextAfterFrame = (key, options) => {
@@ -97,35 +101,11 @@ export const useVideoFrame = () => {
     console.log('playNextAfterFrame', key, frame.nextKey)
 
     showFrame(frame.nextKey, { play: false })
-
-    // frame.onLoaded['onloaded'] = () => {
-    //   console.log('ON LOADED', frame.key)
-    //
-    //   if (frame.isTransition) {
-    //     frame.element.addEventListener("ended", () => {
-    //       isTransition.value = false
-    //     })
-    //   }
-    //
-    //   if (options.playTime && options.playTime !== Infinity) {
-    //     setTimeout(() => {
-    //       console.log('ON ENDED TIME', frame.key)
-    //       playFrame(frame.nextKey)
-    //     }, options.playTime)
-    //
-    //     return
-    //   }
-    //
-    //   frame.element.addEventListener("ended", () => {
-    //     console.log('ON ENDED', frame.key)
-    //     playFrame(frame.nextKey)
-    //   })
-    // }
   }
 
   const showFrame = (key, options) => {
     console.log('SHOW FRAME', key)
-    const mergedOptions = { ...defaultShowOptions, ...options}
+    const mergedOptions = { ...defaultShowOptions, ...options }
 
     const frame = loadFrame(key, mergedOptions)
 
@@ -134,7 +114,7 @@ export const useVideoFrame = () => {
     }
 
     if (mergedOptions.play) {
-      console.log("HERE", key)
+      console.log('HERE', key)
       playFrame(key)
     }
 
@@ -151,23 +131,10 @@ export const useVideoFrame = () => {
     frames,
     isTransition,
     allFrames,
+    currentVideo,
     currentVideoKey,
     startLoading,
+    videoSaturated,
     showFrame
   }
 }
-
-
-
-/*
-* 1, 2, 3
-*
-*
-*
-*
-*
-*
-*
-*
-*
-* */
