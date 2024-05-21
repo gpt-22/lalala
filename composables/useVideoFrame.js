@@ -11,15 +11,6 @@ const currentVideo = computed(() => {
   return frames.value.find((frame) => frame.key === currentVideoKey.value)
 })
 
-// TODO:
-// + при перезагрузке показывать лоадер к секции
-//
-
-// insert in dom
-// ekkekekek
-// play
-// replay
-
 const defaultShowOptions = {
   play: true,
   playNext: false,
@@ -40,7 +31,7 @@ export const useVideoFrame = () => {
 
       if (!frame) return
 
-      console.log('LOADING', key)
+      // console.log('LOADING', key)
       frames.value.push(frame)
 
       frame.onLoaded['onloaded'] = () => {
@@ -98,13 +89,13 @@ export const useVideoFrame = () => {
   const playNextAfterFrame = (key, options) => {
     const frame = getFrame(key)
 
-    console.log('playNextAfterFrame', key, frame.nextKey)
+    // console.log('playNextAfterFrame', key, frame.nextKey)
 
     showFrame(frame.nextKey, { play: false })
   }
 
   const showFrame = (key, options) => {
-    console.log('SHOW FRAME', key)
+    // console.log('SHOW FRAME', key)
     const mergedOptions = { ...defaultShowOptions, ...options }
 
     const frame = loadFrame(key, mergedOptions)
@@ -114,7 +105,7 @@ export const useVideoFrame = () => {
     }
 
     if (mergedOptions.play) {
-      console.log('HERE', key)
+      // console.log('HERE', key)
       playFrame(key)
     }
 
@@ -138,3 +129,14 @@ export const useVideoFrame = () => {
     showFrame
   }
 }
+
+/*
+ * video 1
+ * video transition
+ * video 2
+ *
+ * video transition display block; z-index - 2;
+ * video transition play
+ * video 1 display none
+ *
+ * */

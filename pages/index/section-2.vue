@@ -1,23 +1,23 @@
 <template>
   <section id="section-2" class="section section-2" ref="section2" @wheel="onWheel">
-    <button
-      class="section-2-btn section-2-btn-top"
-      :class="{ hide: hideMask }"
-      @mouseenter="videoSaturated = true"
-      @mouseleave="videoSaturated = false"
-      @click="showFrame('8')"
-    >
-      <span>Зона 1</span>
-    </button>
-    <button
-      class="section-2-btn section-2-btn-bottom"
-      :class="{ hide: hideMask }"
-      @mouseenter="videoSaturated = true"
-      @mouseleave="videoSaturated = false"
-      @click="showFrame('6')"
-    >
-      <span>Зона 2</span>
-    </button>
+    <!--    <button-->
+    <!--      class="section-2-btn section-2-btn-top"-->
+    <!--      :class="{ hide: hideMask }"-->
+    <!--      @mouseenter="videoSaturated = true"-->
+    <!--      @mouseleave="videoSaturated = false"-->
+    <!--      @click="showFrame('8')"-->
+    <!--    >-->
+    <!--      <span>Зона 1</span>-->
+    <!--    </button>-->
+    <!--    <button-->
+    <!--      class="section-2-btn section-2-btn-bottom"-->
+    <!--      :class="{ hide: hideMask }"-->
+    <!--      @mouseenter="videoSaturated = true"-->
+    <!--      @mouseleave="videoSaturated = false"-->
+    <!--      @click="showFrame('6')"-->
+    <!--    >-->
+    <!--      <span>Зона 2</span>-->
+    <!--    </button>-->
 
     <!--    <img :src="image1" alt="" class="mask mask-1" :class="{ hide: hideMask }" />-->
     <!--    <img :src="image2" alt="" class="mask mask-2" :class="{ hide: hideMask }" />-->

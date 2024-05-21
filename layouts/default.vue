@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-const { showFrame, currentVideo } = useVideoFrame()
+const { showFrame, currentVideo, startLoading } = useVideoFrame()
 </script>
 
 <style scoped>

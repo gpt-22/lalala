@@ -11,7 +11,7 @@
       :id="`video-${idx}`"
       :src="video.src"
       preload="auto"
-      autoplay
+      :autoplay="video.playing"
       muted
       :loop="!video.isTransition"
       class="video"
@@ -77,8 +77,6 @@ const setVideoRef = (element) => {
 
 .video {
   display: none;
-  visibility: hidden;
-
   position: absolute;
   top: 50%;
   left: 50%;
@@ -86,17 +84,13 @@ const setVideoRef = (element) => {
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
-  transition:
-    opacity 0.3s,
-    filter 1s;
+  transition: filter 1s;
   z-index: 1;
 }
 
 .video.playing {
   display: block;
-  visibility: visible;
   z-index: 2;
-  opacity: 1;
 }
 
 .saturated {
