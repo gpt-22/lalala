@@ -37,13 +37,23 @@ jobs:
       - name: Static HTML export with Nuxt
         run: yarn run generate
 
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: whoami
+        run: |
+          df -h /dev/sda1
+
       - name: Deploy to VM
         run: |
           sudo apt-get install -y ssh rsync
           echo "$DEPLOY_SSH_KEY" > deploy_key.pem
           chmod 600 deploy_key.pem
           ssh -i deploy_key.pem -o StrictHostKeyChecking=no ${{ env.HOST }} "mkdir -p ${{ env.DEPLOY_DIRECTORY }}"
-          df -h /dev/sda1
           rsync -avz -e 'ssh -i deploy_key.pem -o StrictHostKeyChecking=no' --inplace --exclude='.git' ./.output/public ${{ env.HOST }}:${{ env.DEPLOY_DIRECTORY }}
 #          rsync -avz -e 'ssh -i deploy_key.pem -o StrictHostKeyChecking=no' --exclude='.git' ./nginx.conf ${{ env.HOST }}:${{ env.NGINX_DIRECTORY }}
 #          sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled
