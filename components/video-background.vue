@@ -1,7 +1,8 @@
 <template>
   <div class="section-intro-media">
     <video
-      v-for="(video, idx) in frames"
+      v-for="(video, idx) in videos"
+      v-show="video.playing"
       :class="{
         playing: video.playing,
         saturated: videoSaturated
@@ -10,7 +11,7 @@
       :ref="setVideoRef"
       :id="`video-${idx}`"
       :src="video.src"
-      preload="auto"
+      preload="none"
       :autoplay="video.playing"
       muted
       :loop="!video.isTransition"
@@ -26,25 +27,25 @@
 <script setup>
 const config = useRuntimeConfig()
 
-const { frames, showFrame, videoSaturated } = useVideoFrame()
+const { videos, showVideo, videoSaturated } = useVideo()
 
 const setVideoRef = (element) => {
   const index = element.id.split('-')[1]
 
-  if (frames.value[index].element) return
+  if (videos.value[index].element) return
 
-  frames.value[index].element = element
+  videos.value[index].element = element
 
   element.addEventListener('loadeddata', () => {
     if (element.readyState === 4) {
-      frames.value[index].loaded = true
+      videos.value[index].loaded = true
 
-      const frame = frames.value[index]
+      const frame = videos.value[index]
       Object.keys(frame.onLoaded).forEach((key) => {
         frame.onLoaded[key]()
       })
 
-      console.log(`VIDEO ${frames.value[index].key} LOADED`)
+      console.log(`VIDEO ${videos.value[index].key} LOADED`)
     }
   })
 }
@@ -76,7 +77,7 @@ const setVideoRef = (element) => {
 }
 
 .video {
-  display: none;
+  //display: none;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -89,7 +90,7 @@ const setVideoRef = (element) => {
 }
 
 .video.playing {
-  display: block;
+  //display: block;
   z-index: 2;
 }
 

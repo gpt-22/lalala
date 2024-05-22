@@ -19,15 +19,15 @@
 <script setup>
 import { IMAGE_BASE_URL } from '~/utils/constants'
 import { throttle } from '~/utils/decorators'
-import { useVideoFrame } from '~/composables/useVideoFrame'
+import { useVideo } from '~/composables/useVideo'
 
-const { showFrame, isTransition, currentVideoKey } = useVideoFrame()
+const { showVideo, isTransition, currentVideoKey } = useVideo()
 
 const hideMask = computed(() => currentVideoKey.value !== '7')
 
 const goUp = throttle((deltaY) => {
   console.log('3 SCROLL UP', deltaY)
-  showFrame('6r')
+  showVideo('6r')
 }, 1000)
 
 const onWheel = (e) => {

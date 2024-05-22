@@ -5,14 +5,14 @@
 </template>
 
 <script setup>
-import { throttle } from "~/utils/decorators"
-import { useVideoFrame } from "~/composables/useVideoFrame"
+import { throttle } from '~/utils/decorators'
+import { useVideo } from '~/composables/useVideo'
 
-const { showFrame, isTransition } = useVideoFrame()
+const { showVideo, isTransition } = useVideo()
 
 const goUp = throttle((deltaY) => {
-  console.log("4 SCROLL UP", deltaY)
-  showFrame('8r')
+  console.log('4 SCROLL UP', deltaY)
+  showVideo('8r')
 }, 10000)
 
 console.log('setup 4')

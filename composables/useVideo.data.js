@@ -1,6 +1,19 @@
 import { VIDEO_BASE_URL } from '~/utils/constants'
 
-export const allFrames = [
+export const allVideos = [
+  {
+    prevKey: 'cinematic',
+    key: 'cinematic',
+    nextKey: 'cinematic',
+    playing: false,
+    loaded: false,
+    src: `${VIDEO_BASE_URL}/cinematic.mp4`,
+    isTransition: false,
+    element: null,
+    section: 'cinematic',
+    onLoaded: {},
+    onPlay: {}
+  },
   {
     prevKey: '1',
     key: '1',
@@ -19,7 +32,7 @@ export const allFrames = [
     nextKey: '3',
     playing: false,
     loaded: false,
-    src: `${VIDEO_BASE_URL}/kek_0-1.mp4`,
+    src: `${VIDEO_BASE_URL}/01_02.mp4`, //kek_0-1.mp4`,
     isTransition: true,
     element: null,
     onLoaded: {},
@@ -31,7 +44,7 @@ export const allFrames = [
     nextKey: '4',
     playing: false,
     loaded: false,
-    src: `${VIDEO_BASE_URL}/kek_1-1.mp4`,
+    src: `${VIDEO_BASE_URL}/01_03.mp4`, // kek_1-1.mp4`,
     isTransition: false,
     element: null,
     section: 'section-1',
@@ -44,7 +57,7 @@ export const allFrames = [
     nextKey: '5',
     playing: false,
     loaded: false,
-    src: `${VIDEO_BASE_URL}/kek_1-2.mp4`,
+    src: `${VIDEO_BASE_URL}/01_04.mp4`, // kek_1-2.mp4`,
     isTransition: true,
     element: null,
     onLoaded: {},
@@ -56,7 +69,7 @@ export const allFrames = [
     nextKey: '3',
     playing: false,
     loaded: false,
-    src: `${VIDEO_BASE_URL}/kek_2-1.mp4`,
+    src: `${VIDEO_BASE_URL}/01_04_reverse.mp4`, // kek_2-1.mp4`,
     isTransition: true,
     element: null,
     onLoaded: {},
@@ -68,7 +81,7 @@ export const allFrames = [
     nextKey: '6',
     playing: false,
     loaded: false,
-    src: `${VIDEO_BASE_URL}/kek_2-2.mp4`,
+    src: `${VIDEO_BASE_URL}/01_05.mp4`, // kek_2-2.mp4`,
     isTransition: false,
     element: null,
     section: 'section-2',
@@ -151,9 +164,10 @@ export const allFrames = [
   }
 ]
 
-export const sectionToTransition = {
+export const sectionToVideoKey = {
   'section-1': '2',
   'section-2': '4',
   'section-3': '6',
-  'section-4': '8'
+  'section-4': '8',
+  cinematic: 'cinematic'
 }

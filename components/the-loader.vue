@@ -1,26 +1,24 @@
 <template>
   <div id="site-loader" class="site-loader">
-    <div class="loader text-white">
-      AG
-    </div>
+    <div class="loader text-white">AG</div>
   </div>
 </template>
 
 <script setup>
-const { $gsap } = useNuxtApp();
-const { showFrame, startLoading } = useVideoFrame()
+const { $gsap } = useNuxtApp()
+const { showVideo, startLoading } = useVideo()
 
 onMounted(() => {
-  $gsap.to("#site-loader", {
+  $gsap.to('#site-loader', {
     opacity: 0,
     duration: 0.5,
     delay: 1.5,
     display: 'none',
     onStart: () => {
       // console.log('start')
-      // showFrame('2', true, true)
+      // showVideo('2', true, true)
     }
-  });
+  })
 
   // $gsap.to(".loader", {
   //   duration: 0.3,
@@ -54,7 +52,7 @@ onMounted(() => {
   height: 200px;
   border-radius: 50%;
   position: relative;
-  animation: fadeIn .5s linear;
+  animation: fadeIn 0.5s linear;
 
   display: flex;
   justify-content: center;
@@ -65,31 +63,39 @@ onMounted(() => {
   //letter-spacing: .3em;
 }
 .loader::before {
-  content: "";
+  content: '';
   box-sizing: border-box;
   position: absolute;
   inset: 0px;
   border-radius: 50%;
-  border: 5px solid #FFF;
+  border: 5px solid #fff;
   animation: prixClipFix 1s linear;
 }
 
 @keyframes fadeIn {
-  0%   {
+  0% {
     opacity: 0;
   }
-  100%   {
+  100% {
     opacity: 1;
   }
 }
 
 @keyframes prixClipFix {
-  0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
-  25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
-  50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
-  75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
   100% {
-    clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0);
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
     transform: rotate(235deg);
   }
 }

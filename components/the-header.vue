@@ -1,8 +1,8 @@
 <template>
-  <header id="header" class="header" :class="{ 'open': isOpen }">
+  <header id="header" class="header" :class="{ open: isOpen }">
     <app-container class="h-full">
       <div class="header-content">
-        <nuxt-link to="/section-1" class="flex items-center" @click="showFrame('2')">
+        <nuxt-link to="/section-1" class="flex items-center" @click="showVideo('2')">
           <icon-logo class="w-[147px] h-[20px]" />
         </nuxt-link>
 
@@ -19,37 +19,35 @@
             <nuxt-link to="#about" class="burger-link">О нас</nuxt-link>
           </nav>
         </div>
-
       </div>
     </app-container>
   </header>
 </template>
 
-
 <script setup>
-import IconLogo from "~/components/icons/icon-logo.vue"
-import Contacts from "~/components/contacts.vue"
+import IconLogo from '~/components/icons/icon-logo.vue'
+import Contacts from '~/components/contacts.vue'
 
-const { showFrame } = useVideoFrame()
-const { $gsap } = useNuxtApp();
+const { showVideo } = useVideo()
+const { $gsap } = useNuxtApp()
 
 let burgerLinksTimeline
 
 onMounted(() => {
-  $gsap.to("#header", {
+  $gsap.to('#header', {
     y: 0,
     opacity: 1,
     duration: 0.3,
     delay: 1
-  });
+  })
 
-  burgerLinksTimeline = $gsap.timeline({ delay: 0.5 });
-  burgerLinksTimeline.to(".burger-link", {
+  burgerLinksTimeline = $gsap.timeline({ delay: 0.5 })
+  burgerLinksTimeline.to('.burger-link', {
     stagger: 0.15,
     // x: 0,
     opacity: 1,
-    duration: 0.3,
-  });
+    duration: 0.3
+  })
 })
 
 const isOpen = ref(false)
@@ -70,14 +68,14 @@ watch(isOpen, () => {
   right: 0;
   z-index: 1;
   color: #fff;
-  background: rgba(22, 22, 23, .2);// linear-gradient(rgba(22, 22, 23, .5), transparent);
+  background: rgba(22, 22, 23, 0.2); // linear-gradient(rgba(22, 22, 23, .5), transparent);
   backdrop-filter: blur(10px);
   padding: 1em 0;
 
   // animation
   opacity: 0;
   transform: translate(0, -60px);
-  transition: background-color .2s;
+  transition: background-color 0.2s;
 
   &.open {
     height: 100vh;
@@ -126,7 +124,7 @@ watch(isOpen, () => {
 
 @media (max-width: 640px) {
   .header {
-    background: rgba(22, 22, 23, .8);
+    background: rgba(22, 22, 23, 0.8);
   }
 
   .header.open .header-content {

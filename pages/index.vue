@@ -5,9 +5,8 @@
 </template>
 
 <script setup>
-const { startLoading } = useVideoFrame()
+const { startLoading } = useVideo()
 </script>
-
 
 <style lang="scss">
 .parent {

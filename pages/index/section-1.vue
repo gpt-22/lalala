@@ -7,20 +7,20 @@
 </template>
 
 <script setup>
-import { throttle } from "~/utils/decorators"
-import { useVideoFrame } from "~/composables/useVideoFrame"
+import { throttle } from '~/utils/decorators'
+import { useVideo } from '~/composables/useVideo'
 
-const { $gsap } = useNuxtApp();
-const { frames, isTransition, showFrame } = useVideoFrame()
+const { $gsap } = useNuxtApp()
+const { videos, isTransition, showVideo } = useVideo()
 
 const section1 = ref()
 
 const setGsapAnimations = () => {
-  $gsap.to(".title", {
+  $gsap.to('.title', {
     opacity: 1,
     duration: 0.5,
     delay: 0.5
-  });
+  })
 
   //   const timeline = $gsap.timeline({ delay: 0.6 });
   //
@@ -34,7 +34,7 @@ const setGsapAnimations = () => {
 }
 
 const goDown = throttle(() => {
-  showFrame('4')
+  showVideo('4')
 }, 1000)
 
 const onWheel = (e) => {
@@ -49,7 +49,7 @@ const onWheel = (e) => {
 
 onMounted(() => {
   setGsapAnimations()
-});
+})
 </script>
 
 <style scoped lang="scss">

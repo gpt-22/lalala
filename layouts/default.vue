@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <video-frame />
+    <video-background />
 
     <the-header v-if="!startLoading" />
     <div class="flex-1">
@@ -8,17 +8,17 @@
     </div>
     <!--    <the-footer />-->
 
-    <button class="btn btn-1 bg-dark color-white" @click="showFrame(currentVideo.nextKey)">
+    <button class="btn btn-1 bg-dark color-white" @click="showVideo(currentVideo.nextKey)">
       Вперед
     </button>
-    <button class="btn btn-2 bg-dark color-white" @click="showFrame(currentVideo.prevKey)">
+    <button class="btn btn-2 bg-dark color-white" @click="showVideo(currentVideo.prevKey)">
       Назад
     </button>
   </div>
 </template>
 
 <script setup>
-const { showFrame, currentVideo, startLoading } = useVideoFrame()
+const { showVideo, currentVideo, startLoading } = useVideo()
 </script>
 
 <style scoped>
