@@ -37,6 +37,9 @@ jobs:
       - name: Static HTML export with Nuxt
         run: yarn run generate
 
+      - name: Check available space
+        run: df -h /dev/sda1
+
       - name: Deploy to VM
         run: |
           sudo apt-get install -y ssh rsync
