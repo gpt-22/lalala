@@ -1,10 +1,10 @@
 <template>
   <section id="section-3" class="section" ref="section3" @wheel="onWheel">
     <canvas class="canvas" ref="canvasElement"></canvas>
-    <!--    <img :src="image1" alt="" class="mask mask-1" :class="{ hide: hideMask }" />-->
-    <!--    <img :src="image2" alt="" class="mask mask-2" :class="{ hide: hideMask }" />-->
-    <!--    <img :src="image3" alt="" class="mask mask-3" :class="{ hide: hideMask }" />-->
-    <!--    <img :src="image4" alt="" class="mask mask-4" :class="{ hide: hideMask }" />-->
+    <!--    <img :src="`${IMAGE_BASE_URL}/02_01.png`" alt="" class="mask mask-1" :class="{ hide: hideMask }" />-->
+    <!--    <img :src="`${IMAGE_BASE_URL}/02_02.png`" alt="" class="mask mask-2" :class="{ hide: hideMask }" />-->
+    <!--    <img :src="`${IMAGE_BASE_URL}/02_03.png`" alt="" class="mask mask-3" :class="{ hide: hideMask }" />-->
+    <!--    <img :src="`${IMAGE_BASE_URL}/02_04.png`" alt="" class="mask mask-4" :class="{ hide: hideMask }" />-->
 
     <div :class="{ hide: hideMask }" class="project-overview-overlay">
       <text-highlight top="76%" left="50%" to="/pool"> Бассейная группа</text-highlight>
@@ -17,13 +17,9 @@
 </template>
 
 <script setup>
+import { IMAGE_BASE_URL } from '~/utils/constants'
 import { throttle } from '~/utils/decorators'
 import { useVideoFrame } from '~/composables/useVideoFrame'
-
-import image1 from '~/public/images/02_01.png'
-import image2 from '~/public/images/02_02.png'
-import image3 from '~/public/images/02_03.png'
-import image4 from '~/public/images/02_04.png'
 
 const { showFrame, isTransition, currentVideoKey } = useVideoFrame()
 

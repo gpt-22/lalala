@@ -1,36 +1,44 @@
 <template>
   <section id="section-2" class="section section-2" ref="section2" @wheel="onWheel">
-    <!--    <button-->
-    <!--      class="section-2-btn section-2-btn-top"-->
-    <!--      :class="{ hide: hideMask }"-->
-    <!--      @mouseenter="videoSaturated = true"-->
-    <!--      @mouseleave="videoSaturated = false"-->
-    <!--      @click="showFrame('8')"-->
-    <!--    >-->
-    <!--      <span>Зона 1</span>-->
-    <!--    </button>-->
-    <!--    <button-->
-    <!--      class="section-2-btn section-2-btn-bottom"-->
-    <!--      :class="{ hide: hideMask }"-->
-    <!--      @mouseenter="videoSaturated = true"-->
-    <!--      @mouseleave="videoSaturated = false"-->
-    <!--      @click="showFrame('6')"-->
-    <!--    >-->
-    <!--      <span>Зона 2</span>-->
-    <!--    </button>-->
+    <button
+      class="section-2-btn section-2-btn-top"
+      :class="{ hide: hideMask }"
+      @mouseenter="videoSaturated = true"
+      @mouseleave="videoSaturated = false"
+      @click="showFrame('8')"
+    >
+      <span>Зона 1</span>
+    </button>
+    <button
+      class="section-2-btn section-2-btn-bottom"
+      :class="{ hide: hideMask }"
+      @mouseenter="videoSaturated = true"
+      @mouseleave="videoSaturated = false"
+      @click="showFrame('6')"
+    >
+      <span>Зона 2</span>
+    </button>
 
-    <!--    <img :src="image1" alt="" class="mask mask-1" :class="{ hide: hideMask }" />-->
-    <!--    <img :src="image2" alt="" class="mask mask-2" :class="{ hide: hideMask }" />-->
+    <img
+      :src="`${IMAGE_BASE_URL}/01_01.png`"
+      alt=""
+      class="mask mask-1"
+      :class="{ hide: hideMask }"
+    />
+    <img
+      :src="`${IMAGE_BASE_URL}/01_02.png`"
+      alt=""
+      class="mask mask-2"
+      :class="{ hide: hideMask }"
+    />
   </section>
 </template>
 
 <script setup>
 // TODO квадрат с едздящим текстом
+import { IMAGE_BASE_URL } from '~/utils/constants'
 import { throttle } from '~/utils/decorators'
 import { useVideoFrame } from '~/composables/useVideoFrame'
-
-import image1 from '~/public/images/01_01.png'
-import image2 from '~/public/images/01_02.png'
 
 const { showFrame, isTransition, videoSaturated, currentVideoKey } = useVideoFrame()
 
