@@ -37,16 +37,14 @@ jobs:
       - name: Static HTML export with Nuxt
         run: yarn run generate
 
-      - name: executing remote ssh commands using password
+      - name: Check space
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
-          script: whoami
-        run: |
-          df -h /dev/sda1
+          script: df -h /dev/sda1
 
       - name: Deploy to VM
         run: |
