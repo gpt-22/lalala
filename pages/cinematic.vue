@@ -1,5 +1,6 @@
 <template>
   <div class="video-container">
+    <app-button to="/" class="back-btn"> Назад </app-button>
     <video
       ref="videoElement"
       :src="`${VIDEO_BASE_URL}/cinematic.mp4`"
@@ -13,11 +14,29 @@
 
 <script setup>
 import { VIDEO_BASE_URL } from '~/utils/constants'
+import AppButton from '~/components/ui/app-button.vue'
 
 definePageMeta({
   layout: 'video'
 })
 </script>
+
+<style lang="scss">
+.back-btn {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+
+  button {
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+</style>
 
 <style scoped lang="scss">
 .video-container {

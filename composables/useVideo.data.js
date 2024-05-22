@@ -168,6 +168,5 @@ export const sectionToVideoKey = {
   'section-1': '2',
   'section-2': '4',
   'section-3': '6',
-  'section-4': '8',
-  cinematic: 'cinematic'
+  'section-4': '8'
 }

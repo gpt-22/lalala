@@ -1,15 +1,21 @@
 <template>
-  <button class="btn">
+  <button v-if="!to" class="app-btn" v-bind="$attrs">
     <slot />
   </button>
+
+  <nuxt-link v-if="to" :to="to" v-bind="$attrs" class="flex">
+    <button class="app-btn">
+      <slot />
+    </button>
+  </nuxt-link>
 </template>
 
 <script setup>
-//
+const props = defineProps(['to'])
 </script>
 
-<style scoped lang="scss">
-.btn {
+<style lang="scss">
+.app-btn {
   min-width: 120px;
   min-height: 30px;
 
