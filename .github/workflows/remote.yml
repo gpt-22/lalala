@@ -43,7 +43,7 @@ jobs:
           echo "$DEPLOY_SSH_KEY" > deploy_key.pem
           chmod 600 deploy_key.pem
           ssh -i deploy_key.pem -o StrictHostKeyChecking=no ${{ env.HOST }} "mkdir -p ${{ env.DEPLOY_DIRECTORY }}"
-          rsync -avz -e 'ssh -i deploy_key.pem -o StrictHostKeyChecking=no' --exclude='.git' ./.output/public ${{ env.HOST }}:${{ env.DEPLOY_DIRECTORY }}
+          rsync -avz -e 'ssh -i deploy_key.pem -o StrictHostKeyChecking=no' --inplace --exclude='.git' ./.output/public ${{ env.HOST }}:${{ env.DEPLOY_DIRECTORY }}
 #          rsync -avz -e 'ssh -i deploy_key.pem -o StrictHostKeyChecking=no' --exclude='.git' ./nginx.conf ${{ env.HOST }}:${{ env.NGINX_DIRECTORY }}
 #          sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled
 #          sudo nginx -s reload
