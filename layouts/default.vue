@@ -1,28 +1,58 @@
 <template>
   <div class="app">
+    <the-loader />
     <video-background />
 
-    <the-header v-if="!startLoading" />
-    <div class="flex-1">
-      <slot />
-    </div>
-    <!--    <the-footer />-->
-
-    <button class="btn btn-1 bg-dark color-white" @click="showVideo(currentVideo.nextKey)">
-      Вперед
-    </button>
-    <button class="btn btn-2 bg-dark color-white" @click="showVideo(currentVideo.prevKey)">
-      Назад
-    </button>
+    <template v-if="!startLoading">
+      <the-header />
+      <div class="flex-1">
+        <slot />
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup>
+import { sectionToVideoKey } from '~/composables/useVideo.data'
+
 const { showVideo, currentVideo, startLoading } = useVideo()
+const { $gsap } = useNuxtApp()
+
+const route = useRoute()
+
+// if (route.name === 'index') {
+showVideo('1', { playNext: false })
+// } else {
+//   const videoKey = sectionToVideoKey[route.path.slice(1)]
+//   console.log('route', route.path.slice(1), videoKey || '1')
+//   if (videoKey) {
+//     showVideo(videoKey)
+//   } else {
+//     showVideo('1', { playNext: true, playTime: 1500 })
+//   }
+// }
+
+// const onKeydown = (event) => {
+//   if (event.key === 'ArrowLeft') showVideo(currentVideo.value.prevKey)
+//   if (event.key === 'ArrowRight') showVideo(currentVideo.value.nextKey)
+// }
+//
+// onMounted(() => {
+//   document.addEventListener('keydown', onKeydown)
+// })
+
+onMounted(() => {
+  $gsap.to('.app', {
+    opacity: 1,
+    duration: 2,
+    delay: 0.3
+  })
+})
 </script>
 
 <style scoped>
 .app {
+  opacity: 0;
   min-height: 100vh;
   position: relative;
   display: flex;

@@ -11,7 +11,7 @@
       :ref="setVideoRef"
       :id="`video-${idx}`"
       :src="video.src"
-      preload="none"
+      preload="auto"
       :autoplay="video.playing"
       muted
       :loop="!video.isTransition"
@@ -36,8 +36,11 @@ const setVideoRef = (element) => {
 
   videos.value[index].element = element
 
+  element.load()
+
   element.addEventListener('loadeddata', () => {
-    if (element.readyState === 4) {
+    console.log('loadeddata', element.readyState)
+    if (element.readyState === 3 || element.readyState === 4) {
       videos.value[index].loaded = true
 
       const frame = videos.value[index]

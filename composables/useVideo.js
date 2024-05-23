@@ -82,17 +82,17 @@ export const useVideo = () => {
     loadVideo(playingFrame.prevKey)
 
     playingFrame.element?.play()
-    Object.keys(playingFrame.onPlay).forEach((key) => playingFrame.onPlay[key]())
+    console.log('PLAY', key)
 
-    if (key !== '1' && !playingFrame.isTransition) {
-      startLoading.value = false
-    }
+    Object.keys(playingFrame.onPlay).forEach((key) => playingFrame.onPlay[key]())
 
     videos.value.forEach((video) => {
       video.playing = video.key === key
     })
 
-    console.log('PLAY', key)
+    if (key !== '1' && !playingFrame.isTransition) {
+      startLoading.value = false
+    }
   }
 
   const playNextAfterFrame = (key, options) => {
@@ -116,7 +116,6 @@ export const useVideo = () => {
     }
 
     if (mergedOptions.play) {
-      // console.log('HERE', key)
       playVideo(key)
     }
 

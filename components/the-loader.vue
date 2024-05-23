@@ -1,30 +1,52 @@
 <template>
-  <div id="site-loader" class="site-loader">
-    <div class="loader text-white">AG</div>
+  <div v-show="startLoading" id="site-loader" class="site-loader">
+    <div class="loader-content">
+      <h1 class="title">Наедине с природой</h1>
+      <icon-logo class="mt-3 self-end w-[147px] h-[20px]" />
+
+      <div class="pt-16 flex justify-center gap-5">
+        <app-button theme="dark" class="loader-btn" to="cinematic" @click="onGoToCinematic">
+          Видео
+        </app-button>
+        <app-button theme="dark" class="loader-btn" to="/" @click="onGoToSite"> Сайт </app-button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
+import IconLogo from '~/components/icons/icon-logo.vue'
+import AppButton from '~/components/ui/app-button.vue'
 const { $gsap } = useNuxtApp()
 const { showVideo, startLoading } = useVideo()
 
-onMounted(() => {
-  $gsap.to('#site-loader', {
-    opacity: 0,
-    duration: 0.5,
-    delay: 1.5,
-    display: 'none',
-    onStart: () => {
-      // console.log('start')
-      // showVideo('2', true, true)
-    }
-  })
+/* TODO:
+ * темный фон
+ * градиент
+ * текст
+ * + 2 кнопки: видео и перейти на сайт
+ * */
 
-  // $gsap.to(".loader", {
-  //   duration: 0.3,
-  //   ease: 'power2.in',
-  //   delay: 1.5,
-  // });
+const onGoToCinematic = () => {
+  startLoading.value = false
+}
+const onGoToSite = () => {
+  startLoading.value = false
+  showVideo('2')
+}
+
+onMounted(() => {
+  $gsap.fromTo(
+    '.loader-content',
+    {
+      opacity: 0
+    },
+    {
+      opacity: 1,
+      duration: 3,
+      delay: 0.5
+    }
+  )
 })
 </script>
 
@@ -38,65 +60,36 @@ onMounted(() => {
   height: 100vh;
   width: 100vw;
   z-index: 1000000;
-  background-color: transparent; // #fff;
+  //background-color: transparent; // #fff;
+  background-color: rgba(15, 15, 15, 0.2);
+  animation: fadeOut 3s ease-in;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  //@apply bg-dark;
-  animation: fadeOut 1.5s linear;
 }
 
-.loader {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  position: relative;
-  animation: fadeIn 0.5s linear;
+@keyframes fadeOut {
+  0% {
+    background-color: rgba(15, 15, 15, 1);
+  }
+  100% {
+    background-color: rgba(15, 15, 15, 0.2);
+  }
+}
 
+.loader-content {
   display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 60px;
-  font-weight: 700;
-  //letter-spacing: .3em;
-}
-.loader::before {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  inset: 0px;
-  border-radius: 50%;
-  border: 5px solid #fff;
-  animation: prixClipFix 1s linear;
+  flex-direction: column;
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.title {
+  font-size: 84px;
+  letter-spacing: -3px;
+  //transform: scale(0.5, 1);
 }
 
-@keyframes prixClipFix {
-  0% {
-    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
-  }
-  25% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
-  }
-  50% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
-  }
-  75% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
-  }
-  100% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
-    transform: rotate(235deg);
-  }
+:deep(.loader-btn) {
+  width: 180px;
+  font-weight: bold;
 }
 </style>
