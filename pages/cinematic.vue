@@ -1,6 +1,6 @@
 <template>
   <div class="video-container">
-    <app-button to="/" class="back-btn"> Назад </app-button>
+    <app-button to="/" class="back-btn" @click="startLoading = true"> Назад </app-button>
     <video
       ref="videoElement"
       :src="`${VIDEO_BASE_URL}/cinematic.mp4`"
@@ -19,6 +19,8 @@ import AppButton from '~/components/ui/app-button.vue'
 definePageMeta({
   layout: 'video'
 })
+
+const { startLoading } = useVideo()
 </script>
 
 <style lang="scss">

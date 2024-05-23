@@ -6,7 +6,7 @@
     <template v-if="!startLoading">
       <the-header />
       <div class="flex-1">
-        <slot />
+        <nuxt-page />
       </div>
     </template>
   </div>
@@ -15,10 +15,12 @@
 <script setup>
 import { sectionToVideoKey } from '~/composables/useVideo.data'
 
-const { showVideo, currentVideo, startLoading } = useVideo()
+const { showVideo, currentVideo, startLoading, loadFirst } = useVideo()
 const { $gsap } = useNuxtApp()
 
 const route = useRoute()
+
+loadFirst()
 
 // if (route.name === 'index') {
 showVideo('1', { playNext: false })
@@ -44,8 +46,7 @@ showVideo('1', { playNext: false })
 onMounted(() => {
   $gsap.to('.app', {
     opacity: 1,
-    duration: 2,
-    delay: 0.3
+    duration: 2
   })
 })
 </script>

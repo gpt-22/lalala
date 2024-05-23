@@ -1,10 +1,10 @@
-import { nextTick } from 'vue'
-import { allVideos } from './useVideo.data.js'
+import { allVideos, lifecycleHookNames, sectionToVideoKey } from './useVideo.data.js'
 
 const startLoading = ref(true)
 const isTransition = ref(false)
 const videoSaturated = ref(false)
-const videos = ref(allVideos.slice(allVideos.length))
+
+const videos = ref([])
 
 const currentVideoKey = ref('1')
 const currentVideo = computed(() => {
@@ -20,113 +20,146 @@ const defaultShowOptions = {
 export const useVideo = () => {
   const router = useRouter()
 
-  const getFrame = (key) => {
+  const loadFirst = () => {
+    // Предзагрузка нескольких видео (появятся в DOM)
+    const firstLoadKeys = ['1', '2', '3', '4', '5']
+    videos.value = allVideos
+      .filter((video) => firstLoadKeys.includes(video.key))
+      .map((video) => {
+        const clone = structuredClone(video)
+        clone[lifecycleHookNames.onMounted]['onVideoMounted'] = () => onVideoMounted(video.key)
+        clone[lifecycleHookNames.onLoaded]['onVideoLoaded'] = () =>
+          onVideoLoaded(video.key, defaultShowOptions)
+
+        return clone
+      })
+  }
+
+  const getVideo = (key) => {
     return videos.value.find((video) => video.key === key)
   }
 
+  const setElement = (key, element) => {
+    const video = getVideo(key)
+
+    if (!element) {
+      video.element = null
+      return
+    }
+
+    if (video.element) {
+      return
+    }
+
+    video.element = element
+
+    runCallbacks(key, lifecycleHookNames.onMounted)
+
+    video.element.load()
+
+    video.element.addEventListener('loadeddata', () => {
+      if (video.element.readyState === 3 || video.element.readyState === 4) {
+        video.loaded = true
+        runCallbacks(key, lifecycleHookNames.onLoaded)
+      }
+    })
+  }
+
+  const runCallbacks = (key, lifecycleHookName) => {
+    const video = getVideo(key)
+    const callbackMap = video[lifecycleHookName]
+    Object.keys(callbackMap).forEach((callbackKey) => {
+      callbackMap[callbackKey]()
+    })
+  }
+
+  const onVideoMounted = (key) => {
+    const video = getVideo(key)
+    // console.log('ON MOUNTED', video.key)
+  }
+
+  const onVideoLoaded = (key, options) => {
+    const video = getVideo(key)
+    console.log('ON LOADED', video.key)
+
+    if (options?.playTime && options?.playTime !== Infinity) {
+      setTimeout(() => onVideoEnded(key), options.playTime)
+
+      return
+    }
+
+    // TODO: костыль чтобы 1 раз сетить листенер
+    if (!video.onEndedSet) {
+      video.element.addEventListener('ended', () => onVideoEnded(key))
+      video.onEndedSet = true
+    }
+  }
+
+  const onVideoEnded = (key) => {
+    console.log('ON ENDED', key)
+
+    const video = getVideo(key)
+    if (!video.element) throw new Error('on video ended нет элемента')
+
+    video.element.currentTime = 0
+    video.element.load()
+    playVideo(video.nextKey)
+  }
+
   const loadVideo = (key, options) => {
-    let video = getFrame(key)
+    if (!key) return
+
+    let video = getVideo(key)
+
     if (!video) {
-      video = allVideos.find((video) => video.key === key)
+      video = structuredClone(allVideos.find((video) => video.key === key))
+      if (!video) throw new Error('Нет видео')
 
-      if (!video) return
-
-      // console.log('LOADING', key)
       videos.value.push(video)
 
-      video.onLoaded['onloaded'] = () => {
-        console.log('ON LOADED', video.key)
-
-        // TODO
-        if (video.isTransition) {
-          video.element.addEventListener('ended', () => {
-            isTransition.value = false
-          })
-        }
-
-        if (options?.playTime && options?.playTime !== Infinity) {
-          console.log('settimeout')
-          setTimeout(() => {
-            console.log('ON ENDED TIME', video.key)
-
-            video.element.currentTime = 0
-            video.element.load()
-            playVideo(video.nextKey)
-          }, options.playTime)
-
-          return
-        }
-
-        video.element.addEventListener('ended', () => {
-          console.log('ON ENDED', video.key)
-          video.element.currentTime = 0
-          video.element.load()
-          playVideo(video.nextKey)
-        })
-      }
+      video[lifecycleHookNames.onMounted]['onVideoMounted'] = () => onVideoMounted(key)
+      video[lifecycleHookNames.onLoaded]['onVideoLoaded'] = () => onVideoLoaded(key, options)
     }
 
     return video
   }
 
-  // states:
-  // unmounted
-  // mounting
-  // mounted
-  // loading
-  // loaded
-  // show
-  // playing
-  // played
-
   const playVideo = async (key) => {
     currentVideoKey.value = key
 
-    const playingFrame = getFrame(key)
-
-    loadVideo(playingFrame.nextKey)
-    loadVideo(playingFrame.prevKey)
-
-    playingFrame.element?.play()
+    const playingVideo = getVideo(key)
+    playingVideo.element.play()
     console.log('PLAY', key)
 
-    requestAnimationFrame(() => {
-      Object.keys(playingFrame.onPlay).forEach((key) => playingFrame.onPlay[key]())
-
-      videos.value.forEach((video) => {
-        // if (video.key === key) {
-        //   video.playing = true
-        // } else {
-        //   requestAnimationFrame(() => {
-        //     video.playing = false
-        //   })
-        // }
-        video.playing = video.key === key
-      })
+    // requestAnimationFrame(() => {
+    videos.value.forEach((video) => {
+      video.playing = video.key === key
     })
+    // })
 
-    if (key !== '1' && !playingFrame.isTransition) {
-      startLoading.value = false
-    }
+    runCallbacks(key, lifecycleHookNames.onPlay)
   }
 
   const showVideo = (key, options) => {
     if (!key) return
 
     const mergedOptions = { ...defaultShowOptions, ...options }
-
     console.log('SHOW FRAME', key, mergedOptions)
+
     const video = loadVideo(key, mergedOptions)
-
-    video.show = true
-
-    if (video.section && !video.onPlay['onplay']) {
-      console.log('===> SET', video.section)
-      video.onPlay['onplay'] = () => router.push(`/${video.section}`)
-    }
+    loadVideo(video.nextKey)
+    loadVideo(video.prevKey)
 
     if (mergedOptions.play) {
-      playVideo(key)
+      if (video.loaded) {
+        playVideo(key)
+      } else {
+        video[lifecycleHookNames.onLoaded]['play'] = () => playVideo(key)
+      }
+    }
+
+    if (video.section && !video[lifecycleHookNames.onPlay]['go-to-section']) {
+      video[lifecycleHookNames.onPlay]['go-to-section'] = () => router.push(`/${video.section}`)
     }
 
     if (video.isTransition) {
@@ -139,13 +172,25 @@ export const useVideo = () => {
   }
 
   return {
+    // const
     allVideos,
+    lifecycleHookNames,
+    sectionToVideoKey,
+
+    // state
     videos,
     currentVideo,
     currentVideoKey,
     isTransition,
     startLoading,
     videoSaturated,
-    showVideo
+
+    // methods
+    getVideo,
+    showVideo,
+    playVideo,
+    runCallbacks,
+    setElement,
+    loadFirst
   }
 }

@@ -1,11 +1,28 @@
 import { VIDEO_BASE_URL } from '~/utils/constants'
 
+// states:
+// unmounted
+// mounting
+// + mounted
+// loading
+// + loaded
+// + show
+// + playing
+// played
+
+export const lifecycleHookNames = {
+  onMounted: 'onMounted',
+  onLoaded: 'onLoaded',
+  onPlay: 'onPlay'
+}
+
 const defaultState = {
   loaded: false,
-  show: false,
   playing: false,
   isTransition: false,
   element: null,
+  onEndedSet: false,
+  onMounted: {},
   onLoaded: {},
   onPlay: {}
 }
@@ -13,15 +30,7 @@ const defaultState = {
 export const allVideos = [
   {
     ...structuredClone(defaultState),
-    prevKey: 'cinematic',
-    key: 'cinematic',
-    nextKey: 'cinematic',
-    src: `${VIDEO_BASE_URL}/cinematic.mp4`,
-    section: 'cinematic'
-  },
-  {
-    ...structuredClone(defaultState),
-    prevKey: '1',
+    prevKey: '',
     key: '1',
     nextKey: '2',
     src: `/videos/01_01.mp4`
@@ -125,6 +134,14 @@ export const allVideos = [
     src: `/videos/01_09.mp4`,
     // src: `${VIDEO_BASE_URL}/01_09.mp4`,
     section: 'section-4'
+  },
+  {
+    ...structuredClone(defaultState),
+    prevKey: 'cinematic',
+    key: 'cinematic',
+    nextKey: 'cinematic',
+    src: `${VIDEO_BASE_URL}/cinematic.mp4`,
+    section: 'cinematic'
   }
 ]
 

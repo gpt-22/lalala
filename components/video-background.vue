@@ -1,15 +1,15 @@
 <template>
   <div class="video-container">
     <video
-      v-for="(video, idx) in videos"
+      v-for="video in videos"
       v-show="video.playing"
       :class="{
         playing: video.playing,
         saturated: videoSaturated
       }"
       :key="video.key"
-      :ref="setVideoRef"
-      :id="`video-${idx}`"
+      :ref="(el) => setElement(video.key, el)"
+      :id="`video${video.key}`"
       :src="video.src"
       preload="auto"
       :autoplay="video.playing"
@@ -20,36 +20,19 @@
       disablepictureinpicture
       playsinline
       webkit-playsinline
+      @ended="onEnded(video)"
     />
   </div>
 </template>
 
 <script setup>
-const { videos, videoSaturated } = useVideo()
+const { videos, videoSaturated, isTransition, setElement } = useVideo()
 
-const setVideoRef = (element) => {
-  const index = element.id.split('-')[1]
-
-  if (videos.value[index].element) return
-
-  videos.value[index].element = element
-
-  element.load()
-
-  element.addEventListener('loadeddata', () => {
-    console.log('loadeddata', element.readyState)
-    if (element.readyState === 3 || element.readyState === 4) {
-      videos.value[index].loaded = true
-
-      const frame = videos.value[index]
-      Object.keys(frame.onLoaded).forEach((key) => {
-        frame.onLoaded[key]()
-      })
-
-      console.log(`VIDEO ${videos.value[index].key} LOADED`)
-    }
-  })
+const onEnded = (video) => {
+  if (video.isTransition) isTransition.value = false
 }
+
+console.log('here3', videos.value[0].onLoaded)
 </script>
 
 <style scoped lang="scss">

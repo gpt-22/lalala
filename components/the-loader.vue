@@ -1,14 +1,16 @@
 <template>
   <div v-show="startLoading" id="site-loader" class="site-loader">
     <div class="loader-content">
-      <h1 class="title">Наедине с природой</h1>
-      <icon-logo class="mt-3 self-end w-[147px] h-[20px]" />
+      <h1 id="loader-title" class="title loader-animation-item">Наедине с природой</h1>
+      <icon-logo id="loader-logo" class="loader-animation-item mt-3 self-end w-[147px] h-[20px]" />
 
-      <div class="pt-16 flex justify-center gap-5">
-        <app-button theme="dark" class="loader-btn" to="cinematic" @click="onGoToCinematic">
+      <div id="loader-buttons" class="loader-animation-item pt-16 flex justify-center gap-5">
+        <app-button theme="dark" class="loader-btn" to="cinematic" @click.self="onGoToCinematic">
           Видео
         </app-button>
-        <app-button theme="dark" class="loader-btn" to="/" @click="onGoToSite"> Сайт </app-button>
+        <app-button theme="dark" class="loader-btn" to="/" @click.self="onGoToSite">
+          Сайт
+        </app-button>
       </div>
     </div>
   </div>
@@ -27,26 +29,49 @@ const { showVideo, startLoading } = useVideo()
  * + 2 кнопки: видео и перейти на сайт
  * */
 
+function enableCustomLayout() {
+  setPageLayout('video')
+}
+
 const onGoToCinematic = () => {
+  console.log('onGoToCinematic')
   startLoading.value = false
+  enableCustomLayout()
 }
 const onGoToSite = () => {
   startLoading.value = false
+  console.log('onGoToSite')
   showVideo('2')
 }
 
+let loaderTimeline = null
 onMounted(() => {
-  $gsap.fromTo(
-    '.loader-content',
+  loaderTimeline = $gsap.timeline({ delay: 2 })
+  loaderTimeline.fromTo(
+    '.loader-animation-item',
     {
       opacity: 0
     },
+
     {
+      stagger: 0.5,
+      // x: 0,
       opacity: 1,
-      duration: 3,
-      delay: 0.5
+      duration: 1
     }
   )
+
+  // $gsap.fromTo(
+  //   '.loader-content',
+  //   {
+  //     opacity: 0
+  //   },
+  //   {
+  //     opacity: 1,
+  //     duration: 3,
+  //     delay: 1
+  //   }
+  // )
 })
 </script>
 
@@ -61,7 +86,7 @@ onMounted(() => {
   width: 100vw;
   z-index: 1000000;
   //background-color: transparent; // #fff;
-  background-color: rgba(15, 15, 15, 0.2);
+  background-color: rgba(15, 15, 15, 0.3);
   animation: fadeOut 3s ease-in;
   display: flex;
   justify-content: center;
