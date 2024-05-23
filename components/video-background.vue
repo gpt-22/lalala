@@ -1,5 +1,5 @@
 <template>
-  <div class="section-intro-media">
+  <div class="video-container">
     <video
       v-for="(video, idx) in videos"
       v-show="video.playing"
@@ -25,9 +25,7 @@
 </template>
 
 <script setup>
-const config = useRuntimeConfig()
-
-const { videos, showVideo, videoSaturated } = useVideo()
+const { videos, videoSaturated } = useVideo()
 
 const setVideoRef = (element) => {
   const index = element.id.split('-')[1]
@@ -55,32 +53,19 @@ const setVideoRef = (element) => {
 </script>
 
 <style scoped lang="scss">
-.section-intro-media {
+.video-container {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   min-height: 100vh;
   overflow: hidden;
-  //background: url("/video/01_01.png") no-repeat center center;
   background-size: cover;
   z-index: -1;
   opacity: 0.9;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.05);
-  }
 }
 
 .video {
-  //display: none;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -93,7 +78,6 @@ const setVideoRef = (element) => {
 }
 
 .video.playing {
-  //display: block;
   z-index: 2;
 }
 

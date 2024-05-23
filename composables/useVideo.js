@@ -48,6 +48,9 @@ export const useVideo = () => {
           console.log('settimeout')
           setTimeout(() => {
             console.log('ON ENDED TIME', video.key)
+
+            video.element.currentTime = 0
+            video.element.load()
             playVideo(video.nextKey)
           }, options.playTime)
 
@@ -56,6 +59,8 @@ export const useVideo = () => {
 
         video.element.addEventListener('ended', () => {
           console.log('ON ENDED', video.key)
+          video.element.currentTime = 0
+          video.element.load()
           playVideo(video.nextKey)
         })
       }
@@ -70,6 +75,7 @@ export const useVideo = () => {
   // mounted
   // loading
   // loaded
+  // show
   // playing
   // played
 
@@ -84,10 +90,19 @@ export const useVideo = () => {
     playingFrame.element?.play()
     console.log('PLAY', key)
 
-    Object.keys(playingFrame.onPlay).forEach((key) => playingFrame.onPlay[key]())
+    requestAnimationFrame(() => {
+      Object.keys(playingFrame.onPlay).forEach((key) => playingFrame.onPlay[key]())
 
-    videos.value.forEach((video) => {
-      video.playing = video.key === key
+      videos.value.forEach((video) => {
+        // if (video.key === key) {
+        //   video.playing = true
+        // } else {
+        //   requestAnimationFrame(() => {
+        //     video.playing = false
+        //   })
+        // }
+        video.playing = video.key === key
+      })
     })
 
     if (key !== '1' && !playingFrame.isTransition) {
@@ -95,23 +110,18 @@ export const useVideo = () => {
     }
   }
 
-  const playNextAfterFrame = (key, options) => {
-    const video = getFrame(key)
-
-    // console.log('playNextAfterFrame', key, video.nextKey)
-
-    showVideo(video.nextKey, { play: false })
-  }
-
   const showVideo = (key, options) => {
     if (!key) return
 
     const mergedOptions = { ...defaultShowOptions, ...options }
 
-    console.log('SHOW FRAME', key, options)
+    console.log('SHOW FRAME', key, mergedOptions)
     const video = loadVideo(key, mergedOptions)
 
+    video.show = true
+
     if (video.section && !video.onPlay['onplay']) {
+      console.log('===> SET', video.section)
       video.onPlay['onplay'] = () => router.push(`/${video.section}`)
     }
 
@@ -124,7 +134,7 @@ export const useVideo = () => {
     }
 
     if (video.isTransition || mergedOptions.playNext) {
-      playNextAfterFrame(key, mergedOptions)
+      showVideo(video.nextKey, { play: false })
     }
   }
 
