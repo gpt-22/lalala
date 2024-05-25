@@ -20,9 +20,9 @@ const defaultShowOptions = {
 export const useVideo = () => {
   const router = useRouter()
 
-  const loadFirst = () => {
+  const load1 = () => {
     // Предзагрузка нескольких видео (появятся в DOM)
-    const firstLoadKeys = ['1', '2', '3', '4', '5']
+    const firstLoadKeys = ['1']
     videos.value = allVideos
       .filter((video) => firstLoadKeys.includes(video.key))
       .map((video) => {
@@ -33,6 +33,21 @@ export const useVideo = () => {
 
         return clone
       })
+  }
+
+  const load2 = () => {
+    const secondLoadKeys = ['2', '3', '4', '5']
+    const secondLoadVideos = allVideos
+      .filter((video) => secondLoadKeys.includes(video.key))
+      .map((video) => {
+        const clone = structuredClone(video)
+        clone[lifecycleHookNames.onMounted]['onVideoMounted'] = () => onVideoMounted(video.key)
+        clone[lifecycleHookNames.onLoaded]['onVideoLoaded'] = () =>
+          onVideoLoaded(video.key, defaultShowOptions)
+
+        return clone
+      })
+    videos.value.push(...secondLoadVideos)
   }
 
   const getVideo = (key) => {
@@ -147,8 +162,11 @@ export const useVideo = () => {
     console.log('SHOW FRAME', key, mergedOptions)
 
     const video = loadVideo(key, mergedOptions)
-    loadVideo(video.nextKey)
-    loadVideo(video.prevKey)
+    if (video.key === '1') {
+      video[lifecycleHookNames.onLoaded]['load2'] = () => load2()
+    } else {
+      video.loadKeys.forEach((loadKey) => loadVideo(loadKey))
+    }
 
     if (mergedOptions.play) {
       if (video.loaded) {
@@ -191,6 +209,7 @@ export const useVideo = () => {
     playVideo,
     runCallbacks,
     setElement,
-    loadFirst
+    load1,
+    load2
   }
 }

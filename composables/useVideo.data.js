@@ -33,8 +33,9 @@ export const allVideos = [
     prevKey: '',
     key: '1',
     nextKey: '2',
-    src: `/videos/01_01.mp4`
+    src: `/videos/01_01.mp4`,
     // src: `${VIDEO_BASE_URL}/01_01.mp4`,
+    loadKeys: ['2', '3', '4', '5']
   },
   {
     ...structuredClone(defaultState),
@@ -43,7 +44,8 @@ export const allVideos = [
     nextKey: '3',
     src: `/videos/01_02.mp4`,
     // src: `${VIDEO_BASE_URL}/01_02.mp4`, //kek_0-1.mp4`,
-    isTransition: true
+    isTransition: true,
+    loadKeys: ['3', '1']
   },
   {
     ...structuredClone(defaultState),
@@ -52,7 +54,8 @@ export const allVideos = [
     nextKey: '4',
     src: `/videos/01_03.mp4`,
     // src: `${VIDEO_BASE_URL}/01_03.mp4`, // kek_1-1.mp4`,
-    section: 'section-1'
+    section: 'section-1',
+    loadKeys: ['4', '2']
   },
   {
     ...structuredClone(defaultState),
@@ -61,7 +64,8 @@ export const allVideos = [
     nextKey: '5',
     src: `/videos/01_04.mp4`,
     // src: `${VIDEO_BASE_URL}/01_04.mp4`, // kek_1-2.mp4`,
-    isTransition: true
+    isTransition: true,
+    loadKeys: ['5', '3']
   },
   {
     ...structuredClone(defaultState),
@@ -70,7 +74,8 @@ export const allVideos = [
     nextKey: '3',
     src: `/videos/01_04_reverse.mp4`,
     // src: `${VIDEO_BASE_URL}/01_04_reverse.mp4`, // kek_2-1.mp4`,
-    isTransition: true
+    isTransition: true,
+    loadKeys: ['3', '5']
   },
   {
     ...structuredClone(defaultState),
@@ -79,7 +84,8 @@ export const allVideos = [
     nextKey: '6',
     src: `/videos/01_05.mp4`,
     // src: `${VIDEO_BASE_URL}/01_05.mp4`, // kek_2-2.mp4`,
-    section: 'section-2'
+    section: 'section-2',
+    loadKeys: ['6', '4r']
   },
   {
     ...structuredClone(defaultState),
@@ -88,7 +94,8 @@ export const allVideos = [
     nextKey: '7',
     src: `/videos/01_06.mp4`,
     // src: `${VIDEO_BASE_URL}/01_06.mp4`,
-    isTransition: true
+    isTransition: true,
+    loadKeys: ['7', '5']
   },
   {
     ...structuredClone(defaultState),
@@ -97,7 +104,8 @@ export const allVideos = [
     nextKey: '5',
     src: `/videos/01_06_reverse.mp4`,
     // src: `${VIDEO_BASE_URL}/01_06_reverse.mp4`,
-    isTransition: true
+    isTransition: true,
+    loadKeys: ['5', '7']
   },
   {
     ...structuredClone(defaultState),
@@ -106,7 +114,8 @@ export const allVideos = [
     nextKey: '8',
     src: `/videos/01_07.mp4`,
     // src: `${VIDEO_BASE_URL}/01_07.mp4`,
-    section: 'section-3'
+    section: 'section-3',
+    loadKeys: ['8', '6r']
   },
   {
     ...structuredClone(defaultState),
@@ -115,7 +124,8 @@ export const allVideos = [
     nextKey: '9',
     src: `/videos/01_08.mp4`,
     // src: `${VIDEO_BASE_URL}/01_08.mp4`,
-    isTransition: true
+    isTransition: true,
+    loadKeys: ['9', '5']
   },
   {
     ...structuredClone(defaultState),
@@ -124,16 +134,18 @@ export const allVideos = [
     nextKey: '5',
     src: `/videos/01_08_reverse.mp4`,
     // src: `${VIDEO_BASE_URL}/01_08_reverse.mp4`,
-    isTransition: true
+    isTransition: true,
+    loadKeys: ['5', '9']
   },
   {
     ...structuredClone(defaultState),
     prevKey: '8r',
     key: '9',
-    nextKey: '9',
+    nextKey: '',
     src: `/videos/01_09.mp4`,
     // src: `${VIDEO_BASE_URL}/01_09.mp4`,
-    section: 'section-4'
+    section: 'section-4',
+    loadKeys: ['8r']
   },
   {
     ...structuredClone(defaultState),

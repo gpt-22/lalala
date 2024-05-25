@@ -13,14 +13,14 @@
 </template>
 
 <script setup>
-import { sectionToVideoKey } from '~/composables/useVideo.data'
+// import { sectionToVideoKey } from '~/composables/useVideo.data'
 
-const { showVideo, currentVideo, startLoading, loadFirst } = useVideo()
+const { showVideo, currentVideo, startLoading, load1 } = useVideo()
 const { $gsap } = useNuxtApp()
 
 const route = useRoute()
 
-loadFirst()
+load1()
 
 // if (route.name === 'index') {
 showVideo('1', { playNext: false })
