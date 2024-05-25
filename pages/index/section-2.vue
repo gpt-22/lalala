@@ -1,36 +1,36 @@
 <template>
   <section id="section-2" class="section section-2" ref="section2" @wheel="onWheel">
-    <!--    <button-->
-    <!--      class="section-2-btn section-2-btn-top"-->
-    <!--      :class="{ hide: hideMask }"-->
-    <!--      @mouseenter="videoSaturated = true"-->
-    <!--      @mouseleave="videoSaturated = false"-->
-    <!--      @click="showVideo('8')"-->
-    <!--    >-->
-    <!--      <span>Зона 1</span>-->
-    <!--    </button>-->
-    <!--    <button-->
-    <!--      class="section-2-btn section-2-btn-bottom"-->
-    <!--      :class="{ hide: hideMask }"-->
-    <!--      @mouseenter="videoSaturated = true"-->
-    <!--      @mouseleave="videoSaturated = false"-->
-    <!--      @click="showVideo('6')"-->
-    <!--    >-->
-    <!--      <span>Зона 2</span>-->
-    <!--    </button>-->
+    <button
+      class="section-2-btn section-2-btn-top"
+      :class="{ hide: hideMask }"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
+      @click="showVideo('8')"
+    >
+      <span>Зона 1</span>
+    </button>
+    <button
+      class="section-2-btn section-2-btn-bottom"
+      :class="{ hide: hideMask }"
+      @mouseenter="onMouseEnter"
+      @mouseleave="onMouseLeave"
+      @click="showVideo('6')"
+    >
+      <span>Зона 2</span>
+    </button>
 
-    <!--    <img-->
-    <!--      :src="`${IMAGE_BASE_URL}/01_01.png`"-->
-    <!--      alt=""-->
-    <!--      class="mask mask-1"-->
-    <!--      :class="{ hide: hideMask }"-->
-    <!--    />-->
-    <!--    <img-->
-    <!--      :src="`${IMAGE_BASE_URL}/01_02.png`"-->
-    <!--      alt=""-->
-    <!--      class="mask mask-2"-->
-    <!--      :class="{ hide: hideMask }"-->
-    <!--    />-->
+    <img
+      :src="`${IMAGE_BASE_URL}/01_01.png`"
+      alt=""
+      class="mask mask-1"
+      :class="{ hide: hideMask }"
+    />
+    <img
+      :src="`${IMAGE_BASE_URL}/01_02.png`"
+      alt=""
+      class="mask mask-2"
+      :class="{ hide: hideMask }"
+    />
   </section>
 </template>
 
@@ -43,6 +43,13 @@ import { useVideo } from '~/composables/useVideo'
 const { showVideo, isTransition, videoSaturated, currentVideoKey } = useVideo()
 
 const section2 = ref()
+
+const onMouseEnter = () => {
+  setTimeout(() => (videoSaturated.value = true), 500)
+}
+const onMouseLeave = () => {
+  videoSaturated.value = false
+}
 
 const goUp = throttle((deltaY) => {
   console.log('2 SCROLL UP', deltaY)

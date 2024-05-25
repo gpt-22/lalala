@@ -1,13 +1,18 @@
 <template>
   <nuxt-link :to="to" class="highlight" :style="{ top, left }">
-    <span class="circle" />
-    <span class="highlight-text">
+    <app-button class="!font-bold" size="s">
       <slot />
-    </span>
+    </app-button>
+
+    <!--    <span class="circle" />-->
+    <!--    <span class="highlight-text">-->
+    <!--      <slot />-->
+    <!--    </span>-->
   </nuxt-link>
 </template>
 
 <script setup>
+import AppButton from '~/components/ui/app-button.vue'
 const props = defineProps(['top', 'left', 'to'])
 </script>
 
@@ -16,38 +21,37 @@ $color: white;
 
 .highlight {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid $color;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  //width: 20px;
+  //height: 20px;
+  //border-radius: 50%;
+  //border: 1px solid $color;
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+  //
+  //&::before {
+  //  content: ' ';
+  //  display: block;
+  //  width: 4px;
+  //  height: 4px;
+  //  background-color: $color;
+  //  border-radius: 50%;
+  //}
+  //
+  //&:hover .highlight-text::before {
+  //  width: 20px;
+  //}
+  //&:hover .highlight-text::after {
+  //  width: 100%;
+  //}
+  //&:hover .highlight-text {
+  //  opacity: 1 !important;
+  //}
 
-  &::before {
-    content: ' ';
-    display: block;
-    width: 4px;
-    height: 4px;
-    background-color: $color;
-    border-radius: 50%;
-  }
-
-  &:hover .highlight-text::before {
-    width: 20px;
-  }
-  &:hover .highlight-text::after {
-    width: 100%;
-  }
-  &:hover .highlight-text {
-    opacity: 1 !important;
-  }
-
-  //position: absolute;
-  font-size: 10px;
-  text-transform: uppercase;
-  color: $color;
-  transition: letter-spacing .2s;
+  //font-size: 10px;
+  //text-transform: uppercase;
+  //color: $color;
+  //transition: letter-spacing 0.2s;
 
   &:hover {
     //width: 20px;
@@ -96,5 +100,4 @@ $color: white;
     //opacity: 0;
   }
 }
-
 </style>

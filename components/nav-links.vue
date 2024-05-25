@@ -11,10 +11,12 @@ const route = useRoute()
 const router = useRouter()
 // const { $lenis } = useNuxtApp()
 
+const { showVideo } = useVideo()
+
 const links = [
   { to: 'section-2', text: 'Обзор' },
-  { to: '#projects', text: 'Проекты' },
-  { to: '#about', text: 'О нас' },
+  { to: 'projects', text: 'Проекты' },
+  { to: 'about', text: 'О нас' }
 ]
 
 const onClick = (to) => {
@@ -22,7 +24,11 @@ const onClick = (to) => {
     router.push(`/${to}`)
   }
 
-  document.querySelector(to).scrollIntoView()
+  if (to === 'section-2') {
+    showVideo('5')
+  }
+
+  // document.querySelector(to).scrollIntoView()
   // $lenis.scrollTo(to)
 }
 </script>
@@ -50,7 +56,7 @@ const onClick = (to) => {
     height: 1px;
     width: 0px;
     background-color: currentColor;
-    transition: .2s;
+    transition: 0.2s;
   }
 }
 </style>

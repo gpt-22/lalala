@@ -1,6 +1,6 @@
 <template>
   <div class="video-container">
-    <app-button to="/" class="back-btn" @click="startLoading = true"> Назад </app-button>
+    <app-button class="back-btn" @click="goBack"> Назад </app-button>
     <video
       ref="videoElement"
       :src="`${VIDEO_BASE_URL}/cinematic.mp4`"
@@ -20,7 +20,13 @@ definePageMeta({
   layout: 'video'
 })
 
+const router = useRouter()
 const { startLoading } = useVideo()
+
+const goBack = () => {
+  startLoading.value = true
+  router.go(-1)
+}
 </script>
 
 <style lang="scss">

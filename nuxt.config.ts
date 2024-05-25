@@ -29,5 +29,6 @@ export default defineNuxtConfig({
       IMAGE_URL: process.env.IMAGE_URL,
       VIDEO_URL: process.env.VIDEO_URL
     }
-  }
+  },
+  modules: ['@vueuse/nuxt']
 })

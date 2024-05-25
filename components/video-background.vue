@@ -5,7 +5,8 @@
       v-show="video.playing"
       :class="{
         playing: video.playing,
-        saturated: videoSaturated
+        saturated: videoSaturated,
+        startLoading: startLoading
       }"
       :key="video.key"
       :ref="(el) => setElement(video.key, el)"
@@ -26,7 +27,7 @@
 </template>
 
 <script setup>
-const { videos, videoSaturated, isTransition, setElement } = useVideo()
+const { videos, videoSaturated, isTransition, startLoading, setElement } = useVideo()
 
 const onEnded = (video) => {
   if (video.isTransition) isTransition.value = false
@@ -60,8 +61,21 @@ console.log('here3', videos.value[0].onLoaded)
   z-index: 1;
 }
 
+@keyframes distancing {
+  0% {
+    transform: translate(-50%, -50%) scale(1.15, 1.15);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1, 1);
+  }
+}
+
 .video.playing {
   z-index: 2;
+}
+
+.video.startLoading {
+  animation: 3s distancing;
 }
 
 .saturated {

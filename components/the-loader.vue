@@ -4,13 +4,11 @@
       <h1 id="loader-title" class="title loader-animation-item">Наедине с природой</h1>
       <icon-logo id="loader-logo" class="loader-animation-item mt-3 self-end w-[147px] h-[20px]" />
 
-      <div id="loader-buttons" class="loader-animation-item pt-16 flex justify-center gap-5">
-        <app-button theme="dark" class="loader-btn" to="cinematic" @click.self="onGoToCinematic">
+      <div id="loader-buttons" class="pt-16 flex justify-center gap-5">
+        <app-button theme="dark" class="loader-btn" to="cinematic" @click="onGoToCinematic">
           Видео
         </app-button>
-        <app-button theme="dark" class="loader-btn" to="/" @click.self="onGoToSite">
-          Сайт
-        </app-button>
+        <app-button theme="dark" class="loader-btn" to="/" @click="onGoToSite"> Сайт </app-button>
       </div>
     </div>
   </div>
@@ -29,14 +27,10 @@ const { showVideo, startLoading } = useVideo()
  * + 2 кнопки: видео и перейти на сайт
  * */
 
-function enableCustomLayout() {
-  setPageLayout('video')
-}
-
 const onGoToCinematic = () => {
   console.log('onGoToCinematic')
   startLoading.value = false
-  enableCustomLayout()
+  setPageLayout('video')
 }
 const onGoToSite = () => {
   startLoading.value = false
@@ -46,18 +40,30 @@ const onGoToSite = () => {
 
 let loaderTimeline = null
 onMounted(() => {
-  loaderTimeline = $gsap.timeline({ delay: 2 })
+  loaderTimeline = $gsap.timeline({ delay: 1 })
   loaderTimeline.fromTo(
     '.loader-animation-item',
     {
       opacity: 0
     },
-
     {
-      stagger: 0.5,
+      stagger: 1,
       // x: 0,
-      opacity: 1,
-      duration: 1
+      opacity: 0.6,
+      duration: 5
+    }
+  )
+  $gsap.fromTo(
+    '#loader-buttons',
+    {
+      opacity: 0
+    },
+    {
+      delay: 2,
+      // stagger: 1,
+      // x: 0,
+      opacity: 0.9,
+      duration: 3
     }
   )
 
@@ -105,12 +111,28 @@ onMounted(() => {
 .loader-content {
   display: flex;
   flex-direction: column;
+  animation: 3s oncoming;
+}
+
+@keyframes oncoming {
+  0% {
+    transform: scale(0.9, 0.9);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+.loader-animation-item {
+  opacity: 0;
 }
 
 .title {
   font-size: 84px;
-  letter-spacing: -3px;
+  letter-spacing: 2px;
   //transform: scale(0.5, 1);
+  font-family: Helvetica;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 :deep(.loader-btn) {
