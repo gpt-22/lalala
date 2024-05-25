@@ -6,15 +6,7 @@
   </NuxtLayout>
 </template>
 
-<script setup>
-const { width } = useWindowSize()
-
-console.log(width.value)
-
-if (width.value < 1024) {
-  setPageLayout('inappropriate-device')
-}
-</script>
+<script setup></script>
 
 <style lang="scss">
 .app {

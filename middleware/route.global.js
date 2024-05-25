@@ -1,8 +1,13 @@
 export default defineNuxtRouteMiddleware((to, from, kek) => {
-  // isAuthenticated() is an example method verifying if a user is authenticated
-  console.log('MIDDLEWARE', to)
+  const { width } = useWindowSize()
+  console.log('MIDDLEWARE', to, width.value)
+
+  if (width.value < 1024 && to.name !== 'cinematic') {
+    setPageLayout('inappropriate-device')
+  }
 
   if (to.matched.length === 0) {
+    console.log('navigateTo /')
     return navigateTo('/')
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="video-container">
-    <app-button class="back-btn" @click="goBack"> Назад </app-button>
+    <!--    <app-button to="/" class="back-btn" @click="goBack"> Назад </app-button>-->
     <video
       ref="videoElement"
       :src="`${VIDEO_BASE_URL}/cinematic.mp4`"

@@ -46,6 +46,6 @@ const btnSize = computed(() => {
     font-size: 24px;
   }
 
-  font-size: 48px;
+  //font-size: 48px;
 }
 </style>
