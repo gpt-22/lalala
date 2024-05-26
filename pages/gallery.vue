@@ -1,10 +1,14 @@
 <template>
   <div class="gallery">
-    <header class="gallery-header"></header>
+    <header class="gallery-header">
+      <gallery-burger-button v-model="menuOpen" />
+      <gallery-menu :model-value="menuOpen" @change-location="setLocation" />
+      <div class="overlay" :class="{ shown: menuOpen }" />
+    </header>
 
     <swiper
       :slides-per-view="1"
-      :modules="[Parallax, Autoplay]"
+      :modules="[Autoplay]"
       :autoplay="{ delay: 5000 }"
       loop
       watch
@@ -13,41 +17,57 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide v-for="i in 10" :key="i" class="slide" v-slot="{ isActive }">
+      <swiper-slide
+        v-for="(imageSrc, i) in currentLocation.images"
+        :key="imageSrc"
+        class="slide"
+        v-slot="{ isActive }"
+      >
         <div
           class="gallery-image"
-          :class="{ activeOdd: isActive && i % 2 !== 0, activeEven: isActive && i % 2 === 0 }"
-          :style="{ background: `url(/images/render_${i}.jpg) center center/cover no-repeat` }"
+          :class="{
+            activeOdd: isActive && i % 2 !== 0,
+            activeEven: isActive && i % 2 === 0,
+            play: play
+          }"
+          :style="{ background: `url(${imageSrc}) center center/cover no-repeat` }"
         />
-        <!--        <img :src="`/images/render_${i}.jpg`" alt="Slide 1" class="gallery-image" />-->
       </swiper-slide>
     </swiper>
 
     <footer class="gallery-footer">
-      <progress
-        class="progress"
-        max="100"
-        :value="progress"
-        :style="{ animationPlayState: play ? 'running' : 'paused' }"
-      />
-
       <div class="gallery-footer-content">
+        <gallery-progress ref="progressElement" :value="totalProgress" :play="play" />
         <div class="slide-marks">
-          <!--          <div v-for="slide in slides" :key="" class=""></div>-->
+          <button
+            v-for="(imageSrc, i) in currentLocation.images"
+            :key="imageSrc"
+            class="slide-mark"
+            :class="{
+              active: i === currentIndex
+            }"
+            :style="{
+              left: `calc(calc(calc(${width}px / ${currentLocation.images.length}) * ${i}) - 2px)`
+            }"
+            @click="setCurrentSlide(i)"
+          >
+            Ракурс {{ i + 1 }}
+          </button>
         </div>
+
         <div class="player-btn-container">
           <button class="player-btn" @click="play = !play">
-            <icon-play v-show="play" />
-            <icon-stop v-show="!play" />
+            <icon-stop v-show="play" />
+            <icon-play v-show="!play" />
           </button>
-          <button class="player-btn">
+          <button class="player-btn" @click="setNextLocation">
             <icon-skip />
           </button>
-          <!--          <button class="player-btn" @click="mute = !mute">-->
-          <!--            <icon-mute v-show="mute" />-->
-          <!--            <icon-unmute v-show="!mute" />-->
-          <!--          </button>-->
-          <button class="player-btn">
+          <button class="player-btn" @click="mute = !mute">
+            <icon-mute v-show="!mute" />
+            <icon-unmute v-show="mute" />
+          </button>
+          <button class="player-btn" @click="fullscreen = !fullscreen">
             <icon-fullscreen />
           </button>
         </div>
@@ -64,23 +84,9 @@ import IconUnmute from '~/components/icons/icon-unmute.vue'
 import IconSkip from '~/components/icons/icon-skip.vue'
 import IconFullscreen from '~/components/icons/icon-fullscreen.vue'
 
-definePageMeta({
-  layout: 'gallery'
-})
+import { locations } from '~/pages/gallery.data'
 
-/* TODO:
- * добавить слайдер +
- * иконки футер (play, )
- * бургер
- * меню бургер
- * progress
- *
- * проигрывание / остановка
- * переключение слайдов
- * фуллскрин
- *
- * */
-
+import 'swiper/css'
 import 'swiper/scss'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
@@ -88,24 +94,143 @@ import 'swiper/scss/pagination'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Scrollbar, EffectFade, Autoplay, Parallax } from 'swiper/modules'
 
-// Import Swiper styles
-import 'swiper/css'
-const onSwiper = (swiper) => {
-  console.log(swiper)
+definePageMeta({
+  layout: 'gallery'
+})
+
+/* TODO:
+ * добавить слайдер +
+ * иконки плеера +
+ *
+ * проигрывание / остановка +
+ * включение / выключение музыки +
+ * фуллскрин +
+ * переключение слайдов +
+ * анимация переключения слайдов
+ * анимация при нажатии на кнопки
+ * progress
+ *
+ * бургер +
+ * меню бургер +
+ * анимация элементов списка
+ * анимация скрытия оверлэя
+ * */
+
+const route = useRoute()
+const router = useRouter()
+
+const swiperInstance = ref()
+
+const currentLocation = ref(
+  locations.find((location) => location.key === (route.query.location || locations[0].key))
+)
+const setLocation = (key) => {
+  currentLocation.value = locations.find((location) => location.key === key)
 }
-const onSlideChange = (event) => {
-  console.log('slide change', event)
-  currentIndex.value = event.activeIndex
+const setNextLocation = () => {
+  const currentIndex = locations.findIndex((location) => location.key === currentLocation.value.key)
+  currentLocation.value = locations[currentIndex + 1 > locations.length - 1 ? 0 : currentIndex + 1]
+  console.log(currentLocation.value.key, swiperInstance.value)
+  router.push({ name: 'gallery', query: { location: currentLocation.value.key } })
+  // swiperInstance.value.start()
+
+  currentSlideProgress.value = 0
+  currentSlideStartTime.value = 0
 }
 
+const onSwiper = (swiper) => {
+  console.log('SET', swiper)
+  swiperInstance.value = swiper
+
+  // setTimeout(() => {
+  requestAnimationFrame(animateProgress)
+  // }, 10000)
+}
+const onSlideChange = (event) => {
+  // console.log('slide change', event)
+  currentIndex.value = event.realIndex
+  currentSlideProgress.value = 0
+  currentSlideStartTime.value = 0 //performance.now()
+  animateProgress()
+  console.log(totalProgress.value)
+}
+
+const menuOpen = ref(false)
+
 const currentIndex = ref(0)
-const totalSlides = ref(10)
-const progress = computed(() => {
-  return Math.round(((currentIndex.value + 1) / totalSlides.value) * 100)
+const currentSlideStartProgress = computed(() => {
+  return (100 / currentLocation.value.images.length) * currentIndex.value
 })
+
+const setCurrentSlide = (index) => {
+  currentIndex.value = index
+  swiperInstance.value.slideTo(index) //(index, speed, runCallbacks)
+}
+
+const currentSlideProgress = ref(0)
+const currentSlideStartTime = ref(0)
+const timeLeftPaused = ref(0)
+const animateProgress = (timestamp) => {
+  if (!currentSlideStartTime.value) currentSlideStartTime.value = timestamp
+
+  const timeLeft = timestamp - currentSlideStartTime.value || 0
+
+  currentSlideProgress.value = (timeLeft / 5200) * 100 // Math.min((timeLeft / 5000) * 100, 100)
+
+  if (play.value && currentSlideProgress.value < 100) {
+    requestAnimationFrame(animateProgress)
+  } else {
+    timeLeftPaused.value = timeLeft
+  }
+}
+
+const progressElement = ref()
+const { width } = useElementBounding(progressElement)
+const totalProgress = computed(() => {
+  const currentSlideProgressNormalized =
+    currentSlideProgress.value / currentLocation.value.images.length
+  return currentSlideStartProgress.value + currentSlideProgressNormalized
+})
+
+const audio = new Audio('/audio/test.mp3')
 
 const play = ref(true)
 const mute = ref(false)
+const fullscreen = ref(false)
+
+const togglePlay = () => {
+  if (play.value) {
+    // console.log('resume', play.value)
+    swiperInstance.value.autoplay.resume()
+    if (!mute.value) audio.play()
+  } else {
+    // console.log('pause', play.value)
+    swiperInstance.value.autoplay.pause()
+    audio.pause()
+  }
+}
+
+const toggleAudio = () => {
+  if (mute.value) audio.pause()
+  else audio.play()
+}
+
+const toggleFullScreen = () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen()
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen()
+  }
+}
+
+watch(menuOpen, () => (play.value = false))
+watch(play, togglePlay)
+watch(mute, toggleAudio)
+watch(fullscreen, toggleFullScreen)
+
+// onMounted(() => {
+//   console.log('audio', audio.play())
+// })
 </script>
 
 <style scoped lang="scss">
@@ -117,32 +242,36 @@ const mute = ref(false)
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
-
-  &.activeOdd {
-    animation: 6s scaleIn;
-  }
-  &.activeEven {
-    animation: 6s scaleOut;
+  animation-play-state: paused;
+  background-size: 126%;
+  //&.activeOdd {
+  //  animation: 6s scaleIn;
+  //}
+  //&.activeEven {
+  //  animation: 6s scaleOut;
+  //}
+  &.play {
+    animation-play-state: running;
   }
 }
 
 @keyframes scaleIn {
   0% {
-    background-size: 100%;
+    background-size: 126%;
     //transform: scale(1);
   }
   100% {
-    background-size: 110%;
+    background-size: 131%;
     //transform: scale(1.25);
   }
 }
 @keyframes scaleOut {
   0% {
-    background-size: 110%;
+    background-size: 131%;
     //transform: scale(1.25);
   }
   100% {
-    background-size: 100%;
+    background-size: 126%;
     //transform: scale(1);
   }
 }
@@ -165,16 +294,41 @@ const mute = ref(false)
 ////
 .gallery-header,
 .gallery-footer {
-  @apply bg-dark;
+  background-color: black;
   position: absolute;
   height: calc(100vh * 0.125);
   z-index: 2;
 }
 
 .gallery-header {
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 48px;
+  z-index: 4;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  opacity: 0;
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+
+  transition: 0.5s opacity;
+
+  &.shown {
+    bottom: 0;
+    opacity: 1;
+    z-index: 3;
+  }
 }
 
 .gallery-footer {
@@ -183,20 +337,50 @@ const mute = ref(false)
   right: 0;
   display: flex;
   flex-direction: column;
-}
-
-.gallery-footer-content {
-  flex-grow: 1;
   padding: 0 48px;
 }
 
-.progress {
-  width: 100%;
-  height: 4px;
+.gallery-footer-content {
+  position: relative;
+  flex-grow: 1;
+}
 
-  &::-webkit-progress-value {
-    background: linear-gradient(90deg, #b3a2c2 0%, #fff 100%);
-    transition: width 5s linear;
+.slide-marks {
+  position: absolute;
+  width: calc(100% - 48px * 2);
+  display: flex;
+}
+.slide-mark {
+  position: absolute;
+  padding: 14px 0px;
+  font-size: 12px;
+  color: #757575;
+  transition: color 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+
+  &:hover {
+    color: #fff;
+
+    //&::before {
+    //  background-color: #fff;
+    //}
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2px;
+    height: 12px;
+    width: 1px;
+    background-color: #1d1d1d;
+    transition: background-color 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+  }
+  &.active {
+    color: white;
+
+    &::before {
+      background-color: #fff;
+    }
   }
 }
 

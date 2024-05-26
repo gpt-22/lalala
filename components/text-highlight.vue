@@ -1,5 +1,6 @@
 <template>
-  <nuxt-link :to="to" class="highlight" :style="{ top, left }">
+  <!--   :style="{ top, left }" -->
+  <nuxt-link :to="to" class="highlight">
     <app-button class="!font-bold" size="s">
       <slot />
     </app-button>
@@ -63,9 +64,9 @@ $color: white;
 }
 
 .highlight-text {
-  position: absolute;
-  top: -32px;
-  left: 35px;
+  //position: absolute;
+  //top: -32px;
+  //left: 35px;
   transition: all 0.3s;
   white-space: nowrap;
   opacity: 0;

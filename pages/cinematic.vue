@@ -1,12 +1,18 @@
 <template>
   <div class="video-container">
-    <!--    <app-button to="/" class="back-btn" @click="goBack"> Назад </app-button>-->
+    <!--        <app-button to="/" class="back-btn" @click="goBack"> Назад </app-button>-->
+    <nuxt-link to="/" class="back-btn">
+      <icon-house />
+    </nuxt-link>
+
     <video
       ref="videoElement"
       :src="`${VIDEO_BASE_URL}/cinematic.mp4`"
       preload="auto"
       autoplay
       controls
+      controlsList="nodownload noplaybackrate"
+      disablePictureInPicture
       class="video"
     />
   </div>
@@ -15,6 +21,7 @@
 <script setup>
 import { VIDEO_BASE_URL } from '~/utils/constants'
 import AppButton from '~/components/ui/app-button.vue'
+import IconHouse from '~/components/icon-house.vue'
 
 definePageMeta({
   layout: 'video'
@@ -32,8 +39,14 @@ const goBack = () => {
 <style lang="scss">
 .back-btn {
   position: fixed;
-  top: 12px;
-  left: 12px;
+  bottom: 38px;
+  right: 114px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
   z-index: 2;
 
   button {
