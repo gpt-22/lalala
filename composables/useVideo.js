@@ -122,7 +122,7 @@ export const useVideo = () => {
     const video = getVideo(key)
     if (!video.element) throw new Error('on video ended нет элемента')
 
-    video.element.currentTime = 0
+    // video.element.currentTime = 0
     video.disableOnLoaded = true
     //video.element.load()
     playVideo(video.nextKey)
