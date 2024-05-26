@@ -5,7 +5,7 @@
         v-for="item in locations"
         :key="item.key"
         class="location-item"
-        @click="$emit('change-location', item.key)"
+        @click="onClick(item.key)"
       >
         <nuxt-link :to="`/gallery?location=${item.key}`">
           {{ item.title }}
@@ -23,7 +23,7 @@
 import IconLogo from '~/components/icons/icon-logo.vue'
 import { locations } from '~/pages/gallery.data'
 const props = defineProps(['modelValue'])
-const emits = defineEmits(['update:model-value'])
+const emits = defineEmits(['update:model-value', 'change-location'])
 
 const { $gsap } = useNuxtApp()
 
@@ -34,6 +34,11 @@ onMounted(() => {
   //   duration: 0.3
   // })
 })
+
+const onClick = (itemKey) => {
+  emits('update:model-value', false)
+  emits('change-location', itemKey)
+}
 </script>
 
 <style scoped lang="scss">
@@ -82,7 +87,7 @@ onMounted(() => {
   //cursor: pointer;
 
   &:hover {
-    color: white;
+    color: #f9d0b8;
   }
 }
 </style>

@@ -2,8 +2,10 @@
   <div class="gallery">
     <header class="gallery-header">
       <gallery-burger-button v-model="menuOpen" />
-      <gallery-menu :model-value="menuOpen" @change-location="setLocation" />
+      <gallery-menu v-model="menuOpen" @change-location="setLocation" />
       <div class="overlay" :class="{ shown: menuOpen }" />
+
+      <app-button size="s" to="/section-3" @click="onBack">Назад</app-button>
     </header>
 
     <swiper
@@ -83,6 +85,8 @@ import IconMute from '~/components/icons/icon-mute.vue'
 import IconUnmute from '~/components/icons/icon-unmute.vue'
 import IconSkip from '~/components/icons/icon-skip.vue'
 import IconFullscreen from '~/components/icons/icon-fullscreen.vue'
+
+import AppButton from '~/components/ui/app-button.vue'
 
 import { locations } from '~/pages/gallery.data'
 
@@ -229,8 +233,19 @@ watch(mute, toggleAudio)
 watch(fullscreen, toggleFullScreen)
 
 onMounted(() => {
-  console.log('audio', audio.play())
+  // console.log('audio', audio.play())
 })
+
+const { showTransitionOverlay } = useTransitionOverlay()
+const { showVideo } = useVideo()
+const onBack = () => {
+  showTransitionOverlay.value = false
+
+  router.replace('/section-3')
+  // router.go(0)
+
+  // showVideo('7', { playNext: false })
+}
 </script>
 
 <style scoped lang="scss">
@@ -307,6 +322,7 @@ onMounted(() => {
   right: 0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 48px;
   z-index: 4;
 }

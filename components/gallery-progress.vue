@@ -17,7 +17,7 @@ const props = defineProps(['value', 'play'])
     background-color: #1d1d1d;
   }
   &::-webkit-progress-value {
-    background: linear-gradient(90deg, #b3a2c2 0%, #fff 100%);
+    background: linear-gradient(90deg, #f9d0b8 0%, #fff 100%);
   }
   &::before,
   &::after {
@@ -30,7 +30,7 @@ const props = defineProps(['value', 'play'])
   }
   &::before {
     left: -50%;
-    background-color: #b3a2c2;
+    background-color: #f9d0b8;
   }
   &::after {
     right: -50%;

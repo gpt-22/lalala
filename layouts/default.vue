@@ -24,17 +24,18 @@ const route = useRoute()
 
 load1()
 
-// if (route.name === 'index') {
-showVideo('1', { playNext: false })
-// } else {
-//   const videoKey = sectionToVideoKey[route.path.slice(1)]
-//   console.log('route', route.path.slice(1), videoKey || '1')
-//   if (videoKey) {
-//     showVideo(videoKey)
-//   } else {
-//     showVideo('1', { playNext: true, playTime: 1500 })
-//   }
-// }
+if (route.name === 'index') {
+  showVideo('1', { playNext: false })
+} else {
+  const videoKey = sectionToVideoKey[route.path.slice(1)]
+  console.log('route', route.path.slice(1), videoKey || '1')
+  if (videoKey) {
+    startLoading.value = false
+    showVideo(videoKey, { playNext: true })
+  } else {
+    showVideo('1', { playNext: true, playTime: 1500 })
+  }
+}
 
 // const onKeydown = (event) => {
 //   if (event.key === 'ArrowLeft') showVideo(currentVideo.value.prevKey)

@@ -82,6 +82,12 @@ export const useVideo = () => {
 
   const runCallbacks = (key, lifecycleHookName) => {
     const video = getVideo(key)
+
+    if (video.disableOnLoaded && lifecycleHookName === lifecycleHookNames.onLoaded) {
+      video.disableOnLoaded = false
+      return
+    }
+
     const callbackMap = video[lifecycleHookName]
     Object.keys(callbackMap).forEach((callbackKey) => {
       callbackMap[callbackKey]()
@@ -117,6 +123,7 @@ export const useVideo = () => {
     if (!video.element) throw new Error('on video ended нет элемента')
 
     video.element.currentTime = 0
+    video.disableOnLoaded = true
     video.element.load()
     playVideo(video.nextKey)
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="video-container">
     <!--        <app-button to="/" class="back-btn" @click="goBack"> Назад </app-button>-->
-    <nuxt-link to="/" class="back-btn">
+    <nuxt-link to="/" class="back-btn" :class="{ visible: homeVisible }" @click="goBack">
       <icon-house />
     </nuxt-link>
 
@@ -14,6 +14,10 @@
       controlsList="nodownload noplaybackrate"
       disablePictureInPicture
       class="video"
+      @mousemove="onMouseMove"
+      @pointermove="onMouseMove"
+      @pause="homeVisible = true"
+      @play="onMouseMove"
     />
   </div>
 </template>
@@ -32,20 +36,31 @@ const { startLoading } = useVideo()
 
 const goBack = () => {
   startLoading.value = true
-  router.go(-1)
+  // router.go(-1)
+}
+
+const homeVisible = ref(false)
+
+const setMouseActive = debounce(() => {
+  homeVisible.value = false
+}, 2500)
+
+const onMouseMove = () => {
+  homeVisible.value = true
+  setMouseActive()
 }
 </script>
 
 <style lang="scss">
 .back-btn {
   position: fixed;
-  bottom: 38px;
-  right: 114px;
+  top: 24px;
+  left: 24px;
 
-  svg {
-    width: 20px;
-    height: 20px;
-  }
+  //svg {
+  //  width: 20px;
+  //  height: 20px;
+  //}
 
   z-index: 2;
 
@@ -55,6 +70,12 @@ const goBack = () => {
     color: white;
     font-size: 14px;
     font-weight: 500;
+  }
+
+  opacity: 0;
+  transition: 0.3s opacity ease;
+  &.visible {
+    opacity: 1;
   }
 }
 </style>
