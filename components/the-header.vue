@@ -66,7 +66,7 @@ watch(isOpen, () => {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 3;
+  z-index: 33;
   color: #fff;
   background: rgba(22, 22, 23, 0.2); // linear-gradient(rgba(22, 22, 23, .5), transparent);
   backdrop-filter: blur(10px);

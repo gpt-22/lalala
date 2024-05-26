@@ -67,10 +67,10 @@ const onWheel = (e) => {
   }
 }
 const onMouseEnter = () => {
-  videoSaturated.value = true
+  // videoSaturated.value = true
 }
 const onMouseLeave = () => {
-  videoSaturated.value = false
+  // videoSaturated.value = false
 }
 
 const highlights = [

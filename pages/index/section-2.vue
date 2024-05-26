@@ -45,10 +45,10 @@ const { showVideo, isTransition, videoSaturated, currentVideoKey } = useVideo()
 const section2 = ref()
 
 const onMouseEnter = () => {
-  setTimeout(() => (videoSaturated.value = true), 500)
+  // setTimeout(() => (videoSaturated.value = true), 500)
 }
 const onMouseLeave = () => {
-  videoSaturated.value = false
+  //  videoSaturated.value = false
 }
 
 const goUp = throttle((deltaY) => {
