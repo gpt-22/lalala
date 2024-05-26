@@ -1,8 +1,7 @@
 <template>
   <div class="gallery-layout">
-    <slot />
-
     <div class="enter-transition" />
+    <slot />
   </div>
 </template>
 
@@ -17,6 +16,7 @@ onMounted(() => {
       opacity: 1
     },
     {
+      display: 'none',
       opacity: 0,
       duration: 1.5,
       ease: 'power1.in'

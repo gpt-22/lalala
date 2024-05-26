@@ -228,9 +228,9 @@ watch(play, togglePlay)
 watch(mute, toggleAudio)
 watch(fullscreen, toggleFullScreen)
 
-// onMounted(() => {
-//   console.log('audio', audio.play())
-// })
+onMounted(() => {
+  console.log('audio', audio.play())
+})
 </script>
 
 <style scoped lang="scss">
