@@ -39,12 +39,6 @@
         :class="{ hide: hideMask }"
       />
     </div>
-
-    <!--    <div-->
-    <!--      v-show="showTransitionOverlay"-->
-    <!--      class="transition-overlay"-->
-    <!--      :class="{ shown: showTransitionOverlay }"-->
-    <!--    />-->
   </section>
 </template>
 
@@ -98,10 +92,14 @@ const highlights = [
   }
 ]
 
-const showTransitionOverlay = ref(true)
+const { showTransitionOverlay } = useTransitionOverlay()
 
+const router = useRouter()
 const onClickHighlight = () => {
   showTransitionOverlay.value = true
+  setTimeout(() => {
+    router.push('/gallery')
+  }, 3000)
 }
 </script>
 
@@ -109,17 +107,9 @@ const onClickHighlight = () => {
 .mask {
   opacity: 0;
   transition: opacity 0.5s;
-
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  //top: 50%;
-  //left: 50%;
-  //transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
   object-fit: cover;
   z-index: 1;
 }
@@ -176,67 +166,6 @@ const onClickHighlight = () => {
     ~ .mask-4 {
       opacity: 1;
     }
-  }
-}
-
-/////
-.transition-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0);
-  transition: background-color 0.4s cubic-bezier(0.55, 0, 0.1, 1);
-  animation: 0.3s fadeOut ease;
-
-  &::before,
-  &::after {
-    content: '';
-    position: fixed;
-    left: 0;
-    right: 0;
-    background-color: black;
-    height: calc(100vh * 0.125);
-  }
-
-  &::before {
-    top: 0;
-    transform: translateY(-100%);
-    animation: 0.4s slideTop ease-in-out;
-  }
-
-  &::after {
-    bottom: 0;
-    transform: translateY(100%);
-    animation: 0.4s slideBottom ease-in-out;
-  }
-}
-
-@keyframes slideTop {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(0%);
-  }
-}
-@keyframes slideBottom {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0%);
-  }
-}
-@keyframes slideBottom {
-  from {
-    background-color: rgba(0, 0, 0, 0);
-  }
-  to {
-    background-color: rgba(0, 0, 0, 1);
   }
 }
 </style>

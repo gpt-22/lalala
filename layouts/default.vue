@@ -9,6 +9,8 @@
         <nuxt-page />
       </div>
     </template>
+
+    <transition-overlay />
   </div>
 </template>
 
