@@ -124,7 +124,7 @@ export const useVideo = () => {
 
     video.element.currentTime = 0
     video.disableOnLoaded = true
-    video.element.load()
+    //video.element.load()
     playVideo(video.nextKey)
   }
 
