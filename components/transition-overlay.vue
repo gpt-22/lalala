@@ -1,17 +1,32 @@
 <template>
-  <div
-    v-show="showTransitionOverlay"
-    class="transition-overlay"
-    :class="{ shown: showTransitionOverlay }"
-  />
+  <!--  <div v-show="showEnterOverlay" class="enter-page-overlay" :class="{ shown: showEnterOverlay }" />-->
+  <!--  <div v-show="showLeaveOverlay" class="leave-page-overlay" :class="{ shown: showLeaveOverlay }" />-->
 </template>
 
 <script setup>
-const { showTransitionOverlay } = useTransitionOverlay()
+const { showEnterOverlay, showLeaveOverlay } = usePageOverlay()
 
 const { $gsap } = useNuxtApp()
+
+watch(showEnterOverlay, (value) => {
+  if (!value) return
+
+  $gsap.fromTo(
+    '.enter-page-overlay',
+    {
+      opacity: 1
+    },
+    {
+      display: 'none',
+      opacity: 0,
+      duration: 1.5,
+      ease: 'power1.in'
+    }
+  )
+})
+
 // const animateOverlay = () => {
-//   $gsap.to('.transition-overlay', {
+//   $gsap.to('.leave-page-overlay', {
 //     background: ''
 //     delay: 1
 //   })
@@ -19,7 +34,17 @@ const { $gsap } = useNuxtApp()
 </script>
 
 <style scoped lang="scss">
-.transition-overlay {
+.enter-page-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: black;
+}
+
+.leave-page-overlay {
   position: fixed;
   top: 0;
   left: 0;

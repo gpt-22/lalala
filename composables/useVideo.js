@@ -178,6 +178,8 @@ export const useVideo = () => {
     }
 
     if (mergedOptions.play) {
+      video.playing = true
+
       if (video.loaded) {
         playVideo(key)
       } else {

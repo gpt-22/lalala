@@ -1,31 +1,37 @@
 <template>
-  <div class="app">
+  <div class="default-layout">
     <the-loader />
 
     <video-background />
 
-    <template v-if="!startLoading">
-      <the-header />
-      <div class="flex-1">
-        <nuxt-page />
-      </div>
-    </template>
-
     <transition-overlay />
+
+    <the-header v-show="showHeader" />
+    <div class="flex-1">
+      <slot />
+    </div>
   </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 const { showVideo, currentVideo, startLoading, load1 } = useVideo()
 const { $gsap } = useNuxtApp()
 onMounted(() => {
-  $gsap.to('.app', {
+  $gsap.to('.default-layout', {
     opacity: 1,
     duration: 2
   })
 })
 
 const route = useRoute()
+const showHeader = computed(() => route.name !== 'gallery' && !startLoading.value)
+
+if (route.name === 'gallery') {
+  startLoading.value = false
+}
+
 const setFirstVideo = () => {
   const section = route.path.replaceAll('/', '')
   const videoKey = sectionToVideoKey[section]
@@ -48,25 +54,11 @@ setFirstVideo()
 </script>
 
 <style scoped>
-.app {
+.default-layout {
   opacity: 0;
   min-height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
-}
-
-.btn {
-  position: fixed;
-  z-index: 100;
-  bottom: 0;
-  width: 200px;
-  height: 40px;
-}
-.btn-1 {
-  left: 0;
-}
-.btn-2 {
-  right: 0;
 }
 </style>
