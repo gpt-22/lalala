@@ -66,25 +66,25 @@ export const useVideo = () => {
       return
     }
 
+    video.element = null
     video.element = element
 
     runCallbacks(key, lifecycleHookNames.onMounted)
 
     video.element.load()
-
-    video.element.addEventListener('loadeddata', () => {
+    function onloadeddata() {
       if (video.element.readyState === 3 || video.element.readyState === 4) {
         video.loaded = true
         runCallbacks(key, lifecycleHookNames.onLoaded)
       }
-    })
+    }
+    video.element.addEventListener('loadeddata', onloadeddata)
   }
 
   const runCallbacks = (key, lifecycleHookName) => {
     const video = getVideo(key)
 
     if (video.disableOnLoaded && lifecycleHookName === lifecycleHookNames.onLoaded) {
-      console.log('BERERERERER')
       video.disableOnLoaded = false
       return
     }
@@ -157,11 +157,9 @@ export const useVideo = () => {
     playingVideo.element.play()
     console.log('PLAY', key)
 
-    // requestAnimationFrame(() => {
     videos.value.forEach((video) => {
       video.playing = video.key === key
     })
-    // })
 
     runCallbacks(key, lifecycleHookNames.onPlay)
   }

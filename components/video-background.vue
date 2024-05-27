@@ -32,8 +32,6 @@ const { videos, videoSaturated, isTransition, startLoading, setElement } = useVi
 const onEnded = (video) => {
   if (video.isTransition) isTransition.value = false
 }
-
-console.log('here3', videos.value[0].onLoaded)
 </script>
 
 <style scoped lang="scss">

@@ -1,6 +1,6 @@
 <template>
   <div class="index-page">
-    <router-view v-if="!startLoading" />
+    <nuxt-page v-if="!startLoading" />
   </div>
 </template>
 

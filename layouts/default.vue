@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <the-loader />
+
     <video-background />
 
     <template v-if="!startLoading">
@@ -15,43 +16,35 @@
 </template>
 
 <script setup>
-// import { sectionToVideoKey } from '~/composables/useVideo.data'
-
 const { showVideo, currentVideo, startLoading, load1 } = useVideo()
 const { $gsap } = useNuxtApp()
-
-const route = useRoute()
-
-load1()
-
-if (route.name === 'index') {
-  showVideo('1', { playNext: false })
-} else {
-  const videoKey = sectionToVideoKey[route.path.slice(1)]
-  console.log('route', route.path.slice(1), videoKey || '1')
-  if (videoKey) {
-    startLoading.value = false
-    showVideo(videoKey, { playNext: true })
-  } else {
-    showVideo('1', { playNext: true, playTime: 1500 })
-  }
-}
-
-// const onKeydown = (event) => {
-//   if (event.key === 'ArrowLeft') showVideo(currentVideo.value.prevKey)
-//   if (event.key === 'ArrowRight') showVideo(currentVideo.value.nextKey)
-// }
-//
-// onMounted(() => {
-//   document.addEventListener('keydown', onKeydown)
-// })
-
 onMounted(() => {
   $gsap.to('.app', {
     opacity: 1,
     duration: 2
   })
 })
+
+const route = useRoute()
+const setFirstVideo = () => {
+  const section = route.path.replaceAll('/', '')
+  const videoKey = sectionToVideoKey[section]
+  console.log('DEFAULT LAYOUT: section, video -', section, videoKey)
+
+  if (route.name === 'index') {
+    showVideo('1', { playNext: false })
+  } else {
+    if (videoKey) {
+      startLoading.value = false
+      showVideo(videoKey, { playNext: true })
+    } else {
+      showVideo('1', { playNext: true, playTime: 1500 })
+    }
+  }
+}
+
+load1()
+setFirstVideo()
 </script>
 
 <style scoped>
