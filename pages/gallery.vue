@@ -5,7 +5,7 @@
       <gallery-menu v-model="menuOpen" @change-location="setLocation" />
       <div class="overlay" :class="{ shown: menuOpen }" />
 
-      <app-button size="s" to="/section-3" @click="onBack">Назад</app-button>
+      <app-button size="s" @click="onBack">Назад</app-button>
     </header>
 
     <swiper
@@ -218,26 +218,32 @@ watch(play, togglePlay)
 watch(mute, toggleAudio)
 watch(fullscreen, toggleFullScreen)
 
+const { showEnterOverlay, showLeaveOverlay } = usePageOverlay()
+
 onMounted(() => {
+  showEnterOverlay.value = true
   console.log('GALLERY MOUNTED')
   // console.log('audio', audio.play())
 })
 
-const { showLeaveOverlay } = usePageOverlay()
 const { showVideo } = useVideo()
 const onBack = () => {
-  showLeaveOverlay.value = false
-
-  router.replace('/section-3')
-  // router.go(0)
-
-  // showVideo('7', { playNext: false })
+  showLeaveOverlay.value = true
+  setTimeout(() => {
+    showVideo('7')
+    router.push('/section-3')
+  }, 2500)
+  setTimeout(() => {
+    showLeaveOverlay.value = false
+    showEnterOverlay.value = true
+  }, 2700)
 }
 </script>
 
 <style scoped lang="scss">
 .gallery {
   position: relative;
+  z-index: 1;
 }
 
 .gallery-image {

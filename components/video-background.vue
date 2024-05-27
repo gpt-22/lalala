@@ -56,7 +56,7 @@ const onEnded = (video) => {
   min-height: 100%;
   object-fit: cover;
   transition: filter 1s;
-  z-index: 1;
+  z-index: -1;
 }
 
 @keyframes distancing {
@@ -69,7 +69,7 @@ const onEnded = (video) => {
 }
 
 .video.playing {
-  z-index: 2;
+  z-index: 0;
 }
 
 .video.startLoading {

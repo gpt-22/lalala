@@ -1,6 +1,6 @@
 <template>
-  <!--  <div v-show="showEnterOverlay" class="enter-page-overlay" :class="{ shown: showEnterOverlay }" />-->
-  <!--  <div v-show="showLeaveOverlay" class="leave-page-overlay" :class="{ shown: showLeaveOverlay }" />-->
+  <div v-show="showEnterOverlay" class="enter-page-overlay" :class="{ shown: showEnterOverlay }" />
+  <div v-show="showLeaveOverlay" class="leave-page-overlay" :class="{ shown: showLeaveOverlay }" />
 </template>
 
 <script setup>
@@ -23,7 +23,10 @@ watch(showEnterOverlay, (value) => {
       ease: 'power1.in'
     }
   )
+  setTimeout(() => (showEnterOverlay.value = false), 1500)
 })
+
+// watch(() => {})
 
 // const animateOverlay = () => {
 //   $gsap.to('.leave-page-overlay', {
