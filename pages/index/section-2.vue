@@ -1,41 +1,44 @@
 <template>
-  <section id="section-2" class="section section-2" ref="section2" @wheel="onWheel">
-    <button
-      class="section-2-btn section-2-btn-top"
-      :class="{ hide: hideMask }"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
-      @click="showVideo('8')"
-    >
-      <span>Зона 1</span>
-    </button>
-    <button
-      class="section-2-btn section-2-btn-bottom"
-      :class="{ hide: hideMask }"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
-      @click="showVideo('6')"
-    >
-      <span>Зона 2</span>
-    </button>
+  <section
+    v-show="showButtons"
+    id="section-2"
+    class="section section-2"
+    ref="section2"
+    @wheel="onWheel"
+  >
+    <div :class="{ hide: hideMask }" class="project-overview-overlay">
+      <app-button
+        v-for="(highlight, idx) in highlights"
+        :key="idx"
+        class="!font-bold section-btn"
+        :class="[`section-btn-${idx + 1}`]"
+        size="s"
+        @click="highlight.onClick"
+        @mouseenter="onMouseEnter"
+        @mouseleave="onMouseLeave"
+      >
+        {{ highlight.text }}
+      </app-button>
 
-    <img
-      :src="`${IMAGE_BASE_URL}/01_01.png`"
-      alt=""
-      class="mask mask-1"
-      :class="{ hide: hideMask }"
-    />
-    <img
-      :src="`${IMAGE_BASE_URL}/01_02.png`"
-      alt=""
-      class="mask mask-2"
-      :class="{ hide: hideMask }"
-    />
+      <img
+        :src="`${IMAGE_BASE_URL}/01_01.png`"
+        alt=""
+        class="mask mask-1"
+        :class="{ hide: hideMask }"
+      />
+      <img
+        :src="`${IMAGE_BASE_URL}/01_02.png`"
+        alt=""
+        class="mask mask-2"
+        :class="{ hide: hideMask }"
+      />
+    </div>
   </section>
 </template>
 
 <script setup>
 // TODO квадрат с едздящим текстом
+import AppButton from '~/components/ui/app-button.vue'
 import { IMAGE_BASE_URL } from '~/utils/constants'
 import { throttle } from '~/utils/decorators'
 import { useVideo } from '~/composables/useVideo'
@@ -62,85 +65,76 @@ const onWheel = (e) => {
   }
 
   if (e.deltaY < -20) {
+    showButtons.value = false
+    console.log('hide')
     goUp(e.deltaY)
   }
 }
 
+const showButtons = ref(true)
 const hideMask = computed(() => currentVideoKey.value !== '5')
+
+const highlights = [
+  {
+    text: 'Зона 1',
+    to: '/section-3',
+    onClick: () => showVideo('8')
+  },
+  {
+    text: 'Зона 2',
+    to: '/section-4',
+    onClick: () => showVideo('6')
+  }
+]
 </script>
 
 <style scoped lang="scss">
-.section-2 {
-  position: relative;
-}
-
-.section-2-btn {
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.3s;
-  color: #fff;
-  font-size: 32px;
-  z-index: 2;
-}
-
-.section-2-btn span {
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-.section-2-btn-top {
-  top: 20%;
-  bottom: 55%;
-  left: 0;
-  right: 0;
-
-  &:hover {
-    opacity: 1;
-
-    ~ .mask-1 {
-      opacity: 1;
-    }
-
-    span {
-      display: initial;
-      opacity: 1;
-    }
-  }
-}
-
-.section-2-btn-bottom {
-  top: 45%;
-  bottom: 25%;
-  left: 0;
-  right: 0;
-
-  &:hover {
-    opacity: 1;
-
-    ~ .mask-2 {
-      opacity: 1;
-    }
-
-    span {
-      opacity: 1;
-    }
-  }
-}
-
 .mask {
   opacity: 0;
   transition: opacity 0.5s;
-
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
   object-fit: cover;
+  z-index: 1;
 }
 
 .hide {
   display: none;
+}
+
+.project-overview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 200px);
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
+  z-index: 3;
+}
+
+:deep(.section-btn) {
+  margin-top: 80vh;
+  z-index: 20;
+}
+
+.section-btn-1 {
+  &:hover {
+    ~ .mask-1 {
+      opacity: 1;
+    }
+  }
+}
+.section-btn-2 {
+  &:hover {
+    ~ .mask-2 {
+      opacity: 1;
+    }
+  }
 }
 </style>

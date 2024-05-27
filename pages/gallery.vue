@@ -179,7 +179,7 @@ const { width } = useElementBounding(progressElement)
 const totalProgress = computed(() => {
   const currentSlideProgressNormalized =
     currentSlideProgress.value / currentLocation.value.images.length
-  return currentSlideStartProgress.value + currentSlideProgressNormalized
+  return (currentSlideStartProgress.value + currentSlideProgressNormalized).toFixed(2)
 })
 
 const audio = new Audio('/audio/test.mp3')
