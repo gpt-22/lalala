@@ -2,7 +2,7 @@
   <header id="header" class="header" :class="{ open: isOpen }">
     <app-container class="h-full">
       <div class="header-content">
-        <nuxt-link to="/section-1" class="flex items-center" @click="showVideo('2')">
+        <nuxt-link to="/" class="flex items-center" @click="onClickLogo">
           <icon-logo class="w-[147px] h-[20px]" />
         </nuxt-link>
 
@@ -28,7 +28,7 @@
 import IconLogo from '~/components/icons/icon-logo.vue'
 import Contacts from '~/components/contacts.vue'
 
-const { showVideo } = useVideo()
+const { showVideo, startLoading } = useVideo()
 const { $gsap } = useNuxtApp()
 
 let burgerLinksTimeline
@@ -57,6 +57,11 @@ watch(isOpen, () => {
     burgerLinksTimeline.restart()
   }
 })
+
+const onClickLogo = () => {
+  startLoading.value = true
+  showVideo('1')
+}
 </script>
 
 <style scoped lang="scss">

@@ -96,26 +96,12 @@ import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination, Scrollbar, EffectFade, Autoplay, Parallax } from 'swiper/modules'
-
-definePageMeta({
-  layout: 'gallery'
-})
+import { Autoplay } from 'swiper/modules'
 
 /* TODO:
- * добавить слайдер +
- * иконки плеера +
- *
- * проигрывание / остановка +
- * включение / выключение музыки +
- * фуллскрин +
- * переключение слайдов +
  * анимация переключения слайдов
  * анимация при нажатии на кнопки
  * progress
- *
- * бургер +
- * меню бургер +
  * анимация элементов списка
  * анимация скрытия оверлэя
  * */
@@ -233,13 +219,14 @@ watch(mute, toggleAudio)
 watch(fullscreen, toggleFullScreen)
 
 onMounted(() => {
+  console.log('GALLERY MOUNTED')
   // console.log('audio', audio.play())
 })
 
-const { showTransitionOverlay } = useTransitionOverlay()
+const { showLeaveOverlay } = usePageOverlay()
 const { showVideo } = useVideo()
 const onBack = () => {
-  showTransitionOverlay.value = false
+  showLeaveOverlay.value = false
 
   router.replace('/section-3')
   // router.go(0)

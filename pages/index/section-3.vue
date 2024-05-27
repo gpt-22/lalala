@@ -92,11 +92,11 @@ const highlights = [
   }
 ]
 
-const { showTransitionOverlay } = useTransitionOverlay()
+const { showLeaveOverlay } = usePageOverlay()
 
 const router = useRouter()
 const onClickHighlight = () => {
-  showTransitionOverlay.value = true
+  showLeaveOverlay.value = true
   setTimeout(() => {
     router.push('/gallery')
   }, 3000)

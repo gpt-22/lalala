@@ -1,6 +1,6 @@
 <template>
   <div class="index-page">
-    <nuxt-page v-if="!startLoading" />
+    <slot v-if="!startLoading" />
   </div>
 </template>
 
