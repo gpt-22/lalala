@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware((to, from, kek) => {
   }
 
   if (to.matched.length === 0) {
-    // console.log('navigateTo /')
+    console.log('navigateTo /')
     return navigateTo('/')
   }
 })

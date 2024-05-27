@@ -48,7 +48,7 @@ import { throttle } from '~/utils/decorators'
 import { useVideo } from '~/composables/useVideo'
 import AppButton from '~/components/ui/app-button.vue'
 
-const { showVideo, isTransition, currentVideoKey, videoSaturated } = useVideo()
+const { showVideo, isTransition, currentVideoKey, videoSaturated, startLoading } = useVideo()
 
 const hideMask = computed(() => currentVideoKey.value !== '7')
 
