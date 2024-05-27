@@ -24,6 +24,7 @@
         :key="imageSrc"
         class="slide"
         v-slot="{ isActive }"
+        @click="play = !play"
       >
         <div
           class="gallery-image"
@@ -295,6 +296,7 @@ const onBack = () => {
 }
 
 .slide {
+  cursor: pointer;
   width: 100vw;
   height: 100vh;
 }
