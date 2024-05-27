@@ -84,6 +84,7 @@ export const useVideo = () => {
     const video = getVideo(key)
 
     if (video.disableOnLoaded && lifecycleHookName === lifecycleHookNames.onLoaded) {
+      console.log('BERERERERER')
       video.disableOnLoaded = false
       return
     }
