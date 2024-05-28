@@ -1,6 +1,6 @@
 <template>
   <section id="section-3" class="section" ref="section3" @wheel="onWheel">
-    <div :class="{ hide: hideMask }" class="project-overview-overlay">
+    <div v-show="showButtons" :class="{ hide: hideMask }" class="project-overview-overlay">
       <app-button
         v-for="(highlight, idx) in highlights"
         :key="idx"
@@ -51,9 +51,11 @@ import AppButton from '~/components/ui/app-button.vue'
 const { startLoading } = useLoader()
 const { showVideo, isTransition, currentVideoKey, videoSaturated } = useVideo()
 
+const showButtons = ref(true)
 const hideMask = computed(() => currentVideoKey.value !== '7')
 
 const goUp = throttle((deltaY) => {
+  showButtons.value = false
   console.log('3 SCROLL UP', deltaY)
   showVideo('6r')
 }, 1000)
@@ -96,6 +98,7 @@ const highlights = [
 const { showLeaveOverlay } = usePageOverlay()
 const router = useRouter()
 const onClickHighlight = () => {
+  showButtons.value = false
   videoSaturated.value = false
   showLeaveOverlay.value = true
   setTimeout(() => {

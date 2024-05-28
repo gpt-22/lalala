@@ -79,6 +79,7 @@ const highlights = [
     text: 'Зона 1',
     to: '/section-3',
     onClick: () => {
+      showButtons.value = false
       videoSaturated.value = false
       showVideo('8')
     }
@@ -87,6 +88,7 @@ const highlights = [
     text: 'Зона 2',
     to: '/section-4',
     onClick: () => {
+      showButtons.value = false
       videoSaturated.value = false
       showVideo('6')
     }
