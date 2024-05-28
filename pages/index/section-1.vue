@@ -2,13 +2,13 @@
   <section id="section-1" class="section h-screen" ref="section1" @wheel="onWheel">
     <app-container class="flex h-full">
       <div v-show="showInfo" class="project-info">
-        <h1 class="title">Оазиз</h1>
+        <h1 class="title">*****</h1>
         <img :src="imageBack" alt="" class="image-back" />
 
-        <p class="sub-title">Аппартаменты премиального класса</p>
-        <p class="text">Расположение - Сочи, Россия</p>
-        <p class="text">Общая площадь - 20 000 м2</p>
-        <p class="text">Площадь застройки - 10 000 м2</p>
+        <p class="sub-title">*********** ********* *****</p>
+        <p class="text text-1">******** - ***** *****</p>
+        <p class="text text-2">******* ****** - *****</p>
+        <p class="text text-3">***** ****** - **** ***** *</p>
       </div>
     </app-container>
   </section>
@@ -51,6 +51,11 @@ const setGsapAnimations = () => {
       delay: 0.5
     }
   )
+  timeline.to('.title', { duration: 1, text: 'Оазиз' })
+  timeline.to('.sub-title', { duration: 1, text: 'Аппартаменты премиального класса' })
+  timeline.to('.text-1', { duration: 1, text: 'Расположение - Сочи, Россия' })
+  timeline.to('.text-2', { duration: 1, text: 'Общая площадь - 20 000 м2' })
+  timeline.to('.text-3', { duration: 1, text: 'Площадь застройки - 10 000 м2' })
 }
 
 const goDown = throttle(() => {

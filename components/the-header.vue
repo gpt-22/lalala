@@ -3,7 +3,7 @@
     <app-container class="h-full">
       <div class="header-content">
         <nuxt-link to="/" class="flex items-center" @click="onClickLogo">
-          <logo />
+          <logo color="#ffffffcc" />
         </nuxt-link>
 
         <nav-links class="links" />
@@ -15,7 +15,7 @@
         <div class="burger-menu">
           <nav class="links-burger">
             <nuxt-link to="#roadmap" class="burger-link">Обзор</nuxt-link>
-            <nuxt-link to="#projects" class="burger-link">Проекты</nuxt-link>
+            <!--            <nuxt-link to="#projects" class="burger-link">Проекты</nuxt-link>-->
             <nuxt-link to="#about" class="burger-link">О нас</nuxt-link>
           </nav>
         </div>
@@ -27,7 +27,7 @@
 <script setup>
 import Contacts from '~/components/contacts.vue'
 
-const { startLoading } = useLoader()
+const { startView } = useLoader()
 const { showVideo } = useVideo()
 const { $gsap } = useNuxtApp()
 
@@ -59,7 +59,7 @@ watch(isOpen, () => {
 })
 
 const onClickLogo = () => {
-  startLoading.value = true
+  startView.value = true
   showVideo('1')
 }
 </script>
@@ -73,8 +73,9 @@ const onClickLogo = () => {
   right: 0;
   z-index: 33;
   color: #fff;
-  background: rgba(22, 22, 23, 0.2); // linear-gradient(rgba(22, 22, 23, .5), transparent);
-  backdrop-filter: blur(10px);
+  background: rgba(177, 146, 128, 0.7);
+  // rgba(22, 22, 23, 0.2); // linear-gradient(rgba(22, 22, 23, .5), transparent);
+  //backdrop-filter: blur(10px);
   padding: 1em 0;
 
   // animation

@@ -124,21 +124,6 @@ const highlights = [
   align-items: center;
   gap: 20px;
   z-index: 3;
-
-  &:before {
-    content: 'Выберите зону';
-    position: absolute;
-    top: 46px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 520px;
-    margin-top: 80vh;
-    border-bottom: 3px solid #f9d0b8;
-    text-align: right;
-    font-size: 14px;
-    line-height: 24px;
-    color: #f9d0b8;
-  }
 }
 
 :deep(.section-btn) {
@@ -197,6 +182,23 @@ const highlights = [
     ~ .mask-1 {
       opacity: 1;
     }
+  }
+}
+
+:deep(.section-btn-1) {
+  position: relative;
+
+  &::after {
+    content: 'Выберите зону';
+    position: absolute;
+    top: -36px;
+    left: 0;
+    width: calc(200% + 20px);
+    border-bottom: 3px solid #f9d0b8;
+    text-align: right;
+    font-size: 14px;
+    line-height: 24px;
+    color: #f9d0b8;
   }
 }
 </style>

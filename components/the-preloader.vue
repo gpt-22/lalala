@@ -1,18 +1,34 @@
 <template>
   <div v-if="preloader" class="preloader">
-    <div class="flex flex-col gap-1 items-center">
+    <!--    <div v-if="!quality.length" class="quality-container">-->
+    <!--      <app-button @click="quality = 'h'">Высокое</app-button>-->
+    <!--      <app-button @click="quality = 'm'">Среднее</app-button>-->
+    <!--    </div>-->
+    <!---->
+    <!--    <app-button @click="quality = 'm'">Продолжить</app-button>-->
+    <!--    <app-checkbox></app-checkbox>-->
+
+    <div v-if="quality.length" class="flex flex-col gap-1 items-end">
       <div class="progress" />
       <div class="counter">100</div>
     </div>
+
+    <!--      <div class="sound-container">-->
+    <!--        <app-button size="s" :active="sound">Включен</app-button>-->
+    <!--        <app-button size="s" :active="!sound">Выключен</app-button>-->
+    <!--      </div>-->
   </div>
 </template>
 
 <script setup>
 import { Power2 } from 'gsap'
+import AppButton from '~/components/ui/app-button.vue'
+import AppCheckbox from '~/components/ui/app-checkbox.vue'
 
 const { preloader } = useLoader()
 
 const { $gsap } = useNuxtApp()
+
 onMounted(() => {
   const timeline = $gsap.timeline()
 
@@ -34,6 +50,9 @@ onMounted(() => {
     }
   })
 })
+
+const quality = ref('h')
+const sound = ref(false)
 </script>
 
 <style scoped lang="scss">
@@ -53,7 +72,8 @@ onMounted(() => {
 
 .progress {
   position: relative;
-  width: 300px;
+  min-width: 300px;
+  width: 100%;
   height: 4px;
   background-color: #1d1d1d;
 
@@ -79,7 +99,36 @@ onMounted(() => {
 }
 
 .counter {
-  font: 900 5em system-ui;
+  font-style: italic;
+  font: 600 1.2em system-ui;
   color: #b19280;
+  text-align: right;
+}
+
+.quality-container,
+.sound-container {
+  margin-top: 60px;
+  position: relative;
+  display: flex;
+  gap: 16px;
+
+  &:before {
+    content: 'Выберите качество';
+    position: absolute;
+    top: -48px;
+    left: 0;
+    width: 100%;
+    border-bottom: 3px solid #f9d0b8;
+    text-align: left;
+    font-size: 16px;
+    line-height: 30px;
+    color: #f9d0b8;
+  }
+}
+
+.sound-container {
+  &:before {
+    content: 'Звук';
+  }
 }
 </style>

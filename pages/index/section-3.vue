@@ -48,7 +48,6 @@ import { throttle } from '~/utils/decorators'
 import { useVideo } from '~/composables/useVideo'
 import AppButton from '~/components/ui/app-button.vue'
 
-const { startLoading } = useLoader()
 const { showVideo, isTransition, currentVideoKey, videoSaturated } = useVideo()
 
 const showButtons = ref(true)
@@ -131,26 +130,11 @@ const onClickHighlight = () => {
   bottom: 0;
   opacity: 1;
   display: grid;
-  grid-template-columns: repeat(4, 250px);
+  grid-template-columns: repeat(4, minmax(200px, 250px));
   justify-content: center;
   align-items: center;
   gap: 20px;
   z-index: 3;
-
-  &:before {
-    content: 'Выберите зону';
-    position: absolute;
-    top: 46px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1060px;
-    margin-top: 80vh;
-    border-bottom: 3px solid #f9d0b8;
-    text-align: right;
-    font-size: 14px;
-    line-height: 24px;
-    color: #f9d0b8;
-  }
 }
 
 :deep(.section-btn) {
@@ -222,6 +206,23 @@ const onClickHighlight = () => {
     ~ .mask-3 {
       opacity: 1;
     }
+  }
+}
+
+:deep(.section-btn-1) {
+  position: relative;
+
+  &::after {
+    content: 'Выберите зону';
+    position: absolute;
+    top: -36px;
+    left: 0;
+    width: calc(400% + 60px);
+    border-bottom: 3px solid #f9d0b8;
+    text-align: right;
+    font-size: 14px;
+    line-height: 24px;
+    color: #f9d0b8;
   }
 }
 </style>

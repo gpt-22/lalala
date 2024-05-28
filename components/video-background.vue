@@ -6,7 +6,7 @@
       :class="{
         playing: video.playing,
         saturated: videoSaturated,
-        startLoading: startLoading
+        startView: startView
       }"
       :key="video.key"
       :ref="(el) => setElement(video.key, el)"
@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-const { startLoading } = useLoader()
+const { startView } = useLoader()
 const { videos, videoSaturated, isTransition, setElement } = useVideo()
 
 const onEnded = (video) => {
@@ -74,7 +74,7 @@ const onEnded = (video) => {
 }
 
 // TODO
-.video.startLoading {
+.video.startView {
   animation: 3s distancing;
 }
 

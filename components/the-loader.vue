@@ -1,5 +1,5 @@
 <template>
-  <div v-show="startLoading" id="site-loader" class="site-loader">
+  <div v-show="startView" id="site-loader" class="site-loader">
     <div class="loader-content">
       <h1 id="loader-title" class="title">
         <span class="everybody">Каждый</span>
@@ -38,16 +38,16 @@
 <script setup>
 import AppButton from '~/components/ui/app-button.vue'
 const { $gsap } = useNuxtApp()
-const { startLoading } = useLoader()
+const { startView } = useLoader()
 const { showVideo } = useVideo()
 
 const onGoToCinematic = () => {
   console.log('onGoToCinematic')
-  startLoading.value = false
+  startView.value = false
   setPageLayout('video')
 }
 const onGoToSite = () => {
-  startLoading.value = false
+  startView.value = false
   console.log('onGoToSite')
   showVideo('2')
 }
@@ -167,7 +167,7 @@ onMounted(() => {
 
 .loader-content {
   position: relative;
-  bottom: -14%;
+  bottom: -8%;
   display: flex;
   flex-direction: column;
   //TODO
@@ -188,9 +188,9 @@ onMounted(() => {
 
 .title {
   display: flex;
-  font-size: 84px;
-  line-height: 70px;
-  letter-spacing: 2px;
+  font-size: 7.8vw;
+  line-height: 7.2vw;
+  letter-spacing: 0.1vw;
   //transform: scale(0.5, 1);
   font-family: MontserratAlt;
   font-weight: 500;
@@ -204,13 +204,13 @@ onMounted(() => {
   justify-content: center;
 }
 .own {
-  font-size: 42px;
-  line-height: 42px;
+  font-size: 3.9vw;
+  line-height: 3.9vw;
   letter-spacing: 0.1em;
 }
 .find {
-  font-size: 30px;
-  line-height: 30px;
+  font-size: 2.6vw;
+  line-height: 2.6vw;
 }
 .oasis {
   position: relative;

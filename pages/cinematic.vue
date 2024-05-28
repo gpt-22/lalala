@@ -32,10 +32,10 @@ definePageMeta({
 })
 
 const router = useRouter()
-const { startLoading } = useLoader()
+const { startView } = useLoader()
 
 const goBack = () => {
-  startLoading.value = true
+  startView.value = true
   // router.go(-1)
 }
 

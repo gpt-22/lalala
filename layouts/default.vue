@@ -11,6 +11,8 @@
       <slot />
     </div>
 
+    <about />
+
     <the-preloader />
   </div>
 </template>
@@ -18,7 +20,7 @@
 <script setup>
 import { computed } from 'vue'
 
-const { preloader, startLoading } = useLoader()
+const { preloader, startView } = useLoader()
 const { showVideo, currentVideo, load1 } = useVideo()
 const { $gsap } = useNuxtApp()
 onMounted(() => {
@@ -29,17 +31,18 @@ onMounted(() => {
 })
 
 const route = useRoute()
-const showHeader = computed(() => route.name !== 'gallery' && !startLoading.value)
+const showHeader = computed(() => route.name !== 'gallery' && !startView.value)
 
 if (route.name === 'gallery') {
-  startLoading.value = false
+  startView.value = false
 }
 
 preloader.value = true
+// }
 watch(preloader, (value) => {
   if (!value && route.name === 'index') {
     console.log('here')
-    startLoading.value = true
+    startView.value = true
   }
 })
 
@@ -55,7 +58,7 @@ const setFirstVideo = () => {
     showVideo('1', { playNext: false })
   } else {
     if (videoKey) {
-      startLoading.value = false
+      startView.value = false
       showVideo(videoKey, { playNext: true })
     } else {
       showVideo('1', { playNext: true, playTime: 1500 })

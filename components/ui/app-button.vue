@@ -2,7 +2,7 @@
   <button
     v-if="!to"
     class="app-btn"
-    :class="{ [theme]: theme, [mouseClass]: mouseClass, [size]: size }"
+    :class="{ [theme]: theme, [mouseClass]: mouseClass, [size]: size, [acitve]: active }"
     v-bind="$attrs"
     @mouseenter="mouseClass = 'enter'"
     @mouseleave="mouseClass = 'leave'"
@@ -15,7 +15,7 @@
   <nuxt-link v-if="to" :to="to" v-bind="$attrs" class="flex">
     <button
       class="app-btn"
-      :class="{ [theme]: theme, [mouseClass]: mouseClass, [size]: size }"
+      :class="{ [theme]: theme, [mouseClass]: mouseClass, [size]: size, [acitve]: active }"
       v-bind="$attrs"
       @mouseenter="mouseClass = 'enter'"
       @mouseleave="mouseClass = 'leave'"
@@ -32,6 +32,7 @@ interface Props {
   to?: string
   theme?: string
   size?: string
+  active?: boolean
 }
 const props = withDefaults(defineProps<Props>(), { theme: 'light', size: 'm' })
 
@@ -120,6 +121,10 @@ const mouseClass = ref('leave')
   }
 
   &:active {
+    background-color: #b19280cc;
+  }
+
+  &.active {
     background-color: #b19280cc;
   }
 

@@ -1,9 +1,9 @@
 const preloader = ref(true)
-const startLoading = ref(false)
+const startView = ref(false)
 
 export const useLoader = () => {
   return {
     preloader,
-    startLoading
+    startView
   }
 }

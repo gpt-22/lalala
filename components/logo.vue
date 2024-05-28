@@ -1,9 +1,13 @@
 <template>
   <div class="logo">
-    <span class="logo-left">archi</span>
+    <span class="logo-left" :style="{ color }">archi</span>
     <span class="logo-right">grade</span>
   </div>
 </template>
+
+<script setup>
+const props = defineProps(['color'])
+</script>
 
 <style scoped lang="scss">
 .logo {

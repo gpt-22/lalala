@@ -6,9 +6,9 @@
 
 <style scoped lang="scss">
 .app-container {
-  max-width: 1350px;
+  //max-width: 1350px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 4vw;
 }
 
 @media (max-width: 640px) {

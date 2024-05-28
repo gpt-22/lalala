@@ -1,6 +1,6 @@
 <template>
   <nav class="flex items-center uppercase text-sm font-medium">
-    <nuxt-link v-for="link in links" :to="link.to" class="link" @click="onClick(link.to)">
+    <nuxt-link v-for="link in links" :to="link.to" class="link" @click="link.onClick(link)">
       <span class="link-text">{{ link.text }}</span>
     </nuxt-link>
   </nav>
@@ -11,26 +11,39 @@ const route = useRoute()
 const router = useRouter()
 // const { $lenis } = useNuxtApp()
 
-const { showVideo } = useVideo()
+const { showVideo, videoSaturated } = useVideo()
 
-const links = [
-  { to: 'section-2', text: 'Обзор' },
-  { to: 'projects', text: 'Проекты' },
-  { to: 'about', text: 'О нас' }
-]
-
-const onClick = (to) => {
+const onClick = (link) => {
   if (route.name !== 'index') {
-    router.push(`/${to}`)
+    router.push(`/${link.to}`)
   }
 
-  if (to === 'section-2') {
+  if (link.to === 'section-2') {
     showVideo('5')
   }
 
   // document.querySelector(to).scrollIntoView()
   // $lenis.scrollTo(to)
 }
+
+const { showAbout } = useShow()
+
+const links = [
+  {
+    to: 'section-2',
+    text: 'Обзор',
+    onClick: onClick
+  },
+  // { to: 'projects', text: 'Проекты' },
+  {
+    to: 'about',
+    text: 'О нас',
+    onClick: () => {
+      showAbout.value = true
+      videoSaturated.value = true
+    }
+  }
+]
 </script>
 
 <style scoped lang="scss">
