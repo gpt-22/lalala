@@ -14,13 +14,12 @@
     </ul>
 
     <nuxt-link to="/" class="mt-[48px]">
-      <icon-logo class="w-[147px] h-[20px]" />
+      <logo />
     </nuxt-link>
   </nav>
 </template>
 
 <script setup>
-import IconLogo from '~/components/icons/icon-logo.vue'
 import { locations } from '~/pages/gallery.data'
 const props = defineProps(['modelValue'])
 const emits = defineEmits(['update:model-value', 'change-location'])

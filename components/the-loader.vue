@@ -18,8 +18,6 @@
         <span class="oasis">оазиз</span>
       </div>
 
-      <!--      <icon-logo id="loader-logo" class="loader-animation-item mt-3 self-end w-[147px] h-[20px]" />-->
-
       <div id="loader-buttons" class="buttons-container">
         <app-button theme="dark" class="loader-btn" to="cinematic" @click="onGoToCinematic">
           Синематик
@@ -32,13 +30,12 @@
         </app-button>
       </div>
 
-      <logo class="self-end" />
+      <logo class="logo self-end" />
     </div>
   </div>
 </template>
 
 <script setup>
-import IconLogo from '~/components/icons/icon-logo.vue'
 import AppButton from '~/components/ui/app-button.vue'
 const { $gsap } = useNuxtApp()
 const { startLoading } = useLoader()
@@ -78,7 +75,7 @@ onMounted(() => {
     },
     {
       opacity: 1,
-      duration: 3
+      duration: 1
     }
   )
   tl.fromTo(
@@ -91,31 +88,51 @@ onMounted(() => {
       duration: 1
     }
   )
-
-  loaderTimeline = $gsap.timeline({ delay: 6 })
-  loaderTimeline.fromTo(
-    '.loader-animation-item',
-    {
-      opacity: 0
-    },
-    {
-      stagger: 1,
-      // x: 0,
-      opacity: 0.6,
-      duration: 5
-    }
-  )
-  $gsap.fromTo(
+  tl.fromTo(
     '#loader-buttons',
     {
       opacity: 0
     },
     {
-      delay: 6,
       opacity: 1,
-      duration: 3
+      duration: 1
     }
   )
+  tl.fromTo(
+    '.logo',
+    {
+      opacity: 0
+    },
+    {
+      opacity: 1,
+      duration: 1
+    }
+  )
+
+  // loaderTimeline = $gsap.timeline({ delay: 6 })
+  // loaderTimeline.fromTo(
+  //   '.loader-animation-item',
+  //   {
+  //     opacity: 0
+  //   },
+  //   {
+  //     stagger: 1,
+  //     // x: 0,
+  //     opacity: 0.6,
+  //     duration: 5
+  //   }
+  // )
+  // $gsap.fromTo(
+  //   '#loader-buttons',
+  //   {
+  //     opacity: 0
+  //   },
+  //   {
+  //     delay: 6,
+  //     opacity: 1,
+  //     duration: 3
+  //   }
+  // )
 })
 </script>
 

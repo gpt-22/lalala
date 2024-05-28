@@ -19,9 +19,9 @@
 </template>
 
 <script setup>
-import IconTg from "~/components/icons/icon-tg.vue"
-import IconWhatsapp from "~/components/icons/icon-whatsapp.vue"
-import IconMail from "~/components/icons/icon-mail.vue"
+import IconTg from '~/components/icons/icon-tg.vue'
+import IconWhatsapp from '~/components/icons/icon-whatsapp.vue'
+import IconMail from '~/components/icons/icon-mail.vue'
 </script>
 
 <style scoped lang="scss">
@@ -33,10 +33,14 @@ import IconMail from "~/components/icons/icon-mail.vue"
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: .2s;
+  transition: 0.2s;
 
   &:hover {
-    box-shadow: 0 0 4px 2px #ccc;
+    box-shadow: 0 0 4px 2px #f9d0b8;
+  }
+
+  &:active {
+    color: #f9d0b8;
   }
 }
 </style>

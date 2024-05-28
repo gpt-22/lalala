@@ -3,7 +3,7 @@
     <app-container class="h-full">
       <div class="header-content">
         <nuxt-link to="/" class="flex items-center" @click="onClickLogo">
-          <icon-logo class="w-[147px] h-[20px]" />
+          <logo />
         </nuxt-link>
 
         <nav-links class="links" />
@@ -25,7 +25,6 @@
 </template>
 
 <script setup>
-import IconLogo from '~/components/icons/icon-logo.vue'
 import Contacts from '~/components/contacts.vue'
 
 const { startLoading } = useLoader()

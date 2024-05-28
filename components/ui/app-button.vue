@@ -57,32 +57,33 @@ const mouseClass = ref('leave')
   //color: #262626;
   color: #fff;
   font-family: MontserratAlt;
+  font-weight: 400;
   transition: all 0.2s;
 
   white-space: nowrap;
   //text-transform: uppercase;
 
   &.s {
-    min-width: 100px;
+    min-width: 180px;
     min-height: 30px;
     font-size: 12px;
     font-weight: 400;
   }
   &.m {
-    min-width: 120px;
+    min-width: 240px;
     min-height: 40px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
   }
   &.l {
-    min-width: 140px;
+    min-width: 280px;
     min-height: 50px;
     font-size: 16px;
     font-weight: 500;
   }
 
   &.xl {
-    min-width: 160px;
+    min-width: 300px;
     min-height: 60px;
     font-size: 20px;
     font-weight: 500;

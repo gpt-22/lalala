@@ -102,8 +102,7 @@ const onMouseMove = () => {
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: 100%;
-  min-height: 100%;
-  height: 90vh;
+  height: 85vh;
   object-fit: cover;
 }
 </style>

@@ -42,6 +42,14 @@ const onClick = (to) => {
     width: 100%;
     left: 0;
   }
+
+  &:active {
+    color: #f9d0b8;
+
+    & .link-text::before {
+      background-color: #f9d0b8;
+    }
+  }
 }
 
 .link-text {

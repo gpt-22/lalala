@@ -3,20 +3,19 @@
     <app-container>
       <div class="footer-content">
         <nuxt-link to="/" class="order-3 sm:order-1 pt-16 sm:pt-0">
-          <icon-logo class="w-[147px] h-[20px]" />
+          <logo />
         </nuxt-link>
 
         <nav-links class="links" />
 
-        <contacts class="contacts order-2  sm:order-3" />
+        <contacts class="contacts order-2 sm:order-3" />
       </div>
     </app-container>
   </footer>
 </template>
 
 <script setup>
-import IconLogo from "~/components/icons/icon-logo.vue"
-import Contacts from "~/components/contacts.vue"
+import Contacts from '~/components/contacts.vue'
 </script>
 
 <style scoped lang="scss">
@@ -55,4 +54,3 @@ import Contacts from "~/components/contacts.vue"
   }
 }
 </style>
-

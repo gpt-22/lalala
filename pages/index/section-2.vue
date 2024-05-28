@@ -76,21 +76,21 @@ const hideMask = computed(() => currentVideoKey.value !== '5')
 
 const highlights = [
   {
-    text: 'Зона 1',
-    to: '/section-3',
-    onClick: () => {
-      showButtons.value = false
-      videoSaturated.value = false
-      showVideo('8')
-    }
-  },
-  {
-    text: 'Зона 2',
+    text: 'Пляж',
     to: '/section-4',
     onClick: () => {
       showButtons.value = false
       videoSaturated.value = false
       showVideo('6')
+    }
+  },
+  {
+    text: 'Резиденция',
+    to: '/section-3',
+    onClick: () => {
+      showButtons.value = false
+      videoSaturated.value = false
+      showVideo('8')
     }
   }
 ]
@@ -119,28 +119,82 @@ const highlights = [
   bottom: 0;
   opacity: 1;
   display: grid;
-  grid-template-columns: repeat(2, 200px);
+  grid-template-columns: repeat(2, 250px);
   justify-content: center;
   align-items: center;
-  gap: 1px;
+  gap: 20px;
   z-index: 3;
+
+  &:before {
+    content: 'Выберите зону';
+    position: absolute;
+    top: 46px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 520px;
+    margin-top: 80vh;
+    border-bottom: 3px solid #f9d0b8;
+    text-align: right;
+    font-size: 14px;
+    line-height: 24px;
+    color: #f9d0b8;
+  }
 }
 
 :deep(.section-btn) {
   margin-top: 80vh;
   z-index: 20;
+  position: relative;
+
+  &::before {
+    content: 'перейти';
+    position: absolute;
+    bottom: -34px;
+    left: 0;
+    width: 100%;
+    border-top: 3px solid #f9d0b8;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: left;
+    color: #f9d0b8;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition:
+      0.4s transform,
+      0.1s opacity;
+  }
+
+  &:hover::before {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  &:not(:hover)::before {
+    animation: 0.3s slide-top ease-in-out;
+  }
+
+  @keyframes slide-top {
+    0% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50%);
+    }
+  }
 }
 
 .section-btn-1 {
   &:hover {
-    ~ .mask-1 {
+    ~ .mask-2 {
       opacity: 1;
     }
   }
 }
 .section-btn-2 {
   &:hover {
-    ~ .mask-2 {
+    ~ .mask-1 {
       opacity: 1;
     }
   }

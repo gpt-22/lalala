@@ -80,5 +80,6 @@ onMounted(() => {
 
 .counter {
   font: 900 5em system-ui;
+  color: #b19280;
 }
 </style>

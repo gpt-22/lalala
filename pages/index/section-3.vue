@@ -78,7 +78,11 @@ const onMouseLeave = () => {
 
 const highlights = [
   {
-    text: 'Бассейная группа',
+    text: 'Пирс',
+    to: '/gallery'
+  },
+  {
+    text: 'Бассейн',
     to: '/gallery'
   },
   {
@@ -86,11 +90,7 @@ const highlights = [
     to: '/gallery'
   },
   {
-    text: 'Зона отдыха',
-    to: '/gallery'
-  },
-  {
-    text: 'Зона с яхтами',
+    text: 'Пляж',
     to: '/gallery'
   }
 ]
@@ -131,42 +131,95 @@ const onClickHighlight = () => {
   bottom: 0;
   opacity: 1;
   display: grid;
-  grid-template-columns: repeat(4, 200px);
+  grid-template-columns: repeat(4, 250px);
   justify-content: center;
   align-items: center;
-  gap: 1px;
+  gap: 20px;
   z-index: 3;
+
+  &:before {
+    content: 'Выберите зону';
+    position: absolute;
+    top: 46px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1060px;
+    margin-top: 80vh;
+    border-bottom: 3px solid #f9d0b8;
+    text-align: right;
+    font-size: 14px;
+    line-height: 24px;
+    color: #f9d0b8;
+  }
 }
 
 :deep(.section-btn) {
   margin-top: 80vh;
   z-index: 20;
+
+  &::before {
+    content: 'перейти';
+    position: absolute;
+    bottom: -34px;
+    left: 0;
+    width: 100%;
+    border-top: 3px solid #f9d0b8;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: left;
+    color: #f9d0b8;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition:
+      0.4s transform,
+      0.1s opacity;
+  }
+
+  &:hover::before {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  &:not(:hover)::before {
+    animation: 0.3s slide-top ease-in-out;
+  }
+
+  @keyframes slide-top {
+    0% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50%);
+    }
+  }
 }
 
 .section-btn-1 {
   &:hover {
-    ~ .mask-1 {
+    ~ .mask-4 {
       opacity: 1;
     }
   }
 }
 .section-btn-2 {
   &:hover {
-    ~ .mask-2 {
+    ~ .mask-1 {
       opacity: 1;
     }
   }
 }
 .section-btn-3 {
   &:hover {
-    ~ .mask-3 {
+    ~ .mask-2 {
       opacity: 1;
     }
   }
 }
 .section-btn-4 {
   &:hover {
-    ~ .mask-4 {
+    ~ .mask-3 {
       opacity: 1;
     }
   }
