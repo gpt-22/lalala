@@ -48,10 +48,10 @@ const { showVideo, isTransition, videoSaturated, currentVideoKey } = useVideo()
 const section2 = ref()
 
 const onMouseEnter = () => {
-  // setTimeout(() => (videoSaturated.value = true), 500)
+  videoSaturated.value = true
 }
 const onMouseLeave = () => {
-  //  videoSaturated.value = false
+  videoSaturated.value = false
 }
 
 const goUp = throttle((deltaY) => {
@@ -78,12 +78,18 @@ const highlights = [
   {
     text: 'Зона 1',
     to: '/section-3',
-    onClick: () => showVideo('8')
+    onClick: () => {
+      videoSaturated.value = false
+      showVideo('8')
+    }
   },
   {
     text: 'Зона 2',
     to: '/section-4',
-    onClick: () => showVideo('6')
+    onClick: () => {
+      videoSaturated.value = false
+      showVideo('6')
+    }
   }
 ]
 </script>

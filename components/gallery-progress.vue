@@ -1,5 +1,5 @@
 <template>
-  <div class="progress" max="100" :value="value" :class="{ play: play }">
+  <div class="progress" :class="{ play: play }">
     <div class="progress-track" />
     <div class="progress-bar" :style="{ width: `${value}%` }" />
   </div>

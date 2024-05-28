@@ -245,6 +245,7 @@ const onBack = () => {
 .gallery {
   position: relative;
   z-index: 1;
+  background-color: black;
 }
 
 .gallery-image {
@@ -253,12 +254,12 @@ const onBack = () => {
   object-fit: cover;
   animation-play-state: paused;
   background-size: 126%;
-  //&.activeOdd {
-  //  animation: 6s scaleIn;
-  //}
-  //&.activeEven {
-  //  animation: 6s scaleOut;
-  //}
+  &.activeOdd {
+    animation: 6s scaleIn;
+  }
+  &.activeEven {
+    animation: 6s scaleOut;
+  }
   &.play {
     animation-play-state: running;
   }

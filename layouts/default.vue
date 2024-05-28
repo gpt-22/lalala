@@ -1,5 +1,6 @@
 <template>
   <div class="default-layout">
+    <the-preloader />
     <the-loader />
 
     <video-background />
@@ -16,7 +17,8 @@
 <script setup>
 import { computed } from 'vue'
 
-const { showVideo, currentVideo, startLoading, load1 } = useVideo()
+const { startLoading } = useLoader()
+const { showVideo, currentVideo, load1 } = useVideo()
 const { $gsap } = useNuxtApp()
 onMounted(() => {
   $gsap.to('.default-layout', {

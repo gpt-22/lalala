@@ -1,9 +1,9 @@
 <template>
   <div class="index-page">
-    <nuxt-page v-if="!startLoading" />
+    <nuxt-page v-if="!(startLoading || preloader)" />
   </div>
 </template>
 
 <script setup>
-const { startLoading } = useVideo()
+const { preloader, startLoading } = useLoader()
 </script>

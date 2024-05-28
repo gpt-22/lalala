@@ -27,7 +27,8 @@
 </template>
 
 <script setup>
-const { videos, videoSaturated, isTransition, startLoading, setElement } = useVideo()
+const { startLoading } = useLoader()
+const { videos, videoSaturated, isTransition, setElement } = useVideo()
 
 const onEnded = (video) => {
   if (video.isTransition) isTransition.value = false

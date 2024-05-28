@@ -28,7 +28,8 @@
 import IconLogo from '~/components/icons/icon-logo.vue'
 import Contacts from '~/components/contacts.vue'
 
-const { showVideo, startLoading } = useVideo()
+const { startLoading } = useLoader()
+const { showVideo } = useVideo()
 const { $gsap } = useNuxtApp()
 
 let burgerLinksTimeline

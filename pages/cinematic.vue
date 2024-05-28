@@ -32,7 +32,7 @@ definePageMeta({
 })
 
 const router = useRouter()
-const { startLoading } = useVideo()
+const { startLoading } = useLoader()
 
 const goBack = () => {
   startLoading.value = true

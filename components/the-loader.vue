@@ -18,7 +18,8 @@
 import IconLogo from '~/components/icons/icon-logo.vue'
 import AppButton from '~/components/ui/app-button.vue'
 const { $gsap } = useNuxtApp()
-const { showVideo, startLoading } = useVideo()
+const { startLoading } = useLoader()
+const { showVideo } = useVideo()
 
 /* TODO:
  * темный фон

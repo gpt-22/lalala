@@ -1,6 +1,5 @@
 import { allVideos, lifecycleHookNames, sectionToVideoKey } from './useVideo.data.js'
 
-const startLoading = ref(true)
 const isTransition = ref(false)
 const videoSaturated = ref(false)
 
@@ -211,7 +210,6 @@ export const useVideo = () => {
     currentVideo,
     currentVideoKey,
     isTransition,
-    startLoading,
     videoSaturated,
 
     // methods

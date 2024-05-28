@@ -48,7 +48,8 @@ import { throttle } from '~/utils/decorators'
 import { useVideo } from '~/composables/useVideo'
 import AppButton from '~/components/ui/app-button.vue'
 
-const { showVideo, isTransition, currentVideoKey, videoSaturated, startLoading } = useVideo()
+const { startLoading } = useLoader()
+const { showVideo, isTransition, currentVideoKey, videoSaturated } = useVideo()
 
 const hideMask = computed(() => currentVideoKey.value !== '7')
 
@@ -67,10 +68,10 @@ const onWheel = (e) => {
   }
 }
 const onMouseEnter = () => {
-  // videoSaturated.value = true
+  videoSaturated.value = true
 }
 const onMouseLeave = () => {
-  // videoSaturated.value = false
+  videoSaturated.value = false
 }
 
 const highlights = [
@@ -95,6 +96,7 @@ const highlights = [
 const { showLeaveOverlay } = usePageOverlay()
 const router = useRouter()
 const onClickHighlight = () => {
+  videoSaturated.value = false
   showLeaveOverlay.value = true
   setTimeout(() => {
     router.push('/gallery')
