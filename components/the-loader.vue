@@ -164,14 +164,17 @@ onMounted(() => {
     //background-color: rgba(15, 15, 15, 0.2);
   }
 }
-
 .loader-content {
   position: relative;
-  bottom: -8%;
+  bottom: -14%;
   display: flex;
   flex-direction: column;
   //TODO
   animation: 3s oncoming;
+
+  @media (min-width: 1920px) {
+    bottom: -9%;
+  }
 }
 
 @keyframes oncoming {

@@ -2,10 +2,10 @@
   <section id="section-1" class="section h-screen" ref="section1" @wheel="onWheel">
     <app-container class="flex h-full">
       <div v-show="showInfo" class="project-info">
-        <h1 class="title">*****</h1>
+        <h1 class="section-1-title">*****</h1>
         <img :src="imageBack" alt="" class="image-back" />
 
-        <p class="sub-title">*********** ********* *****</p>
+        <p class="section-1-subtitle">*********** ********* *****</p>
         <p class="text text-1">******** - ***** *****</p>
         <p class="text text-2">******* ****** - *****</p>
         <p class="text text-3">***** ****** - **** ***** *</p>
@@ -27,7 +27,7 @@ const showInfo = ref(true)
 
 const setGsapAnimations = () => {
   $gsap.fromTo(
-    '.title',
+    '.section-1-title',
     {
       opacity: 0
     },
@@ -51,8 +51,8 @@ const setGsapAnimations = () => {
       delay: 0.5
     }
   )
-  timeline.to('.title', { duration: 1, text: 'Оазиз' })
-  timeline.to('.sub-title', { duration: 1, text: 'Аппартаменты премиального класса' })
+  timeline.to('.section-1-title', { duration: 1, text: 'Оазиз' })
+  timeline.to('.section-1-subtitle', { duration: 1, text: 'Аппартаменты премиального класса' })
   timeline.to('.text-1', { duration: 1, text: 'Расположение - Сочи, Россия' })
   timeline.to('.text-2', { duration: 1, text: 'Общая площадь - 20 000 м2' })
   timeline.to('.text-3', { duration: 1, text: 'Площадь застройки - 10 000 м2' })
@@ -86,7 +86,7 @@ onMounted(() => {
   padding: 24px 48px;
 }
 
-.title {
+.section-1-title {
   position: absolute;
   top: -80px;
   color: #fff;
@@ -99,7 +99,7 @@ onMounted(() => {
   z-index: 1;
 }
 
-.sub-title {
+.section-1-subtitle {
   position: relative;
   font-size: 32px;
   line-height: 48px;
