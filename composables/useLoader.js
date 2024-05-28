@@ -1,5 +1,5 @@
 const preloader = ref(true)
-const startLoading = ref(true)
+const startLoading = ref(false)
 
 export const useLoader = () => {
   return {

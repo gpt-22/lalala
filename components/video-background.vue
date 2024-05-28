@@ -73,6 +73,7 @@ const onEnded = (video) => {
   z-index: 0;
 }
 
+// TODO
 .video.startLoading {
   animation: 3s distancing;
 }

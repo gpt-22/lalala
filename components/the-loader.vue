@@ -1,15 +1,38 @@
 <template>
   <div v-show="startLoading" id="site-loader" class="site-loader">
     <div class="loader-content">
-      <h1 id="loader-title" class="title loader-animation-item">Наедине с природой</h1>
-      <icon-logo id="loader-logo" class="loader-animation-item mt-3 self-end w-[147px] h-[20px]" />
-
-      <div id="loader-buttons" class="pt-16 flex justify-center gap-5">
-        <app-button theme="dark" class="loader-btn" to="cinematic" @click="onGoToCinematic">
-          Видео
-        </app-button>
-        <app-button theme="dark" class="loader-btn" to="/" @click="onGoToSite"> Сайт </app-button>
+      <h1 id="loader-title" class="title">
+        <span class="everybody">Каждый</span>
+        <span class="title-mid">
+          <span class="own">свой</span>
+          <span class="find">найдет</span>
+        </span>
+        <span class="oasis">оазиз</span>
+      </h1>
+      <div id="loader-shadow-title" class="title title-shadow">
+        <span class="everybody">Каждый</span>
+        <span class="title-mid">
+          <span class="own">свой</span>
+          <span class="find">найдет</span>
+        </span>
+        <span class="oasis">оазиз</span>
       </div>
+
+      <!--      <icon-logo id="loader-logo" class="loader-animation-item mt-3 self-end w-[147px] h-[20px]" />-->
+
+      <div id="loader-buttons" class="buttons-container">
+        <app-button theme="dark" class="loader-btn" to="cinematic" @click="onGoToCinematic">
+          Синематик
+        </app-button>
+        <app-button theme="dark" class="loader-btn" to="/" @click="onGoToSite">
+          Перейти на сайт
+        </app-button>
+        <app-button theme="dark" class="loader-btn loader-btn-last" @click="sound = !sound">
+          Звук: {{ sound ? 'Включен' : 'Выключен' }}
+        </app-button>
+      </div>
+
+      <logo class="self-end" />
     </div>
   </div>
 </template>
@@ -20,13 +43,6 @@ import AppButton from '~/components/ui/app-button.vue'
 const { $gsap } = useNuxtApp()
 const { startLoading } = useLoader()
 const { showVideo } = useVideo()
-
-/* TODO:
- * темный фон
- * градиент
- * текст
- * + 2 кнопки: видео и перейти на сайт
- * */
 
 const onGoToCinematic = () => {
   console.log('onGoToCinematic')
@@ -39,9 +55,44 @@ const onGoToSite = () => {
   showVideo('2')
 }
 
+const sound = ref(false)
+
 let loaderTimeline = null
 onMounted(() => {
-  loaderTimeline = $gsap.timeline({ delay: 1 })
+  $gsap.fromTo(
+    '.site-loader',
+    {
+      opacity: 0
+    },
+    {
+      opacity: 0.7,
+      duration: 3
+    }
+  )
+
+  const tl = $gsap.timeline({ delay: 5 })
+  tl.fromTo(
+    '#loader-title',
+    {
+      opacity: 0
+    },
+    {
+      opacity: 1,
+      duration: 3
+    }
+  )
+  tl.fromTo(
+    '#loader-shadow-title',
+    {
+      opacity: 0
+    },
+    {
+      opacity: 0.2,
+      duration: 1
+    }
+  )
+
+  loaderTimeline = $gsap.timeline({ delay: 6 })
   loaderTimeline.fromTo(
     '.loader-animation-item',
     {
@@ -60,25 +111,11 @@ onMounted(() => {
       opacity: 0
     },
     {
-      delay: 2,
-      // stagger: 1,
-      // x: 0,
-      opacity: 0.9,
+      delay: 6,
+      opacity: 1,
       duration: 3
     }
   )
-
-  // $gsap.fromTo(
-  //   '.loader-content',
-  //   {
-  //     opacity: 0
-  //   },
-  //   {
-  //     opacity: 1,
-  //     duration: 3,
-  //     delay: 1
-  //   }
-  // )
 })
 </script>
 
@@ -91,10 +128,9 @@ onMounted(() => {
   bottom: 0;
   height: 100vh;
   width: 100vw;
-  z-index: 1000000;
   //background-color: transparent; // #fff;
   background-color: rgba(15, 15, 15, 0.3);
-  animation: fadeOut 3s ease-in;
+  //animation: fadeOut 3s ease-in;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,16 +138,22 @@ onMounted(() => {
 
 @keyframes fadeOut {
   0% {
-    background-color: rgba(15, 15, 15, 1);
+    opacity: 0;
+    //background-color: rgba(15, 15, 15, 0);
   }
   100% {
-    background-color: rgba(15, 15, 15, 0.2);
+    opacity: 1;
+    border: 50px solid red;
+    //background-color: rgba(15, 15, 15, 0.2);
   }
 }
 
 .loader-content {
+  position: relative;
+  bottom: -14%;
   display: flex;
   flex-direction: column;
+  //TODO
   animation: 3s oncoming;
 }
 
@@ -123,21 +165,99 @@ onMounted(() => {
     transform: scale(1, 1);
   }
 }
-.loader-animation-item {
-  opacity: 0;
-}
+//.loader-animation-item {
+//  opacity: 0;
+//}
 
 .title {
+  display: flex;
   font-size: 84px;
+  line-height: 70px;
   letter-spacing: 2px;
   //transform: scale(0.5, 1);
-  font-family: Helvetica;
+  font-family: MontserratAlt;
   font-weight: 500;
   text-transform: uppercase;
+
+  opacity: 0.7;
+}
+.title-mid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.own {
+  font-size: 42px;
+  line-height: 42px;
+  letter-spacing: 0.1em;
+}
+.find {
+  font-size: 30px;
+  line-height: 30px;
+}
+.oasis {
+  position: relative;
+  color: #b19280;
+}
+
+.title-shadow {
+  opacity: 0.2;
+}
+
+.buttons-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 40px 2px;
+
+  //border-top: 3px solid rgba(255, 255, 255, 0.7);
+  //border-right: 2px solid rgba(255, 255, 255, 0.7);
+  //border-bottom: 3px solid rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+
+  &:before {
+    content: '';
+    width: 50%;
+    background-color: transparent;
+    z-index: 1;
+    position: absolute;
+    top: -2px;
+    left: 0;
+    bottom: -2px;
+  }
+}
+
+svg {
+  position: absolute;
+  right: -2px;
+  width: 100%;
+  height: 200%;
 }
 
 :deep(.loader-btn) {
-  width: 180px;
-  font-weight: bold;
+  transition: 0.3s width;
+  width: 240px;
+
+  &:hover {
+    width: 300px;
+  }
 }
+//
+//:deep(.loader-btn-last) {
+//  //border: 1px solid red;
+//  position: relative;
+//
+//  &::before {
+//    content: '';
+//    position: absolute;
+//    bottom: -22px;
+//    left: 2px;
+//    width: 100%;
+//    height: 2px;
+//    background-color: rgba(255, 255, 255, 0.7);
+//  }
+//}
 </style>

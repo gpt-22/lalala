@@ -2,45 +2,53 @@
   <div v-if="preloader" class="preloader">
     <div class="flex flex-col gap-1 items-center">
       <div class="progress" />
-      <div class="counter" />
+      <div class="counter">100</div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { Power2 } from 'gsap'
+
 const { preloader } = useLoader()
-preloader.value = true
+
 const { $gsap } = useNuxtApp()
-setTimeout(() => {
-  $gsap.to('.preloader', {
-    opacity: 0,
+onMounted(() => {
+  const timeline = $gsap.timeline()
+
+  timeline.from('.counter', {
+    delay: 0.2,
+    duration: 4,
+    textContent: 0,
+    snap: { textContent: 1 },
+    ease: Power2.easeInOut,
+    stagger: 1
+  })
+  timeline.to('.preloader', {
+    delay: 0.5,
     duration: 1,
+    opacity: 0,
     onEnded: () => {
-      setTimeout(() => (preloader.value = false), 1000)
+      console.log('end preloader')
+      preloader.value = false
     }
   })
-}, 5000)
+})
 </script>
 
 <style scoped lang="scss">
 .preloader {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: black;
-  z-index: 100;
+  z-index: 100000;
 
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@property --num {
-  syntax: '<integer>';
-  initial-value: 100;
-  inherits: false;
 }
 
 .progress {
@@ -56,7 +64,7 @@ setTimeout(() => {
     height: 100%;
     width: 100%;
     background: linear-gradient(90deg, #f9d0b8 0%, #fff 100%);
-    //transition: width 0.1s;
+    transition: width 0.1s;
     animation: progress 4s ease-in-out;
   }
 }
@@ -71,25 +79,6 @@ setTimeout(() => {
 }
 
 .counter {
-  font-size: 100px;
-  font-weight: 900;
-}
-
-.counter {
-  animation: counter 4s ease-in-out;
-  counter-reset: num var(--num);
-  font: 800 40px system-ui;
-}
-.counter::after {
-  content: counter(num);
-}
-
-@keyframes counter {
-  from {
-    --num: 0;
-  }
-  to {
-    --num: 100;
-  }
+  font: 900 5em system-ui;
 }
 </style>

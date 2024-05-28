@@ -1,6 +1,5 @@
 <template>
   <div class="default-layout">
-    <the-preloader />
     <the-loader />
 
     <video-background />
@@ -11,13 +10,15 @@
     <div class="flex-1">
       <slot />
     </div>
+
+    <the-preloader />
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 
-const { startLoading } = useLoader()
+const { preloader, startLoading } = useLoader()
 const { showVideo, currentVideo, load1 } = useVideo()
 const { $gsap } = useNuxtApp()
 onMounted(() => {
@@ -33,6 +34,17 @@ const showHeader = computed(() => route.name !== 'gallery' && !startLoading.valu
 if (route.name === 'gallery') {
   startLoading.value = false
 }
+
+preloader.value = true
+watch(preloader, (value) => {
+  if (!value && route.name === 'index') {
+    console.log('here')
+    startLoading.value = true
+  }
+})
+
+// на любой странице показывать прелоадер
+// если это не страт - не показывать
 
 const setFirstVideo = () => {
   const section = route.path.replaceAll('/', '')

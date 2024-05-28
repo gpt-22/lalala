@@ -41,21 +41,26 @@ const mouseClass = ref('leave')
 <style lang="scss">
 .app-btn {
   position: relative;
-  overflow: hidden;
+  //overflow: hidden;
   padding: 4px 24px;
   min-width: 120px;
   min-height: 40px;
+  border: 1px solid #ffffffcc;
+  border-radius: 2px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background-color: white;
-  color: #262626;
+  //background-color: white;
+  background-color: rgba(#fff, 0.3);
+  //color: #262626;
+  color: #fff;
+  font-family: MontserratAlt;
   transition: all 0.2s;
 
   white-space: nowrap;
-  text-transform: uppercase;
+  //text-transform: uppercase;
 
   &.s {
     min-width: 100px;
@@ -83,55 +88,71 @@ const mouseClass = ref('leave')
     font-weight: 500;
   }
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: white;
-    z-index: 0;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(-100%);
+  //&::before,
+  //&::after {
+  //  content: '';
+  //  position: absolute;
+  //  top: 0;
+  //  left: 0;
+  //  right: 0;
+  //  bottom: 0;
+  //  background-color: white;
+  //  z-index: 0;
+  //  transition: transform 0.3s ease-in-out;
+  //  transform: translateX(-100%);
+  //}
+
+  //&::after {
+  //  @apply bg-dark;
+  //}
+
+  &:hover {
+    background-color: rgba(#b19280, 0.5);
+    border-color: #b19280cc;
   }
 
-  &::after {
-    @apply bg-dark;
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    outline: 2px solid #b19280;
+    //border-color: #b19280;
   }
 
-  &.dark {
-    background-color: transparent;
-    color: white;
-    border: 2px solid white;
-
-    &:hover {
-      @apply text-dark;
-    }
-    &:hover::before {
-      transform: translateX(0%);
-    }
-    &:not(:hover)::before {
-      animation: 0.3s slide-right ease-in-out;
-    }
+  &:active {
+    background-color: #b19280cc;
   }
 
-  &.light {
-    background-color: white;
-    color: #262626;
-    //border: 2px solid #262626;
-
-    &:hover {
-      @apply text-white;
-    }
-    &:hover::after {
-      transform: translateX(0%);
-    }
-    &:not(:hover)::after {
-      animation: 0.3s slide-right ease-in-out;
-    }
-  }
+  //&.dark {
+  //  background-color: transparent;
+  //  color: white;
+  //  border: 1px solid white;
+  //
+  //  &:hover {
+  //    @apply text-dark;
+  //  }
+  //  &:hover::before {
+  //    transform: translateX(0%);
+  //  }
+  //  &:not(:hover)::before {
+  //    animation: 0.3s slide-right ease-in-out;
+  //  }
+  //}
+  //
+  //&.light {
+  //  background-color: white;
+  //  color: #262626;
+  //  //border: 1px solid #262626;
+  //
+  //  &:hover {
+  //    @apply text-white;
+  //  }
+  //  &:hover::after {
+  //    transform: translateX(0%);
+  //  }
+  //  &:not(:hover)::after {
+  //    animation: 0.3s slide-right ease-in-out;
+  //  }
+  //}
 }
 
 @keyframes slide-right {
