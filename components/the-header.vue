@@ -72,13 +72,10 @@ const onClickLogo = () => {
   left: 0;
   right: 0;
   z-index: 33;
+  height: 50px;
   color: #fff;
-  background: rgba(96, 80, 71, 70%);
-  // rgba(22, 22, 23, 0.2); // linear-gradient(rgba(22, 22, 23, .5), transparent);
-  //backdrop-filter: blur(10px);
-  padding: 1em 0;
+  background: rgba(0, 0, 0, 32%);
 
-  // animation
   opacity: 0;
   transform: translate(0, -60px);
   transition: background-color 0.2s;

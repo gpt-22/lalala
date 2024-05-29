@@ -18,18 +18,18 @@ const props = defineProps(['color'])
 }
 
 .logo-left {
-  color: #b19280cc;
-  font-weight: 600;
-  font-size: 25px;
   margin-top: 2px;
+  color: #ffffffcc;
+  letter-spacing: 2.4px;
+  font-weight: 600;
+  font-size: 20px;
   font-family: MontserratSemiBold;
-
-  //letter-spacing: 0.12;
 }
 .logo-right {
   margin-left: 2px;
   color: #ffffffcc;
-  font-size: 35px;
+  letter-spacing: 0.75px;
+  font-size: 25px;
   font-weight: 800;
   font-family: MontserratExtraBold;
 }
