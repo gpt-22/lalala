@@ -33,7 +33,7 @@ onMounted(() => {
 })
 
 const route = useRoute()
-const showHeader = computed(() => route.name !== 'gallery' && !startView.value)
+const showHeader = computed(() => !['index', 'gallery'].includes(route.name) && !startView.value)
 
 if (route.name === 'gallery') {
   startView.value = false

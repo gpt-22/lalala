@@ -30,7 +30,7 @@
         </app-button>
       </div>
 
-      <logo class="logo self-end" />
+      <logo class="loader-logo self-end" />
     </div>
   </div>
 </template>
@@ -99,7 +99,7 @@ onMounted(() => {
     }
   )
   tl.fromTo(
-    '.logo',
+    '.loader-logo',
     {
       opacity: 0
     },

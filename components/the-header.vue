@@ -16,7 +16,7 @@
           <nav class="links-burger">
             <nuxt-link to="section-2" class="burger-link">В начало</nuxt-link>
             <!--            <nuxt-link to="#projects" class="burger-link">Проекты</nuxt-link>-->
-            <div class="burger-link">О нас</div>
+            <div class="burger-link" @click="aboutClick">О нас</div>
           </nav>
         </div>
       </div>
@@ -27,31 +27,21 @@
 <script setup>
 import Contacts from '~/components/contacts.vue'
 
-const { startView } = useLoader()
-const { showVideo } = useVideo()
+const { preloader, startView } = useLoader()
+const { showVideo, isTransition, videoSaturated } = useVideo()
 const { $gsap } = useNuxtApp()
 
 let burgerLinksTimeline
-
 onMounted(() => {
-  $gsap.to('#header', {
-    y: 0,
-    opacity: 1,
-    duration: 0.3,
-    delay: 1
-  })
-
   burgerLinksTimeline = $gsap.timeline({ delay: 0.5 })
   burgerLinksTimeline.to('.burger-link', {
     stagger: 0.15,
-    // x: 0,
     opacity: 1,
     duration: 0.3
   })
 })
 
 const isOpen = ref(false)
-
 watch(isOpen, () => {
   if (isOpen) {
     burgerLinksTimeline.restart()
@@ -64,10 +54,37 @@ const onClickLogo = () => {
 }
 
 const { showAbout } = useShow()
-onClick: () => {
+const aboutClick = () => {
   showAbout.value = true
   videoSaturated.value = true
 }
+
+watch(isTransition, (value) => {
+  if (value) {
+    $gsap.to('#header', {
+      y: '-100%',
+      duration: 0.3
+    })
+  } else {
+    $gsap.to('#header', {
+      y: '0%',
+      duration: 0.5
+    })
+  }
+})
+watch(preloader, (value) => {
+  if (!value) {
+    $gsap.fromTo(
+      '#header',
+      { y: '-100%' },
+      {
+        y: '0%',
+        delay: 0.5,
+        duration: 0.5
+      }
+    )
+  }
+})
 </script>
 
 <style scoped lang="scss">
@@ -82,8 +99,8 @@ onClick: () => {
   color: #fff;
   background: rgba(0, 0, 0, 32%);
 
-  opacity: 0;
-  transform: translate(0, -60px);
+  //opacity: 0;
+  //transform: translate(0, -60px);
   transition: background-color 0.2s;
 
   &.open {
