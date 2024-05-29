@@ -2,13 +2,29 @@
   <section id="section-1" class="section h-screen" ref="section1" @wheel="onWheel">
     <app-container class="flex h-full">
       <div v-show="showInfo" class="project-info w-full">
-        <h1 class="section-1-title">*****</h1>
         <img :src="imageBack" alt="" class="image-back" />
 
-        <p class="section-1-subtitle">*********** ********* *****</p>
-        <p class="text text-1">******** - ***** *****</p>
-        <p class="text text-2">******* ****** - *****</p>
-        <p class="text text-3">***** ****** - **** ***** *</p>
+        <h1 class="section-1-title">
+          <span class="section-1-title-span">“ОАЗИС”</span> резиденция
+        </h1>
+        <h2 class="section-1-subtitle">Комплекс апартаментов класса “Люкс”</h2>
+        <br />
+        <p class="text text-1">
+          Добро пожаловать в эксклюзивное гостеприимство! Совершенно новое дыхание концепции
+          отдыха... Прежде всего, мы посвятили особое внимание созданию резиденции с изысканным
+          архитектурным стилем. <br />
+          Наш выбор — фиброцементные плиты EQUITONE кремово-белого и благородного коричневого
+          оттенка, чистые геометрические формы и выразительные детали фасада, придающие зданию
+          элегантность и утонченность. <br />
+          Мы стремимся к безупречности в каждой детали, чтобы создать идеальное визуальное
+          впечатление.
+        </p>
+        <br />
+        <p class="text text-2">
+          Клубная резиденция «Оазис» - это комплекс на берегу моря в окружении дикой природы. Между
+          двумя жилыми зданиями расположились уютный двор и главный подогреваемый бассейн, выходящий
+          прямо в море.
+        </p>
       </div>
     </app-container>
 
@@ -21,7 +37,7 @@
 <script setup>
 import { throttle } from '~/utils/decorators'
 import { useVideo } from '~/composables/useVideo'
-import imageBack from '~/assets/images/img.png'
+import imageBack from '~/assets/images/section1_1.png'
 
 const { $gsap } = useNuxtApp()
 const { videos, isTransition, showVideo } = useVideo()
@@ -67,11 +83,10 @@ const setGsapAnimations = () => {
       delay: 0.5
     }
   )
-  timeline.to('.section-1-title', { duration: 1, text: 'Оазиз' })
-  timeline.to('.section-1-subtitle', { duration: 1, text: 'Аппартаменты премиального класса' })
-  timeline.to('.text-1', { duration: 1, text: 'Расположение - Сочи, Россия' })
-  timeline.to('.text-2', { duration: 1, text: 'Общая площадь - 20 000 м2' })
-  timeline.to('.text-3', { duration: 1, text: 'Площадь застройки - 10 000 м2' })
+  // timeline.to('.section-1-title', { duration: 1, text: 'Оазиз' })
+  // timeline.to('.section-1-subtitle', { duration: 1, text: 'Аппартаменты премиального класса' })
+  // timeline.to('.text-1', { duration: 1, text: 'Расположение - Сочи, Россия' })
+  // timeline.to('.text-2', { duration: 1, text: 'Общая площадь - 20 000 м2' })
 }
 
 const goDown = throttle(() => {
@@ -95,52 +110,64 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+.section {
+  padding: 0;
+}
+
 .project-info {
-  align-self: end;
+  align-self: center;
   position: relative;
-  margin-bottom: 64px;
-  padding: 24px 48px;
-}
-
-.section-1-title {
-  position: absolute;
-  top: -80px;
-  color: #fff;
-  text-transform: uppercase;
-  text-align: center;
-  opacity: 0;
-  font-size: 90px;
-  font-family: MontserratAltLight;
-  font-weight: 300;
-  z-index: 1;
-}
-
-.section-1-subtitle {
-  position: relative;
-  font-size: 32px;
-  line-height: 48px;
-  color: #ffffffe6;
-  z-index: 1;
-  white-space: nowrap;
-}
-
-.text {
-  position: relative;
-  color: #ffffffe6;
-  line-height: 36px;
-  font-size: 24px;
-  font-family: MontserratAltLight;
-  font-weight: 300;
-  z-index: 1;
+  padding: 2.2vh 2.78vh 4vh;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .image-back {
   position: absolute;
   top: 0;
   left: 0;
-  height: 208px;
-
+  height: 100%;
+  aspect-ratio: 0.92 / 1;
   z-index: 0;
   background: linear-gradient(to right, #00000066 40%, #00000000 100%);
+}
+
+.section-1-title,
+.section-1-subtitle,
+.text {
+  max-width: 55vh; // 600px;
+  position: relative;
+}
+
+.section-1-title {
+  color: #fff;
+  opacity: 0;
+  line-height: 4.4vh; //48px;
+  font-size: 2.9vh; //32px;
+  font-family: MontserratAltMedium;
+  font-weight: 500;
+  z-index: 1;
+
+  > span {
+    font-size: 3.7vh; //40px;
+    line-height: 5.5vh; //60px;
+  }
+}
+
+.section-1-subtitle {
+  font-size: 2.2vh; //24px;
+  font-family: MontserratAltMedium;
+  font-weight: 500;
+  color: #ffffffe6;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.text {
+  color: #ffffffe6;
+  font-size: 1.85vh; // 20px;
+  font-family: MontserratAlt;
+  font-weight: 400;
+  z-index: 1;
 }
 </style>
