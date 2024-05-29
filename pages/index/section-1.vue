@@ -1,7 +1,7 @@
 <template>
   <section id="section-1" class="section h-screen" ref="section1" @wheel="onWheel">
     <app-container class="flex h-full">
-      <div v-show="showInfo" class="project-info">
+      <div v-show="showInfo" class="project-info w-full">
         <h1 class="section-1-title">*****</h1>
         <img :src="imageBack" alt="" class="image-back" />
 
@@ -11,6 +11,10 @@
         <p class="text text-3">***** ****** - **** ***** *</p>
       </div>
     </app-container>
+
+    <teleport to="#scroll-btns">
+      <scroll-buttons class="scroll-btns" :down="true" @down="goDown" />
+    </teleport>
   </section>
 </template>
 
@@ -105,6 +109,7 @@ onMounted(() => {
   line-height: 48px;
   color: #ffffffe6;
   z-index: 1;
+  white-space: nowrap;
 }
 
 .text {

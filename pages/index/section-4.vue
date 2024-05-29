@@ -39,6 +39,10 @@
         :class="{ hide: hideMask }"
       />
     </div>
+
+    <teleport to="#scroll-btns">
+      <scroll-buttons class="scroll-btns" :up="true" @up="goUp" />
+    </teleport>
   </section>
 </template>
 

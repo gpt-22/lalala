@@ -33,6 +33,10 @@
         :class="{ hide: hideMask }"
       />
     </div>
+
+    <teleport to="#scroll-btns">
+      <scroll-buttons class="scroll-btns" :up="true" @up="goUp" />
+    </teleport>
   </section>
 </template>
 
@@ -200,5 +204,12 @@ const highlights = [
     line-height: 24px;
     color: #f9d0b8;
   }
+}
+
+.scroll-btns {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  //left: 100%;
 }
 </style>

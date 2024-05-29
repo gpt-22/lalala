@@ -14,6 +14,8 @@
     <about />
 
     <the-preloader />
+
+    <div id="scroll-btns"></div>
   </div>
 </template>
 
@@ -77,5 +79,11 @@ setFirstVideo()
   position: relative;
   display: flex;
   flex-direction: column;
+}
+
+#scroll-btns {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
 }
 </style>
