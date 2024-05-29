@@ -117,7 +117,7 @@ onMounted(() => {
   top: 0;
   left: 0;
   height: 100%;
-  aspect-ratio: 0.92 / 1;
+  aspect-ratio: 1 / 0.92;
   z-index: 0;
   background: linear-gradient(to right, #00000066 40%, #00000000 100%);
 }
@@ -143,6 +143,9 @@ onMounted(() => {
     line-height: 5.5vh; //60px;
   }
 }
+.section-1-title-span {
+  letter-spacing: 0.29vh;
+}
 
 .section-1-subtitle {
   font-size: 2.2vh; //24px;
@@ -155,6 +158,7 @@ onMounted(() => {
 
 .text {
   color: #ffffffe6;
+  line-height: 2.2vh;
   font-size: 1.85vh; // 20px;
   font-family: MontserratAlt;
   font-weight: 400;
