@@ -42,7 +42,7 @@ export const allVideos = [
     prevKey: '1',
     key: '2',
     nextKey: '3',
-    src: `/videos/01_02_low.mp4`,
+    src: `/videos/01_02.mp4`,
     // src: `${VIDEO_BASE_URL}/01_02.mp4`, //kek_0-1.mp4`,
     isTransition: true,
     loadKeys: ['3', '1']
