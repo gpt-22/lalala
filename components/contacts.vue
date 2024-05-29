@@ -1,24 +1,22 @@
 <template>
   <div class="flex gap-4">
-    <!--          <button type="button" class="text-white leading-3 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5">-->
-    <!--            Язык: Русский-->
-    <!--          </button>-->
-    <!--          <button type="button" class="text-text-dark leading-3 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 bg-white">-->
-    <!--            Тут не кнопка а иконки контачей-->
-    <!--          </button>-->
+    <a href="tel:+79937671097" target="_blank" class="contact-button">
+      <icon-call class="w-[20px] h-[20px]" />
+    </a>
     <a href="https://t.me/freedomerr" target="_blank" class="contact-button">
       <icon-tg class="w-[20px] h-[20px]" />
     </a>
-    <a href="https://t.me/freedomerr" target="_blank" class="contact-button">
+    <a href="https://wa.me/79881371097" target="_blank" class="contact-button">
       <icon-whatsapp class="w-[22px] h-[22px]" />
     </a>
-    <a href="mailto:gregoryrulit@gmail.com" target="_blank" class="contact-button">
+    <a href="mailto:archigrade.ru@gmail.com" target="_blank" class="contact-button">
       <icon-mail class="w-[20px] h-[20px]" />
     </a>
   </div>
 </template>
 
 <script setup>
+import IconCall from '~/components/icons/icon-call.vue'
 import IconTg from '~/components/icons/icon-tg.vue'
 import IconWhatsapp from '~/components/icons/icon-whatsapp.vue'
 import IconMail from '~/components/icons/icon-mail.vue'

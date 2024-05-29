@@ -1,8 +1,13 @@
 <template>
   <nav class="flex items-center uppercase text-sm font-medium">
-    <nuxt-link v-for="link in links" :to="link.to" class="link" @click="link.onClick(link)">
-      <span class="link-text">{{ link.text }}</span>
-    </nuxt-link>
+    <template v-for="link in links">
+      <nuxt-link v-if="link.to" :to="link.to" class="link" @click="link.onClick(link)">
+        <span class="link-text">{{ link.text }}</span>
+      </nuxt-link>
+      <button v-else class="link" @click="link.onClick(link)">
+        <span class="link-text">{{ link.text }}</span>
+      </button>
+    </template>
   </nav>
 </template>
 
@@ -31,12 +36,11 @@ const { showAbout } = useShow()
 const links = [
   {
     to: 'section-2',
-    text: 'Обзор',
+    text: 'В начало',
     onClick: onClick
   },
   // { to: 'projects', text: 'Проекты' },
   {
-    to: 'about',
     text: 'О нас',
     onClick: () => {
       showAbout.value = true
@@ -67,6 +71,8 @@ const links = [
 
 .link-text {
   position: relative;
+  white-space: nowrap;
+  text-transform: uppercase;
 
   &::before {
     content: '';

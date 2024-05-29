@@ -3,7 +3,7 @@
     <app-container class="h-full">
       <div class="header-content">
         <nuxt-link to="/" class="flex items-center" @click="onClickLogo">
-          <logo color="#ffffffcc" />
+          <logo />
         </nuxt-link>
 
         <nav-links class="links" />
@@ -14,9 +14,9 @@
 
         <div class="burger-menu">
           <nav class="links-burger">
-            <nuxt-link to="#roadmap" class="burger-link">Обзор</nuxt-link>
+            <nuxt-link to="section-2" class="burger-link">В начало</nuxt-link>
             <!--            <nuxt-link to="#projects" class="burger-link">Проекты</nuxt-link>-->
-            <nuxt-link to="#about" class="burger-link">О нас</nuxt-link>
+            <div class="burger-link">О нас</div>
           </nav>
         </div>
       </div>
@@ -62,6 +62,12 @@ const onClickLogo = () => {
   startView.value = true
   showVideo('1')
 }
+
+const { showAbout } = useShow()
+onClick: () => {
+  showAbout.value = true
+  videoSaturated.value = true
+}
 </script>
 
 <style scoped lang="scss">
@@ -72,7 +78,7 @@ const onClickLogo = () => {
   left: 0;
   right: 0;
   z-index: 33;
-  height: 50px;
+  height: 54px;
   color: #fff;
   background: rgba(0, 0, 0, 32%);
 
