@@ -5,9 +5,11 @@
         <img :src="imageBack" alt="" class="image-back" />
 
         <h1 class="section-1-title">
-          <span class="section-1-title-span">“ОАЗИС”</span> резиденция
+          <span class="section-1-title-span">“{{ makeid(5) }}”</span> резиденция
         </h1>
-        <h2 class="section-1-subtitle">Комплекс апартаментов класса “Люкс”</h2>
+        <h2 class="section-1-subtitle">
+          {{ makeid(8) }} {{ makeid(12) }} {{ makeid(6) }} “{{ makeid(4) }}”
+        </h2>
         <br />
         <p class="text text-1">
           Добро пожаловать в эксклюзивное гостеприимство! Совершенно новое дыхание концепции
@@ -58,20 +60,7 @@ function makeid(length) {
 }
 
 const setGsapAnimations = () => {
-  $gsap.fromTo(
-    '.section-1-title',
-    {
-      opacity: 0
-    },
-    {
-      opacity: 1,
-      duration: 0.5,
-      delay: 0.5
-    }
-  )
-
   const timeline = $gsap.timeline({ delay: 0.6 })
-
   timeline.fromTo(
     '.project-info',
     {
@@ -83,10 +72,11 @@ const setGsapAnimations = () => {
       delay: 0.5
     }
   )
-  // timeline.to('.section-1-title', { duration: 1, text: 'Оазиз' })
-  // timeline.to('.section-1-subtitle', { duration: 1, text: 'Аппартаменты премиального класса' })
-  // timeline.to('.text-1', { duration: 1, text: 'Расположение - Сочи, Россия' })
-  // timeline.to('.text-2', { duration: 1, text: 'Общая площадь - 20 000 м2' })
+
+  timeline.to('.section-1-title-span', { duration: 1, text: '“ОАЗИС”' })
+  timeline.to('.section-1-subtitle', { duration: 1, text: 'Комплекс апартаментов класса “Люкс”' })
+  timeline.fromTo('.text-1', { opacity: 0 }, { opacity: 1, duration: 0.5 })
+  timeline.fromTo('.text-2', { opacity: 0 }, { opacity: 1, duration: 0.5 })
 }
 
 const goDown = throttle(() => {
@@ -141,7 +131,7 @@ onMounted(() => {
 
 .section-1-title {
   color: #fff;
-  opacity: 0;
+  //opacity: 0;
   line-height: 4.4vh; //48px;
   font-size: 2.9vh; //32px;
   font-family: MontserratAltMedium;
