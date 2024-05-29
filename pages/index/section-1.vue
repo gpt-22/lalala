@@ -13,7 +13,7 @@
     </app-container>
 
     <teleport to="#scroll-btns">
-      <scroll-buttons class="scroll-btns" :down="true" @down="goDown" />
+      <scroll-buttons class="scroll-btns" :up="true" @up="goDown" />
     </teleport>
   </section>
 </template>

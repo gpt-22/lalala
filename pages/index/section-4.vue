@@ -41,7 +41,7 @@
     </div>
 
     <teleport to="#scroll-btns">
-      <scroll-buttons class="scroll-btns" :up="true" @up="goUp" />
+      <scroll-buttons class="scroll-btns" :down="true" @down="goUp" />
     </teleport>
   </section>
 </template>

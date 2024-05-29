@@ -271,13 +271,13 @@ const onBack = () => {
     //transform: scale(1);
   }
   100% {
-    background-size: 131%;
+    background-size: 129%;
     //transform: scale(1.25);
   }
 }
 @keyframes scaleOut {
   0% {
-    background-size: 131%;
+    background-size: 129%;
     //transform: scale(1.25);
   }
   100% {
