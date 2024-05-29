@@ -73,7 +73,7 @@ const onClickLogo = () => {
   right: 0;
   z-index: 33;
   color: #fff;
-  background: rgba(177, 146, 128, 0.7);
+  background: rgba(96, 80, 71, 70%);
   // rgba(22, 22, 23, 0.2); // linear-gradient(rgba(22, 22, 23, .5), transparent);
   //backdrop-filter: blur(10px);
   padding: 1em 0;

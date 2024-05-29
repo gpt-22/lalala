@@ -2,10 +2,16 @@
   <div class="gallery">
     <header class="gallery-header">
       <gallery-burger-button v-model="menuOpen" />
-      <gallery-menu v-model="menuOpen" @change-location="setLocation" />
+      <gallery-menu
+        v-model="menuOpen"
+        :active-key="currentLocation.key"
+        @change-location="setLocation"
+      />
       <div class="overlay" :class="{ shown: menuOpen }" />
 
-      <app-button size="s" @click="onBack">Назад</app-button>
+      <button @click="onBack">
+        <icon-close />
+      </button>
     </header>
 
     <swiper
@@ -50,11 +56,11 @@
               active: i === currentIndex
             }"
             :style="{
-              left: `calc(calc(calc(${width}px / ${currentLocation.images.length}) * ${i}) - 2px)`
+              left: `calc(calc(calc(${width}px / ${currentLocation.images.length}) * ${i}) - 8px)`
             }"
             @click="setCurrentSlide(i)"
           >
-            Ракурс {{ i + 1 }}
+            <icon-image class="w-[16px] h-[16x]" />
           </button>
         </div>
 
@@ -86,6 +92,8 @@ import IconMute from '~/components/icons/icon-mute.vue'
 import IconUnmute from '~/components/icons/icon-unmute.vue'
 import IconSkip from '~/components/icons/icon-skip.vue'
 import IconFullscreen from '~/components/icons/icon-fullscreen.vue'
+import IconImage from '~/components/icons/icon-image.vue'
+import IconClose from '~/components/icons/icon-close.vue'
 
 import AppButton from '~/components/ui/app-button.vue'
 
@@ -364,10 +372,13 @@ const onBack = () => {
 }
 .slide-mark {
   position: absolute;
-  padding: 14px 0px;
+  padding: 4px 0px;
   font-size: 12px;
   color: #757575;
   transition: color 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 
   &:hover {
     color: #fff;
@@ -377,16 +388,16 @@ const onBack = () => {
     //}
   }
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 2px;
-    height: 12px;
-    width: 1px;
-    background-color: #1d1d1d;
-    transition: background-color 0.4s cubic-bezier(0.55, 0, 0.1, 1);
-  }
+  //&::before {
+  //  content: '';
+  //  position: absolute;
+  //  top: 0;
+  //  left: 2px;
+  //  height: 12px;
+  //  width: 1px;
+  //  background-color: #1d1d1d;
+  //  transition: background-color 0.4s cubic-bezier(0.55, 0, 0.1, 1);
+  //}
   &.active {
     color: white;
 

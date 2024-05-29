@@ -74,28 +74,36 @@ const onWheel = (e) => {
   }
 }
 const onMouseEnter = () => {
-  videoSaturated.value = true
+  // videoSaturated.value = true
 }
 const onMouseLeave = () => {
-  videoSaturated.value = false
+  // videoSaturated.value = false
 }
 
 const highlights = [
   {
-    text: 'Пирс',
-    to: '/gallery'
+    text: 'Смотровая площадка и лифты',
+    to: '/gallery?location=watch-area'
   },
   {
-    text: 'Бассейн',
-    to: '/gallery'
+    text: 'Въездная группа и аквариум',
+    to: '/gallery?location=aquarium'
   },
   {
-    text: 'Лежаки',
-    to: '/gallery'
+    text: 'Многофункциональные помещения',
+    to: '/gallery?location=multifunctional-rooms'
   },
   {
-    text: 'Пляж',
-    to: '/gallery'
+    text: 'Летняя эстрада',
+    to: '/gallery?location=summer-stage'
+  },
+  {
+    text: 'Ресторан "Hoft" с бассейном',
+    to: '/gallery?location=restaurant'
+  },
+  {
+    text: 'Общие',
+    to: '/gallery?location=common'
   }
 ]
 
@@ -128,27 +136,27 @@ const onClickHighlight = () => {
 }
 
 .project-overview-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
   opacity: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 250px);
+  display: inline-grid;
+  grid-template-columns: repeat(3, 250px);
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  grid-column-gap: 24px;
+  grid-row-gap: 36px;
   z-index: 3;
+  //background: linear-gradient(to bottom, #00000066 40%, #00000000 100%);
 
   &:before {
     content: 'Выберите зону';
     position: absolute;
-    top: 46px;
+    top: -46px;
     left: 50%;
     transform: translateX(-50%);
-    width: 1060px;
-    margin-top: 80vh;
+    width: 790px;
     border-bottom: 3px solid #f9d0b8;
     text-align: right;
     font-size: 14px;
@@ -158,7 +166,6 @@ const onClickHighlight = () => {
 }
 
 :deep(.section-btn) {
-  margin-top: 80vh;
   z-index: 20;
 
   &::before {

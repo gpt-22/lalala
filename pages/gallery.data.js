@@ -18,7 +18,7 @@
 
 export const locations = [
   {
-    key: 'pirs',
+    key: 'dock',
     title: 'Пирс',
     images: [
       `${IMAGE_BASE_URL}/01/static_renders.0330.png`,
@@ -41,7 +41,7 @@ export const locations = [
   },
   {
     key: 'pool',
-    title: 'Парящий бассейн',
+    title: '"Парящий" бассейн',
     images: [
       `${IMAGE_BASE_URL}/02/static_renders.0318.png`,
       `${IMAGE_BASE_URL}/02/static_renders.0322.png`,
@@ -59,7 +59,7 @@ export const locations = [
     ]
   },
   {
-    key: 'plyaz',
+    key: 'beach',
     title: 'Пляжная зона',
     images: [
       `${IMAGE_BASE_URL}/03/static_renders.0293.png`,
@@ -100,7 +100,7 @@ export const locations = [
   },
   {
     key: 'elevator',
-    title: 'Лифтовая зона',
+    title: 'Лифты',
     images: [
       `${IMAGE_BASE_URL}/05/static_renders.0340.png`,
       `${IMAGE_BASE_URL}/05/static_renders.0342.png`,
@@ -116,7 +116,7 @@ export const locations = [
   },
   {
     key: 'wings',
-    title: 'Зона отдыха на "крыльях"',
+    title: 'Зона отдыха "Крылья"',
     images: [
       `${IMAGE_BASE_URL}/06/static_renders.0306.png`,
       `${IMAGE_BASE_URL}/06/static_renders.0308.png`,
@@ -176,7 +176,7 @@ export const locations = [
   },
   {
     key: 'restaurant',
-    title: 'Ресторан на крыше с бассейном',
+    title: 'Ресторан "Hoft" с бассейном',
     images: [
       `${IMAGE_BASE_URL}/10/static_renders.0392.png`,
       `${IMAGE_BASE_URL}/10/static_renders.0394.png`,

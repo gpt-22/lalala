@@ -82,19 +82,19 @@ const onMouseLeave = () => {
 const highlights = [
   {
     text: 'Пирс',
-    to: '/gallery'
+    to: '/gallery?location=dock'
   },
   {
     text: 'Бассейн',
-    to: '/gallery'
+    to: '/gallery?location=pool'
   },
   {
-    text: 'Лежаки',
-    to: '/gallery'
+    text: 'Зона отдыха "Крылья"',
+    to: '/gallery?location=wings'
   },
   {
     text: 'Пляж',
-    to: '/gallery'
+    to: '/gallery?location=beach'
   }
 ]
 

@@ -5,6 +5,7 @@
         v-for="item in locations"
         :key="item.key"
         class="location-item"
+        :class="{ active: item.key === activeKey }"
         @click="onClick(item.key)"
       >
         <nuxt-link :to="`/gallery?location=${item.key}`">
@@ -21,7 +22,7 @@
 
 <script setup>
 import { locations } from '~/pages/gallery.data'
-const props = defineProps(['modelValue'])
+const props = defineProps(['modelValue', 'activeKey'])
 const emits = defineEmits(['update:model-value', 'change-location'])
 
 const { $gsap } = useNuxtApp()
@@ -74,7 +75,7 @@ const onClick = (itemKey) => {
 .location-item {
   margin-top: 20px;
   font-size: 1.5em; // 3em
-  text-transform: uppercase;
+  //text-transform: uppercase;
   font-weight: 700;
   //color: #b3a2c2;
   color: white;
@@ -85,7 +86,8 @@ const onClick = (itemKey) => {
   //text-overflow: ellipsis;
   //cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &.active {
     color: #f9d0b8;
   }
 }
