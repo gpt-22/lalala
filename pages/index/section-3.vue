@@ -7,7 +7,7 @@
         class="!font-bold section-btn"
         :class="[`section-btn-${idx + 1}`]"
         size="s"
-        @click="onClickHighlight"
+        @click="onClickHighlight(highlight)"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave"
       >
@@ -41,7 +41,7 @@
     </div>
 
     <teleport to="#scroll-btns">
-      <scroll-buttons class="scroll-btns" :down="true" @down="goUp" />
+      <scroll-buttons class="scroll-btns" :down="true" @down="goDown" />
     </teleport>
   </section>
 </template>
@@ -57,7 +57,7 @@ const { showVideo, isTransition, currentVideoKey, videoSaturated } = useVideo()
 const showButtons = ref(true)
 const hideMask = computed(() => currentVideoKey.value !== '7')
 
-const goUp = throttle((deltaY) => {
+const goDown = throttle((deltaY) => {
   showButtons.value = false
   console.log('3 SCROLL UP', deltaY)
   showVideo('6r')
@@ -68,8 +68,8 @@ const onWheel = (e) => {
     return
   }
 
-  if (e.deltaY < -20) {
-    goUp(e.deltaY)
+  if (e.deltaY > 20) {
+    goDown(e.deltaY)
   }
 }
 const onMouseEnter = () => {
@@ -100,12 +100,12 @@ const highlights = [
 
 const { showLeaveOverlay } = usePageOverlay()
 const router = useRouter()
-const onClickHighlight = () => {
+const onClickHighlight = (highlight) => {
   showButtons.value = false
   videoSaturated.value = false
   showLeaveOverlay.value = true
   setTimeout(() => {
-    router.push('/gallery')
+    router.push(highlight.to)
   }, 2500)
   setTimeout(() => (showLeaveOverlay.value = false), 2700)
 }
@@ -134,7 +134,7 @@ const onClickHighlight = () => {
   bottom: 0;
   opacity: 1;
   display: grid;
-  grid-template-columns: repeat(4, minmax(200px, 250px));
+  grid-template-columns: repeat(4, minmax(160px, 250px));
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -151,11 +151,11 @@ const onClickHighlight = () => {
     bottom: -34px;
     left: 0;
     width: 100%;
-    border-top: 3px solid #f9d0b8;
-    font-size: 14px;
-    line-height: 24px;
+    border-top: 3px solid #b19280;
+    font-size: 12px;
+    line-height: 20px;
     text-align: left;
-    color: #f9d0b8;
+    color: #b19280;
     transform: translateY(-50%);
     opacity: 0;
     transition:
@@ -221,12 +221,12 @@ const onClickHighlight = () => {
     position: absolute;
     top: -36px;
     left: 0;
-    width: calc(400% + 60px);
-    border-bottom: 3px solid #f9d0b8;
+    width: calc(400% + 68px);
+    border-bottom: 3px solid #b19280;
     text-align: right;
     font-size: 14px;
     line-height: 24px;
-    color: #f9d0b8;
+    color: #b19280;
   }
 }
 </style>

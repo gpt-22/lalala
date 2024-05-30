@@ -35,7 +35,7 @@
     </div>
 
     <teleport to="#scroll-btns">
-      <scroll-buttons class="scroll-btns" :down="true" @down="goUp" />
+      <scroll-buttons class="scroll-btns" :down="true" @down="goDown" />
     </teleport>
   </section>
 </template>
@@ -58,7 +58,7 @@ const onMouseLeave = () => {
   videoSaturated.value = false
 }
 
-const goUp = throttle((deltaY) => {
+const goDown = throttle((deltaY) => {
   console.log('2 SCROLL UP', deltaY)
   showVideo('4r')
 }, 1000)
@@ -68,10 +68,10 @@ const onWheel = (e) => {
     return
   }
 
-  if (e.deltaY < -20) {
+  if (e.deltaY > 20) {
     showButtons.value = false
     console.log('hide')
-    goUp(e.deltaY)
+    goDown(e.deltaY)
   }
 }
 
@@ -141,11 +141,11 @@ const highlights = [
     bottom: -34px;
     left: 0;
     width: 100%;
-    border-top: 3px solid #f9d0b8;
-    font-size: 14px;
-    line-height: 24px;
+    border-top: 3px solid #b19280;
+    font-size: 12px;
+    line-height: 20px;
     text-align: left;
-    color: #f9d0b8;
+    color: #b19280;
     transform: translateY(-50%);
     opacity: 0;
     transition:
@@ -198,11 +198,11 @@ const highlights = [
     top: -36px;
     left: 0;
     width: calc(200% + 20px);
-    border-bottom: 3px solid #f9d0b8;
+    border-bottom: 3px solid #b19280;
     text-align: right;
     font-size: 14px;
     line-height: 24px;
-    color: #f9d0b8;
+    color: #b19280;
   }
 }
 

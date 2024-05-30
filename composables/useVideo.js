@@ -101,7 +101,7 @@ export const useVideo = () => {
 
   const onVideoLoaded = (key, options) => {
     const video = getVideo(key)
-    console.log('ON LOADED', video.key)
+    // console.log('ON LOADED', video.key)
 
     if (options?.playTime && options?.playTime !== Infinity) {
       setTimeout(() => onVideoEnded(key), options.playTime)
@@ -117,7 +117,7 @@ export const useVideo = () => {
   }
 
   const onVideoEnded = (key) => {
-    console.log('ON ENDED', key)
+    // console.log('ON ENDED', key)
 
     const video = getVideo(key)
     if (!video.element) throw new Error('on video ended нет элемента')
@@ -154,7 +154,7 @@ export const useVideo = () => {
 
     const playingVideo = getVideo(key)
     playingVideo.element.play()
-    console.log('PLAY', key)
+    // console.log('PLAY', key)
 
     videos.value.forEach((video) => {
       video.playing = video.key === key
@@ -167,7 +167,7 @@ export const useVideo = () => {
     if (!key) return
 
     const mergedOptions = { ...defaultShowOptions, ...options }
-    console.log('SHOW FRAME', key, mergedOptions)
+    // console.log('SHOW FRAME', key, mergedOptions)
 
     const video = loadVideo(key, mergedOptions)
     if (video.key === '1') {

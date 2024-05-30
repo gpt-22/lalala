@@ -31,7 +31,7 @@
     </app-container>
 
     <teleport to="#scroll-btns">
-      <scroll-buttons class="scroll-btns" :up="true" @up="goDown" />
+      <scroll-buttons class="scroll-btns" :up="true" @up="goUp" />
     </teleport>
   </section>
 </template>
@@ -79,7 +79,7 @@ const setGsapAnimations = () => {
   timeline.fromTo('.text-2', { opacity: 0 }, { opacity: 1, duration: 0.5 })
 }
 
-const goDown = throttle(() => {
+const goUp = throttle(() => {
   showInfo.value = false
   showVideo('4')
 }, 1000)
@@ -89,8 +89,8 @@ const onWheel = (e) => {
     return
   }
 
-  if (e.deltaY > 20) {
-    goDown(e.deltaY)
+  if (e.deltaY < -20) {
+    goUp(e.deltaY)
   }
 }
 

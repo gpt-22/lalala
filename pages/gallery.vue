@@ -1,12 +1,18 @@
 <template>
   <div class="gallery">
     <header class="gallery-header">
-      <gallery-burger-button v-model="menuOpen" />
+      <div class="flex items-center gap-8">
+        <gallery-burger-button v-model="menuOpen" />
+        <div class="location-title">
+          {{ currentLocation.title }}
+        </div>
+      </div>
       <gallery-menu
         v-model="menuOpen"
         :active-key="currentLocation.key"
         @change-location="setLocation"
       />
+
       <div class="overlay" :class="{ shown: menuOpen }" />
 
       <button @click="onBack">
@@ -32,15 +38,25 @@
         v-slot="{ isActive }"
         @click="play = !play"
       >
-        <div
+        <img
+          :src="imageSrc"
+          alt=""
           class="gallery-image"
           :class="{
             activeOdd: isActive && i % 2 !== 0,
             activeEven: isActive && i % 2 === 0,
             play: play
           }"
-          :style="{ background: `url(${imageSrc}) center center/cover no-repeat` }"
         />
+        <!--        <div-->
+        <!--          class="gallery-image"-->
+        <!--          :class="{-->
+        <!--            activeOdd: isActive && i % 2 !== 0,-->
+        <!--            activeEven: isActive && i % 2 === 0,-->
+        <!--            play: play-->
+        <!--          }"-->
+        <!--          :style="{ background: `url(${imageSrc}) center center/cover no-repeat` }"-->
+        <!--        />-->
       </swiper-slide>
     </swiper>
 
@@ -60,7 +76,8 @@
             }"
             @click="setCurrentSlide(i)"
           >
-            <icon-image class="w-[16px] h-[16x]" />
+            {{ i + 1 }}
+            <!--            <icon-image class="w-[16px] h-[16x]" />-->
           </button>
         </div>
 
@@ -146,12 +163,12 @@ const onSwiper = (swiper) => {
   // }, 10000)
 }
 const onSlideChange = (event) => {
-  // console.log('slide change', event)
+  console.log('slide change', event.realIndex)
   currentIndex.value = event.realIndex
   currentSlideProgress.value = 0
   currentSlideStartTime.value = 0 //performance.now()
   animateProgress()
-  console.log(totalProgress.value)
+  console.log('onSlideChange', totalProgress.value)
 }
 
 const menuOpen = ref(false)
@@ -162,8 +179,10 @@ const currentSlideStartProgress = computed(() => {
 })
 
 const setCurrentSlide = (index) => {
+  console.log('before', index, swiperInstance.value.activeIndex, swiperInstance.value.realIndex)
   currentIndex.value = index
-  swiperInstance.value.slideTo(index) //(index, speed, runCallbacks)
+  swiperInstance.value.slideTo(index)
+  console.log('after', swiperInstance.value.activeIndex, swiperInstance.value.realIndex)
 }
 
 const currentSlideProgress = ref(0)
@@ -191,7 +210,10 @@ const totalProgress = computed(() => {
   return (currentSlideStartProgress.value + currentSlideProgressNormalized).toFixed(2)
 })
 
-const audio = new Audio('/audio/test.mp3')
+const { $gsap } = useNuxtApp()
+
+const { audio, play: playAudio, pause: pauseAudio, initAudioPlayer } = useAudio($gsap)
+initAudioPlayer()
 
 const play = ref(true)
 const mute = ref(false)
@@ -199,19 +221,19 @@ const fullscreen = ref(false)
 
 const togglePlay = () => {
   if (play.value) {
-    // console.log('resume', play.value)
     swiperInstance.value.autoplay.resume()
-    if (!mute.value) audio.play()
+    if (!mute.value) playAudio()
+    // animateProgress()
   } else {
-    // console.log('pause', play.value)
     swiperInstance.value.autoplay.pause()
-    audio.pause()
+    pauseAudio()
+    console.log('time progress', timeLeftPaused.value, currentSlideProgress.value)
   }
 }
 
 const toggleAudio = () => {
-  if (mute.value) audio.pause()
-  else audio.play()
+  if (mute.value) pauseAudio()
+  else playAudio()
 }
 
 const toggleFullScreen = () => {
@@ -222,7 +244,20 @@ const toggleFullScreen = () => {
   }
 }
 
-watch(menuOpen, () => (play.value = false))
+let prevPlayState = play.value
+watch(menuOpen, (value) => {
+  if (value) {
+    prevPlayState = play.value
+  }
+
+  if (value && play.value) {
+    play.value = false
+  }
+
+  if (!value && prevPlayState) {
+    play.value = true
+  }
+})
 watch(play, togglePlay)
 watch(mute, toggleAudio)
 watch(fullscreen, toggleFullScreen)
@@ -231,8 +266,15 @@ const { showEnterOverlay, showLeaveOverlay } = usePageOverlay()
 
 onMounted(() => {
   showEnterOverlay.value = true
-  console.log('GALLERY MOUNTED')
-  // console.log('audio', audio.play())
+  playAudio()
+
+  document.body.addEventListener('keypress', (val) => {
+    console.log('key', val.code)
+  })
+})
+
+onBeforeRouteLeave(() => {
+  pauseAudio()
 })
 
 const { showVideo } = useVideo()
@@ -240,7 +282,7 @@ const onBack = () => {
   showLeaveOverlay.value = true
   setTimeout(() => {
     showVideo('7')
-    router.push('/section-3')
+    router.go(-1)
   }, 2500)
   setTimeout(() => {
     showLeaveOverlay.value = false
@@ -257,11 +299,16 @@ const onBack = () => {
 }
 
 .gallery-image {
-  min-width: 100%;
-  min-height: 100%;
+  //  min-width: 100%;
+  //  min-height: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   object-fit: cover;
   animation-play-state: paused;
-  background-size: 126%;
+  background-size: 100%;
   &.activeOdd {
     animation: 6s scaleIn;
   }
@@ -271,40 +318,35 @@ const onBack = () => {
   &.play {
     animation-play-state: running;
   }
+  &:not(.play) {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes scaleIn {
   0% {
-    background-size: 126%;
-    //transform: scale(1);
+    height: 100vh;
+    //background-size: 100%;
   }
   100% {
-    background-size: 129%;
-    //transform: scale(1.25);
+    height: 104vh;
+    //background-size: 105%;
   }
 }
 @keyframes scaleOut {
   0% {
-    background-size: 129%;
-    //transform: scale(1.25);
+    height: 104vh;
+    //background-size: 105%;
   }
   100% {
-    background-size: 126%;
-    //transform: scale(1);
-  }
-}
+    height: 100vh;
 
-.gallery-slider {
-  //min-width: 100%;
-  //min-height: 100%;
-
-  &:deep(.swiper-wrapper) {
-    //min-width: 100%;
-    //min-height: 100%;
+    //background-size: 100%;
   }
 }
 
 .slide {
+  position: relative;
   cursor: pointer;
   width: 100vw;
   height: 100vh;
@@ -373,7 +415,9 @@ const onBack = () => {
 .slide-mark {
   position: absolute;
   padding: 4px 0px;
-  font-size: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: MontserratAltMedium;
   color: #757575;
   transition: color 0.4s cubic-bezier(0.55, 0, 0.1, 1);
   display: flex;
@@ -382,22 +426,8 @@ const onBack = () => {
 
   &:hover {
     color: #fff;
-
-    //&::before {
-    //  background-color: #fff;
-    //}
   }
 
-  //&::before {
-  //  content: '';
-  //  position: absolute;
-  //  top: 0;
-  //  left: 2px;
-  //  height: 12px;
-  //  width: 1px;
-  //  background-color: #1d1d1d;
-  //  transition: background-color 0.4s cubic-bezier(0.55, 0, 0.1, 1);
-  //}
   &.active {
     color: white;
 
@@ -422,5 +452,9 @@ const onBack = () => {
   & > svg {
     height: 14px;
   }
+}
+
+.location-title {
+  font-size: 24px;
 }
 </style>

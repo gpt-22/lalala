@@ -39,7 +39,7 @@ const links = [
     text: 'В начало',
     onClick: onClick
   },
-  // { to: 'projects', text: 'Проекты' },
+  { to: 'cinematic', text: 'Синематик', onClick: onClick },
   {
     text: 'О нас',
     onClick: () => {

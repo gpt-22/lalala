@@ -15,10 +15,74 @@ export const audioLinks = [
 ]
 
 export const useAudio = () => {
-  const play = ref(false)
+  const audio = ref(new Audio())
+
+  function getRandomInt(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+
+  const getRandomAudio = () => {
+    return audioLinks[getRandomInt(0, audioLinks.length - 1)]
+  }
+
+  const initAudioPlayer = () => {
+    audio.value.src = getRandomAudio()
+    audio.value.volume = 0.1
+    audio.value.onended = function () {
+      audio.value.src = getRandomAudio()
+    }
+  }
+
+  const play = async () => {
+    audio.value.play()
+    // await adjustVolume(audio.value, 1)
+  }
+
+  const pause = async () => {
+    // await adjustVolume(audio.value, 0)
+    audio.value.pause()
+  }
+
+  async function adjustVolume(
+    element,
+    newVolume,
+    { duration = 3000, easing = swing, interval = 13 } = {}
+  ) {
+    const originalVolume = element.volume
+    const delta = newVolume - originalVolume
+
+    if (!delta || !duration || !easing || !interval) {
+      element.volume = newVolume
+      return Promise.resolve()
+    }
+
+    const ticks = Math.floor(duration / interval)
+    let tick = 1
+
+    return new Promise((resolve) => {
+      const timer = setInterval(() => {
+        element.volume = originalVolume + easing(tick / ticks) * delta
+
+        if (++tick === ticks + 1) {
+          clearInterval(timer)
+          resolve()
+        }
+      }, interval)
+    })
+  }
+
+  function swing(p) {
+    return 0.5 - Math.cos(p * Math.PI) / 2
+  }
 
   return {
     audioLinks,
-    play
+    audio,
+    play,
+    pause,
+    initAudioPlayer,
+    getRandomAudio
   }
 }

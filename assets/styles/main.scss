@@ -5,11 +5,13 @@
 @tailwind utilities;
 
 html {
+  overflow: hidden;
   scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
-  display: none;
+//  display: none;
+//  border: 1px solid red;
 }
 
 //@import "lenis";
