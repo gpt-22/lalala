@@ -24,7 +24,6 @@
       :slides-per-view="1"
       :modules="[Autoplay]"
       :autoplay="{ delay: 5000 }"
-      loop
       watch
       watch-slides-progress
       class="gallery-slider"

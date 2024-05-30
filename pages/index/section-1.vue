@@ -4,9 +4,7 @@
       <div v-show="showInfo" class="project-info w-full">
         <img :src="imageBack" alt="" class="image-back" />
 
-        <h1 class="section-1-title">
-          <span class="section-1-title-span">“{{ makeid(5) }}”</span> резиденция
-        </h1>
+        <h1 class="section-1-title"><span class="section-1-title-span">-----</span> резиденция</h1>
         <h2 class="section-1-subtitle">
           {{ makeid(8) }} {{ makeid(12) }} {{ makeid(6) }} “{{ makeid(4) }}”
         </h2>
