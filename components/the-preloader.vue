@@ -9,6 +9,7 @@
     <!--    <app-checkbox></app-checkbox>-->
 
     <div v-if="quality.length" class="flex flex-col gap-1 items-end">
+      <div class="progress-text">Загрузка...</div>
       <div class="progress" />
       <div class="counter">100</div>
     </div>
@@ -129,6 +130,23 @@ const sound = ref(false)
 .sound-container {
   &:before {
     content: 'Звук';
+  }
+}
+
+.progress-text {
+  width: 100%;
+  animation: 3s fade infinite ease-in-out;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.4;
   }
 }
 </style>

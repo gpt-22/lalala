@@ -1,7 +1,7 @@
 <template>
   <div v-show="showAbout" class="about">
     <div class="about-container">
-      <app-container>
+      <app-container class="h-full">
         <div class="overlay" />
 
         <button class="close-btn" @click="onClick">
@@ -10,11 +10,11 @@
 
         <div class="about-info">
           <h2 class="about-title">
-            «ArchiGrade» - команда опытных специалистов, за нашими плечами более 15 лет успешной
-            разработки и реализации проектов любой сложности. Мы просто знаем свое дело!
+            <span>«ArchiGrade»</span> - команда опытных специалистов, за нашими плечами более 15 лет
+            успешной разработки и реализации проектов любой сложности. Мы просто знаем свое дело!
           </h2>
 
-          <div class="mt-8 grid grid-cols-2 gap-12">
+          <div class="h-full grid grid-cols-2 gap-12">
             <div class="about-col about-col-1">
               <h3 class="title-1 col1-text">Продвижение проекта</h3>
               <p class="col1-text">
@@ -161,7 +161,7 @@ watch(showAbout, (value) => {
   width: 100%;
   position: relative;
 
-  padding: 80px 20px 80px 0;
+  padding: 70px 20px 60px 0;
 }
 
 .about-info {
@@ -169,20 +169,23 @@ watch(showAbout, (value) => {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
+  gap: 4vw;
   align-items: center;
 
-  font-size: 20px;
+  font-size: 1.2vw;
 }
 
 .about-col {
   @apply flex flex-col gap-5;
+  justify-content: space-between;
 }
 
 .close-btn {
   //color: white;
   position: absolute;
-  top: 40px;
+  top: 70px;
   right: 2vw;
   height: 40px;
   width: 40px;
@@ -195,38 +198,44 @@ watch(showAbout, (value) => {
 }
 
 .about-title {
-  font-size: 1.5em;
-  line-height: 1.2em;
-  font-weight: 700;
-  font-family: MontserratExtraBold;
+  font-size: 1.4vw;
+  line-height: 1.5vw;
+  font-weight: 600;
+  font-family: MontserratBold;
+
+  span {
+    font-size: 1.4vw;
+    font-weight: 700;
+    font-family: MontserratExtraBold;
+  }
 }
 .title-1,
 .title-2 {
-  font-size: 1.2em;
+  font-size: 1.25vw;
   font-weight: 700;
-  font-family: MontserratExtraBold;
+  font-family: MontserratBold;
 }
 
-@media (min-width: 1920px) {
-  .close-btn:deep(svg) {
-    height: 40px;
-    width: 40px;
-  }
-  .about-title {
-    font-size: 2.5em;
-    line-height: 1.5em;
-    font-weight: 700;
-    font-family: MontserratExtraBold;
-  }
-  .col1-text,
-  .col2-text {
-    font-size: 1.5em;
-  }
-  .title-1,
-  .title-2 {
-    font-size: 2.2em;
-    font-weight: 700;
-    font-family: MontserratExtraBold;
-  }
-}
+//@media (min-width: 1920px) {
+//  .close-btn:deep(svg) {
+//    height: 40px;
+//    width: 40px;
+//  }
+//  .about-title {
+//    font-size: 2.5em;
+//    line-height: 1.5em;
+//    font-weight: 700;
+//    font-family: MontserratExtraBold;
+//  }
+//  .col1-text,
+//  .col2-text {
+//    font-size: 1.5em;
+//  }
+//  .title-1,
+//  .title-2 {
+//    font-size: 2.2em;
+//    font-weight: 700;
+//    font-family: MontserratExtraBold;
+//  }
+//}
 </style>

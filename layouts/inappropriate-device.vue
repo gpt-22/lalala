@@ -1,6 +1,6 @@
 <template>
   <div class="inappropriate-device">
-    <h1 class="title text-center">Cайт доступен только на больших разрешениях экрана.</h1>
+    <h1 class="title text-center">{{ unavailableReason }}</h1>
 
     <app-button
       :size="btnSize"
@@ -20,6 +20,7 @@ import AppButton from '~/components/ui/app-button.vue'
 const onGoToCinematic = () => {
   setPageLayout('video')
 }
+const { unavailableReason } = useShow()
 
 const { width } = useWindowSize()
 

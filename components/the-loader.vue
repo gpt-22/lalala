@@ -206,18 +206,22 @@ onMounted(() => {
   flex-direction: column;
   justify-content: center;
 }
+.everybody {
+  padding-right: 2vw;
+}
 .own {
-  font-size: 3.9vw;
-  line-height: 3.9vw;
+  font-size: 2.5vw;
+  line-height: 2.5vw;
   letter-spacing: 0.1em;
 }
 .find {
-  font-size: 2.6vw;
-  line-height: 2.6vw;
+  font-size: 1.8vw;
+  line-height: 2.5vw;
 }
 .oasis {
   position: relative;
   color: #b19280;
+  padding-left: 2vw;
 }
 
 .title-shadow {
