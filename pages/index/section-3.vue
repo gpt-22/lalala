@@ -41,7 +41,7 @@
     </div>
 
     <teleport to="#scroll-btns">
-      <scroll-buttons class="scroll-btns" :down="true" @down="goDown" />
+      <scroll-buttons v-show="showButtons" class="scroll-btns" :down="true" @down="goDown" />
     </teleport>
   </section>
 </template>

@@ -25,9 +25,9 @@
         <app-button theme="dark" class="loader-btn" to="/" @click="onGoToSite">
           Перейти на сайт
         </app-button>
-        <app-button theme="dark" class="loader-btn loader-btn-last" @click="sound = !sound">
-          Звук: {{ sound ? 'Включен' : 'Выключен' }}
-        </app-button>
+        <!--        <app-button theme="dark" class="loader-btn loader-btn-last" @click="sound = !sound">-->
+        <!--          Звук: {{ sound ? 'Включен' : 'Выключен' }}-->
+        <!--        </app-button>-->
       </div>
 
       <logo class="loader-logo self-end" />

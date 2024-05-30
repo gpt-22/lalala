@@ -37,18 +37,19 @@ export const useAudio = () => {
 
   const play = async () => {
     audio.value.play()
+    audio.value.volume = 0.1
     // await adjustVolume(audio.value, 1)
   }
 
   const pause = async () => {
-    // await adjustVolume(audio.value, 0)
-    audio.value.pause()
+    await adjustVolume(audio.value, 0)
+    // audio.value.pause()
   }
 
   async function adjustVolume(
     element,
     newVolume,
-    { duration = 3000, easing = swing, interval = 13 } = {}
+    { duration = 2000, easing = swing, interval = 13 } = {}
   ) {
     const originalVolume = element.volume
     const delta = newVolume - originalVolume
@@ -67,6 +68,7 @@ export const useAudio = () => {
 
         if (++tick === ticks + 1) {
           clearInterval(timer)
+          audio.value.pause()
           resolve()
         }
       }, interval)

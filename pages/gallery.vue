@@ -88,9 +88,20 @@
           <button class="player-btn" @click="setNextLocation">
             <icon-skip />
           </button>
-          <button class="player-btn" @click="mute = !mute">
+          <button class="player-btn" @click.self="mute = !mute">
             <icon-mute v-show="!mute" />
             <icon-unmute v-show="mute" />
+            <input
+              id="volume"
+              type="range"
+              ref="volumeInput"
+              min="0"
+              max="100"
+              value="10"
+              step="1"
+              class="volume"
+              @mousemove="mouseMove"
+            />
           </button>
           <button class="player-btn" @click="fullscreen = !fullscreen">
             <icon-fullscreen />
@@ -122,6 +133,7 @@ import 'swiper/scss/pagination'
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
+import { throttle } from '~/utils/decorators'
 
 /* TODO:
  * анимация переключения слайдов
@@ -149,8 +161,8 @@ const setNextLocation = () => {
   router.push({ name: 'gallery', query: { location: currentLocation.value.key } })
   // swiperInstance.value.start()
 
-  currentSlideProgress.value = 0
-  currentSlideStartTime.value = 0
+  resetState()
+  animateProgress()
 }
 
 const onSwiper = (swiper) => {
@@ -162,7 +174,12 @@ const onSwiper = (swiper) => {
   // }, 10000)
 }
 const onSlideChange = (event) => {
-  console.log('slide change', event.realIndex)
+  if (event.realIndex === 0) {
+    setNextLocation()
+    return
+  }
+
+  console.log('slide change', event.realIndex, event)
   currentIndex.value = event.realIndex
   currentSlideProgress.value = 0
   currentSlideStartTime.value = 0 //performance.now()
@@ -213,6 +230,18 @@ const { $gsap } = useNuxtApp()
 
 const { audio, play: playAudio, pause: pauseAudio, initAudioPlayer } = useAudio($gsap)
 initAudioPlayer()
+
+const volumeInput = ref()
+const mouseMove = throttle(function (e) {
+  const value = volumeInput.value.value / 100
+  if (value === audio.value.volume) return
+
+  if (value > 0 && mute.value) {
+    mute.value = false
+  }
+  console.log('val', value)
+  audio.value.volume = value
+}, 100)
 
 const play = ref(true)
 const mute = ref(false)
@@ -276,6 +305,13 @@ onBeforeRouteLeave(() => {
   pauseAudio()
 })
 
+const resetState = () => {
+  currentSlideProgress.value = 0
+  currentSlideStartTime.value = 0
+  timeLeftPaused.value = 0
+  currentIndex.value = 0
+}
+
 const { showVideo } = useVideo()
 const onBack = () => {
   showLeaveOverlay.value = true
@@ -298,16 +334,17 @@ const onBack = () => {
 }
 
 .gallery-image {
-  //  min-width: 100%;
-  //  min-height: 100%;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   position: absolute;
+  aspect-ratio: 16 / 9;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   object-fit: cover;
   animation-play-state: paused;
   background-size: 100%;
+
   &.activeOdd {
     animation: 6s scaleIn;
   }
@@ -324,23 +361,18 @@ const onBack = () => {
 
 @keyframes scaleIn {
   0% {
-    height: 100vh;
-    //background-size: 100%;
+    transform: scale(1) translate(-50%, -50%);
   }
   100% {
-    height: 104vh;
-    //background-size: 105%;
+    transform: scale(1.02) translate(-50%, -50%);
   }
 }
 @keyframes scaleOut {
   0% {
-    height: 104vh;
-    //background-size: 105%;
+    transform: scale(1.02) translate(-50%, -50%);
   }
   100% {
-    height: 100vh;
-
-    //background-size: 100%;
+    transform: scale(1) translate(-50%, -50%);
   }
 }
 
@@ -442,6 +474,7 @@ const onBack = () => {
 }
 
 .player-btn {
+  position: relative;
   width: 24px;
   height: 24px;
   display: flex;
@@ -451,6 +484,23 @@ const onBack = () => {
   & > svg {
     height: 14px;
   }
+  &:hover .volume {
+    opacity: 1;
+  }
+}
+
+.volume {
+  position: absolute;
+  top: -70px;
+  left: -36px;
+  height: 16px;
+  width: 100px;
+
+  opacity: 0;
+  transition: 0.3s opacity;
+  transform: rotate(-90deg);
+  z-index: 10;
+  cursor: pointer;
 }
 
 .location-title {

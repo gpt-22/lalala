@@ -28,7 +28,7 @@ const props = defineProps(['value', 'play'])
   }
   &::before {
     left: -50%;
-    background-color: #f9d0b8;
+    background-color: #b19280;
   }
   &::after {
     right: -50%;
@@ -47,7 +47,7 @@ const props = defineProps(['value', 'play'])
 .progress-bar {
   position: absolute;
   height: 100%;
-  background: linear-gradient(90deg, #f9d0b8 0%, #fff 100%);
+  background: linear-gradient(90deg, #b19280 0%, #fff 100%);
   transition: width 0.1s;
   z-index: 1;
 }
