@@ -24,6 +24,7 @@ import { computed } from 'vue'
 
 const { preloader, startView } = useLoader()
 const { showVideo, currentVideo, load1 } = useVideo()
+// const { showAbout } = useShow()
 const { $gsap } = useNuxtApp()
 onMounted(() => {
   $gsap.to('.default-layout', {
@@ -72,7 +73,7 @@ load1()
 setFirstVideo()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .default-layout {
   opacity: 0;
   min-height: 100vh;
@@ -86,4 +87,10 @@ setFirstVideo()
   bottom: 5%;
   right: 5%;
 }
+/*.pages {*/
+/*  opacity: 0;*/
+/*}*/
+/*.pages.show {*/
+/*  opacity: 1;*/
+/*}*/
 </style>

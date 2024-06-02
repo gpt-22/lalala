@@ -1,6 +1,7 @@
 <template>
   <div class="inappropriate-device">
     <h1 class="title text-center">{{ unavailableReason }}</h1>
+    <p>{{ width }}</p>
 
     <app-button
       :size="btnSize"
