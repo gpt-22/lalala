@@ -1,7 +1,7 @@
 <template>
   <div class="inappropriate-device">
     <h1 class="title text-center">{{ unavailableReason }}</h1>
-    <p>{{ width }}</p>
+    <p>{{ width }} {{ height }}</p>
 
     <app-button
       :size="btnSize"
@@ -23,7 +23,7 @@ const onGoToCinematic = () => {
 }
 const { unavailableReason } = useShow()
 
-const { width } = useWindowSize()
+const { width, height } = useWindowSize()
 
 const btnSize = computed(() => {
   if (width.value < 426) return 'l'
