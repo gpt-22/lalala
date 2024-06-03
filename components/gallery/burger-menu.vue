@@ -8,7 +8,9 @@
         :class="{ active: item.key === activeKey }"
         @click="onClick(item.key)"
       >
-        <nuxt-link :to="`/gallery?location=${item.key}`">
+        <nuxt-link
+          :to="`/gallery?location=${item.key}&fromPage=${route.query?.fromPage || 'section-3'}`"
+        >
           {{ item.title }}
         </nuxt-link>
       </li>
@@ -21,19 +23,16 @@
 </template>
 
 <script setup>
+/* TODO:
+ * анимация элементов списка
+ * */
+
 import { locations } from '~/pages/gallery.data'
+
 const props = defineProps(['modelValue', 'activeKey'])
 const emits = defineEmits(['update:model-value', 'change-location'])
 
-const { $gsap } = useNuxtApp()
-
-onMounted(() => {
-  // $gsap.to('.slide-left', {
-  //   x: 0,
-  //   opacity: 1,
-  //   duration: 0.3
-  // })
-})
+const route = useRoute()
 
 const onClick = (itemKey) => {
   emits('update:model-value', false)

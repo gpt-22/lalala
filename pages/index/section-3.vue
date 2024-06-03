@@ -82,19 +82,19 @@ const onMouseLeave = () => {
 const highlights = [
   {
     text: 'Пирс',
-    to: '/gallery?location=dock'
+    to: '/gallery?location=dock&fromPage=section-3'
   },
   {
     text: 'Бассейн',
-    to: '/gallery?location=pool'
+    to: '/gallery?location=pool&fromPage=section-3'
   },
   {
     text: 'Зона отдыха "Крылья"',
-    to: '/gallery?location=wings'
+    to: '/gallery?location=wings&fromPage=section-3'
   },
   {
     text: 'Пляж',
-    to: '/gallery?location=beach'
+    to: '/gallery?location=beach&fromPage=section-3'
   }
 ]
 
@@ -107,7 +107,6 @@ const onClickHighlight = (highlight) => {
   setTimeout(() => {
     router.push(highlight.to)
   }, 2500)
-  setTimeout(() => (showLeaveOverlay.value = false), 2700)
 }
 </script>
 

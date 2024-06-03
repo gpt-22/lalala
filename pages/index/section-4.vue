@@ -83,27 +83,27 @@ const onMouseLeave = () => {
 const highlights = [
   {
     text: 'Смотровая площадка и лифты',
-    to: '/gallery?location=watch-area'
+    to: '/gallery?location=watch-area&fromPage=section-4'
   },
   {
     text: 'Въездная группа и аквариум',
-    to: '/gallery?location=aquarium'
+    to: '/gallery?location=aquarium&fromPage=section-4'
   },
   {
     text: 'Многофункциональные помещения',
-    to: '/gallery?location=multifunctional-rooms'
+    to: '/gallery?location=multifunctional-rooms&fromPage=section-4'
   },
   {
     text: 'Летняя эстрада',
-    to: '/gallery?location=summer-stage'
+    to: '/gallery?location=summer-stage&fromPage=section-4'
   },
   {
     text: 'Ресторан "Hoft" с бассейном',
-    to: '/gallery?location=restaurant'
+    to: '/gallery?location=restaurant&fromPage=section-4'
   },
   {
     text: 'Общие',
-    to: '/gallery?location=common'
+    to: '/gallery?location=common&fromPage=section-4'
   }
 ]
 
@@ -116,7 +116,6 @@ const onClickHighlight = (highlight) => {
   setTimeout(() => {
     router.push(highlight.to)
   }, 2500)
-  setTimeout(() => (showLeaveOverlay.value = false), 2700)
 }
 </script>
 

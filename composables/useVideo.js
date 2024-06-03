@@ -187,7 +187,10 @@ export const useVideo = () => {
     }
 
     if (video.section && !video[lifecycleHookNames.onPlay]['go-to-section']) {
-      video[lifecycleHookNames.onPlay]['go-to-section'] = () => router.push(`/${video.section}`)
+      video[lifecycleHookNames.onPlay]['go-to-section'] = () => {
+        console.log('ON HOOK', `/${video.section}`, video)
+        router.push(`/${video.section}`)
+      }
     }
 
     if (video.isTransition) {

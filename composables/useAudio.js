@@ -35,13 +35,13 @@ export const useAudio = () => {
     }
   }
 
-  const play = async () => {
+  const playAudio = async () => {
     audio.value.play()
     audio.value.volume = 0.1
     // await adjustVolume(audio.value, 1)
   }
 
-  const pause = async () => {
+  const pauseAudio = async () => {
     await adjustVolume(audio.value, 0)
     // audio.value.pause()
   }
@@ -82,8 +82,8 @@ export const useAudio = () => {
   return {
     audioLinks,
     audio,
-    play,
-    pause,
+    playAudio,
+    pauseAudio,
     initAudioPlayer,
     getRandomAudio
   }

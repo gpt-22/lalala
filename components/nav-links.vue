@@ -35,7 +35,7 @@ const { showAbout } = useShow()
 
 const links = [
   {
-    to: 'section-2',
+    to: 'section-1',
     text: 'В начало',
     onClick: onClick
   },

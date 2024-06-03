@@ -205,11 +205,4 @@ const highlights = [
     color: #b19280;
   }
 }
-
-.scroll-btns {
-  position: absolute;
-  bottom: 0%;
-  right: 0%;
-  //left: 100%;
-}
 </style>

@@ -21,10 +21,14 @@ const props = defineProps(['up', 'down'])
 }
 
 .scroll-btn {
+  background-color: #ffffff40;
+  padding: 8px;
+  border-radius: 50%;
   color: white;
   z-index: 100000;
 
   &:disabled {
+    cursor: not-allowed;
     color: rgba(255, 255, 255, 0.3);
   }
 }

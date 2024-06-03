@@ -2,7 +2,7 @@
   <button
     v-if="!to"
     class="app-btn"
-    :class="{ [theme]: theme, [mouseClass]: mouseClass, [size]: size, [acitve]: active }"
+    :class="{ [theme]: theme, [mouseClass]: mouseClass, [size]: size, active: active }"
     v-bind="$attrs"
     @mouseenter="mouseClass = 'enter'"
     @mouseleave="mouseClass = 'leave'"
@@ -15,7 +15,7 @@
   <nuxt-link v-if="to" :to="to" v-bind="$attrs" class="flex">
     <button
       class="app-btn"
-      :class="{ [theme]: theme, [mouseClass]: mouseClass, [size]: size, [acitve]: active }"
+      :class="{ [theme]: theme, [mouseClass]: mouseClass, [size]: size, active: active }"
       v-bind="$attrs"
       @mouseenter="mouseClass = 'enter'"
       @mouseleave="mouseClass = 'leave'"

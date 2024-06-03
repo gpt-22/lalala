@@ -14,11 +14,10 @@ export default defineNuxtRouteMiddleware((to, from, kek) => {
     setPageLayout('inappropriate-device')
   }
 
-  // if (width.value < 960) {
-  //  && to.name !== 'cinematic'
-  // unavailableReason.value = 'Cайт доступен только на больших разрешениях экрана.'
-  // setPageLayout('inappropriate-device')
-  // }
+  if (width.value < 1024 && to.name !== 'cinematic') {
+    unavailableReason.value = 'Cайт доступен только на больших разрешениях экрана.'
+    setPageLayout('inappropriate-device')
+  }
 
   if (to.matched.length === 0) {
     console.log('navigateTo /')

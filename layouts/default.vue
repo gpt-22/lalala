@@ -7,7 +7,7 @@
     <transition-overlay />
 
     <the-header v-show="showHeader" />
-    <div class="flex-1">
+    <div v-show="!showAbout" class="flex-1">
       <slot />
     </div>
 
@@ -24,7 +24,7 @@ import { computed } from 'vue'
 
 const { preloader, startView } = useLoader()
 const { showVideo, currentVideo, load1 } = useVideo()
-// const { showAbout } = useShow()
+const { showAbout } = useShow()
 const { $gsap } = useNuxtApp()
 onMounted(() => {
   $gsap.to('.default-layout', {
