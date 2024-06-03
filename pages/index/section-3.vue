@@ -147,7 +147,7 @@ const onClickHighlight = (highlight) => {
   &::before {
     content: 'перейти';
     position: absolute;
-    bottom: -34px;
+    bottom: -30px;
     left: 0;
     width: 100%;
     border-top: 3px solid #b19280;

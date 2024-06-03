@@ -17,7 +17,7 @@ const props = defineProps(['up', 'down'])
 
 <style scoped lang="scss">
 .container {
-  @apply flex flex-col gap-1;
+  @apply flex flex-col gap-2;
 }
 
 .scroll-btn {

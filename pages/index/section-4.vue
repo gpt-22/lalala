@@ -136,7 +136,7 @@ const onClickHighlight = (highlight) => {
 
 .project-overview-overlay {
   position: relative;
-  top: 80%;
+  top: 85%;
   left: 50%;
   transform: translateX(-50%);
   opacity: 1;
@@ -145,7 +145,7 @@ const onClickHighlight = (highlight) => {
   justify-content: center;
   align-items: center;
   grid-column-gap: 24px;
-  grid-row-gap: 36px;
+  grid-row-gap: 28px;
   z-index: 3;
   //background: linear-gradient(to bottom, #00000066 40%, #00000000 100%);
 
@@ -170,7 +170,7 @@ const onClickHighlight = (highlight) => {
   &::before {
     content: 'перейти';
     position: absolute;
-    bottom: -34px;
+    bottom: -30px;
     left: 0;
     width: 100%;
     border-top: 3px solid #b19280;
