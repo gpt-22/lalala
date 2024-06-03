@@ -27,7 +27,7 @@
     </app-container>
 
     <teleport to="#scroll-btns">
-      <scroll-buttons class="scroll-btns" :up="true" @up="goUp" />
+      <scroll-buttons v-show="showButtons" class="scroll-btns" :up="true" @up="goUp" />
     </teleport>
   </section>
 </template>
@@ -42,6 +42,7 @@ const { videos, isTransition, showVideo } = useVideo()
 
 const section1 = ref()
 const showInfo = ref(true)
+const showButtons = ref(true)
 
 function makeid(length) {
   let result = ''
@@ -78,6 +79,7 @@ const setGsapAnimations = () => {
 }
 
 const goUp = throttle(() => {
+  showButtons.value = false
   showInfo.value = false
   showVideo('4')
 }, 1000)

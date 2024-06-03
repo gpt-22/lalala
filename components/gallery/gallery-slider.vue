@@ -96,10 +96,10 @@ const onSwiper = (swiper) => {
 const onSlideChange = (event) => {
   console.log('slide change', event.realIndex, event)
 
-  // if (event.realIndex === 0) {
-  //   setNextLocation()
-  //   return
-  // }
+  if (event.realIndex === 0) {
+    setNextLocation()
+    return
+  }
 
   currentIndex.value = event.realIndex
   currentSlideProgress.value = 0

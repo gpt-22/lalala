@@ -35,7 +35,7 @@
     </div>
 
     <teleport to="#scroll-btns">
-      <scroll-buttons class="scroll-btns" :down="true" @down="goDown" />
+      <scroll-buttons v-show="showButtons" class="scroll-btns" :down="true" @down="goDown" />
     </teleport>
   </section>
 </template>
@@ -59,6 +59,8 @@ const onMouseLeave = () => {
 }
 
 const goDown = throttle((deltaY) => {
+  showButtons.value = false
+
   console.log('2 SCROLL UP', deltaY)
   showVideo('4r')
 }, 1000)
@@ -69,7 +71,6 @@ const onWheel = (e) => {
   }
 
   if (e.deltaY > 20) {
-    showButtons.value = false
     console.log('hide')
     goDown(e.deltaY)
   }
