@@ -5,10 +5,6 @@ export default defineNuxtRouteMiddleware((to, from, kek) => {
   const isChrome = navigator.userAgent.indexOf('Chrome') !== -1
   const isFirefox = navigator.userAgent.indexOf('Firefox') !== -1
 
-  if (to.name === 'cinematic') {
-    return navigateTo(to)
-  }
-
   if (!isChrome && !isFirefox) {
     unavailableReason.value = 'Браузер не поддерживается :('
     setPageLayout('inappropriate-device')

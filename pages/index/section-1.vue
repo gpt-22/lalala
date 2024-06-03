@@ -4,10 +4,8 @@
       <div v-show="showInfo" class="project-info w-full">
         <img :src="imageBack" alt="" class="image-back" />
 
-        <h1 class="section-1-title"><span class="section-1-title-span">-----</span> резиденция</h1>
-        <h2 class="section-1-subtitle">
-          {{ makeid(8) }} {{ makeid(12) }} {{ makeid(6) }} “{{ makeid(4) }}”
-        </h2>
+        <h1 class="section-1-title"><span class="section-1-title-span">"ОАЗИС"</span></h1>
+        <h2 class="section-1-subtitle">Комплекс апартаментов класса “Люкс”</h2>
         <br />
         <p class="text text-1">
           Добро пожаловать в эксклюзивное гостеприимство! Совершенно новое дыхание концепции
@@ -71,8 +69,10 @@ const setGsapAnimations = () => {
     }
   )
 
-  timeline.to('.section-1-title-span', { duration: 1, text: '“ОАЗИС”' })
-  timeline.to('.section-1-subtitle', { duration: 1, text: 'Комплекс апартаментов класса “Люкс”' })
+  // timeline.to('.section-1-title-span', { duration: 1, text: '“ОАЗИС”' })
+  // timeline.to('.section-1-subtitle', { duration: 1, text: 'Комплекс апартаментов класса “Люкс”' })
+  timeline.fromTo('.section-1-title-span', { opacity: 0 }, { opacity: 1, duration: 0.5 })
+  timeline.fromTo('.section-1-subtitle', { opacity: 0 }, { opacity: 1, duration: 0.5 })
   timeline.fromTo('.text-1', { opacity: 0 }, { opacity: 1, duration: 0.5 })
   timeline.fromTo('.text-2', { opacity: 0 }, { opacity: 1, duration: 0.5 })
 }
