@@ -18,28 +18,19 @@ const router = useRouter()
 
 const { showVideo, videoSaturated } = useVideo()
 
-const onClick = (link) => {
-  if (route.name !== 'index') {
-    router.push(`/${link.to}`)
-  }
-
-  if (link.to === 'section-2') {
-    showVideo('5')
-  }
-
-  // document.querySelector(to).scrollIntoView()
-  // $lenis.scrollTo(to)
-}
-
 const { showAbout } = useShow()
 
 const links = [
   {
     to: 'section-1',
     text: 'В начало',
-    onClick: onClick
+    onClick: () => showVideo('3')
   },
-  { to: 'cinematic', text: 'Синематик', onClick: onClick },
+  {
+    to: 'cinematic',
+    text: 'Синематик',
+    onClick: () => {}
+  },
   {
     text: 'О нас',
     onClick: () => {
