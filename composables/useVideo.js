@@ -20,8 +20,9 @@ export const useVideo = () => {
   const router = useRouter()
 
   const load1 = () => {
+    // console.log('lOAD 1', videos.value)
     // Предзагрузка нескольких видео (появятся в DOM)
-    const firstLoadKeys = ['1']
+    const firstLoadKeys = ['1'].filter((key) => !videos.value.find((video) => video.key === key))
     videos.value = allVideos
       .filter((video) => firstLoadKeys.includes(video.key))
       .map((video) => {
@@ -35,7 +36,10 @@ export const useVideo = () => {
   }
 
   const load2 = () => {
-    const secondLoadKeys = ['2', '3', '4', '5']
+    // console.log('lOAD 2', videos.value)
+    const secondLoadKeys = ['2', '3', '4', '5'].filter(
+      (key) => !videos.value.find((video) => video.key === key)
+    )
     const secondLoadVideos = allVideos
       .filter((video) => secondLoadKeys.includes(video.key))
       .map((video) => {

@@ -21,14 +21,14 @@
       </div>
 
       <div class="player-btn-container">
-        <button class="player-btn" @click="play = !play">
+        <button class="player-btn" @click="onPlayClick">
           <icon-stop v-show="play" />
           <icon-play v-show="!play" />
         </button>
         <button class="player-btn" @click="setNextLocation">
           <icon-skip />
         </button>
-        <button class="player-btn" @click.self="mute = !mute">
+        <button class="player-btn" @click="onMuteClick">
           <icon-mute v-show="!mute" />
           <icon-unmute v-show="mute" />
           <input
@@ -108,6 +108,15 @@ const mouseMove = throttle(function (e) {
 const { audio, playAudio, pauseAudio, initAudioPlayer } = useAudio()
 initAudioPlayer()
 
+const onPlayClick = () => {
+  play.value = !play.value
+  if (!play.value) pauseAudio()
+}
+const onMuteClick = () => {
+  console.log('MUTE')
+  mute.value = !mute.value
+}
+
 const togglePlay = () => {
   if (play.value) {
     swiperInstance.value.autoplay?.resume()
@@ -115,8 +124,6 @@ const togglePlay = () => {
     animateProgress()
   } else {
     swiperInstance.value.autoplay?.pause()
-    pauseAudio()
-    console.log('time progress', timeLeftPaused.value, currentSlideProgress.value)
   }
 }
 

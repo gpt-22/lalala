@@ -23,7 +23,7 @@
 import { computed } from 'vue'
 
 const { preloader, startView } = useLoader()
-const { showVideo, currentVideo, load1 } = useVideo()
+const { showVideo, currentVideo, load1, videos } = useVideo()
 const { showAbout } = useShow()
 const { $gsap } = useNuxtApp()
 onMounted(() => {
@@ -55,9 +55,9 @@ watch(preloader, (value) => {
 const setFirstVideo = () => {
   const section = route.path.replaceAll('/', '')
   const videoKey = sectionToVideoKey[section]
-  console.log('DEFAULT LAYOUT: section, video -', section, videoKey)
+  console.log('DEFAULT LAYOUT: section, video -', section, videoKey, route.name)
 
-  if (route.name === 'index') {
+  if (['index', 'cinematic'].includes(route.name)) {
     showVideo('1', { playNext: false })
   } else {
     if (videoKey) {
