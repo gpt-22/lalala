@@ -50,5 +50,17 @@ const props = defineProps(['value', 'play'])
   background: linear-gradient(90deg, #b19280 0%, #fff 100%);
   transition: width 0.1s;
   z-index: 1;
+  border-radius: 0 2px 2px 0;
+
+  &::after {
+    content: '';
+    top: -2px;
+    right: 0;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #fff;
+    border-radius: 50%;
+  }
 }
 </style>
