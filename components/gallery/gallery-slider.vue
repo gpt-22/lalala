@@ -15,7 +15,7 @@
       :key="imageSrc"
       class="slide"
       v-slot="{ isActive }"
-      @click="togglePlay"
+      @click="onSlideClick"
     >
       <img
         :src="imageSrc"
@@ -58,12 +58,14 @@ const {
   animateProgress2,
   setNextLocation
 } = useGallery()
-const { playAudio } = useAudio()
+const { playAudio, pauseAudio } = useAudio()
 
 document.body.addEventListener('keydown', (event) => {
   console.log('key', event)
   if (event.code === 'Space') {
     togglePlay()
+    if (play.value) playAudio()
+    else pauseAudio()
   }
   if (event.code === 'ArrowLeft') {
     swiperInstance.value.slidePrev()
@@ -78,6 +80,12 @@ const onLoad = (index) => {
   if (index === 0 && !preloader.value) {
     enterGallery()
   }
+}
+
+const onSlideClick = () => {
+  togglePlay()
+  if (play.value) playAudio()
+  else pauseAudio()
 }
 
 watch(preloader, (value) => {

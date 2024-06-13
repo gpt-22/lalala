@@ -30,6 +30,7 @@ import BurgerMenu from './burger-menu.vue'
 import IconClose from '~/components/icons/icon-close.vue'
 
 const { play, currentLocation, setLocation } = useGallery()
+const { playAudio, pauseAudio } = useAudio()
 
 const menuOpen = ref(false)
 let prevPlayState = play.value
@@ -40,10 +41,12 @@ watch(menuOpen, (value) => {
 
   if (value && play.value) {
     play.value = false
+    pauseAudio()
   }
 
   if (!value && prevPlayState) {
     play.value = true
+    playAudio()
   }
 })
 

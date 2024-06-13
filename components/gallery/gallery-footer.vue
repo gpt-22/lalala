@@ -112,7 +112,8 @@ initAudioPlayer()
 
 const onPlayClick = () => {
   togglePlay()
-  if (!play.value) pauseAudio()
+  if (play.value) playAudio()
+  else pauseAudio()
 }
 const onMuteClick = () => {
   if (volumeChanging.value) return
@@ -126,7 +127,8 @@ const onTogglePlay = () => {
     if (!mute.value) playAudio()
     // animateProgress2(100, { duration: swiperInstance.value.autoplay.timeLeft })
   } else {
-    pauseAudio()
+    console.log('ON TOGGLE PLAY')
+    // pauseAudio()
     swiperInstance.value.autoplay?.pause()
   }
 }
@@ -150,6 +152,7 @@ watch(mute, onToggleAudio)
 watch(fullscreen, onToggleFullScreen)
 
 onBeforeRouteLeave(() => {
+  console.log('LEAVE')
   pauseAudio()
 })
 </script>
