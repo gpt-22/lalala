@@ -1,7 +1,9 @@
 <template>
-  <div class="progress" :class="{ play: play }">
-    <div class="progress-track" />
-    <div class="progress-bar" :style="{ width: `${value}%` }" />
+  <div class="progress-container">
+    <div class="progress" :class="{ play: play }">
+      <div class="progress-track" />
+      <div class="progress-bar" :style="{ width: `${value}%` }" />
+    </div>
   </div>
 </template>
 
@@ -10,6 +12,10 @@ const props = defineProps(['value', 'play'])
 </script>
 
 <style scoped>
+.progress-container {
+  position: absolute;
+  width: 100%;
+}
 .progress {
   position: relative;
   width: 100%;
