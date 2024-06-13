@@ -1,9 +1,11 @@
 <template>
   <div class="progress-container">
+    <div class="before" />
     <div class="progress" :class="{ play: play }">
       <div class="progress-track" />
       <div class="progress-bar" :style="{ width: `${value}%` }" />
     </div>
+    <div class="after" />
   </div>
 </template>
 
@@ -11,35 +13,29 @@
 const props = defineProps(['value', 'play'])
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .progress-container {
   position: absolute;
   width: 100%;
+  display: flex;
+}
+.before,
+.after {
+  width: 48px;
+  height: 4px;
+}
+.before {
+  background-color: #b19280;
+}
+.after {
+  background-color: #1d1d1d;
 }
 .progress {
+  flex-grow: 1;
   position: relative;
-  width: 100%;
   height: 4px;
   z-index: 2;
   background-color: #1d1d1d;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 0;
-  }
-  &::before {
-    left: -50%;
-    background-color: #b19280;
-  }
-  &::after {
-    right: -50%;
-    background-color: #1d1d1d;
-  }
 }
 
 .progress-track {
@@ -61,7 +57,7 @@ const props = defineProps(['value', 'play'])
   &::after {
     content: '';
     top: -2px;
-    right: 0;
+    right: -4px;
     position: absolute;
     width: 8px;
     height: 8px;

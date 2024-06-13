@@ -1,7 +1,8 @@
 <template>
   <footer class="gallery-footer">
+    <slider-progress ref="progressElement" :value="totalProgress" :play="play" />
+
     <div class="gallery-footer-content">
-      <slider-progress ref="progressElement" :value="totalProgress" :play="play" />
       <div class="slide-marks">
         <button
           v-for="(imageSrc, i) in currentLocation?.images"
@@ -11,12 +12,11 @@
             active: i === currentIndex
           }"
           :style="{
-            left: `calc(calc(calc(${width}px / ${currentLocation?.images.length}) * ${i}) - 8px)`
+            left: `calc(calc(${width - 96}px / ${currentLocation?.images.length}) * ${i})`
           }"
           @click="setCurrentSlide(i)"
         >
           {{ i + 1 }}
-          <!--            <icon-image class="w-[16px] h-[16x]" />-->
         </button>
       </div>
 
@@ -159,19 +159,15 @@ onBeforeRouteLeave(() => {
 
 <style scoped lang="scss">
 .gallery-footer {
-  background-color: black;
   position: absolute;
-  height: calc(100vh * 0.125);
-  z-index: 2;
-}
-
-.gallery-footer {
   bottom: 0;
   left: 0;
   right: 0;
+  height: calc(100vh * 0.125);
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  padding: 0 48px;
+  background-color: black;
 }
 
 .gallery-footer-content {
@@ -180,6 +176,7 @@ onBeforeRouteLeave(() => {
 }
 
 .slide-marks {
+  margin: 0 48px;
   position: absolute;
   width: calc(100% - 48px * 2);
   display: flex;
@@ -191,6 +188,7 @@ onBeforeRouteLeave(() => {
   font-weight: 500;
   font-family: MontserratAltMedium;
   color: #757575;
+  transform: translateX(-50%);
   transition: color 0.4s cubic-bezier(0.55, 0, 0.1, 1);
   display: flex;
   align-items: center;
@@ -212,6 +210,7 @@ onBeforeRouteLeave(() => {
 .player-btn-container {
   @apply flex gap-6 items-center justify-end;
   height: 100%;
+  padding: 0 48px;
 }
 
 .player-btn-wrapper {
