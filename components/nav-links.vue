@@ -12,12 +12,7 @@
 </template>
 
 <script setup>
-const route = useRoute()
-const router = useRouter()
-// const { $lenis } = useNuxtApp()
-
 const { showVideo, videoSaturated } = useVideo()
-
 const { showAbout } = useShow()
 
 const links = [

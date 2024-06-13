@@ -14,9 +14,10 @@ export const audioLinks = [
   `${MEDIA_BASE_URL}/audio/Yiruma_-_River_Flows_In_You_48240226.mp3`
 ]
 
-export const useAudio = () => {
-  const audio = ref(new Audio())
+const audio = ref(new Audio())
+const volumeChanging = ref(false)
 
+export const useAudio = () => {
   function getRandomInt(min, max) {
     min = Math.ceil(min)
     max = Math.floor(max)
@@ -32,30 +33,33 @@ export const useAudio = () => {
     audio.value.volume = 0.1
     audio.value.onended = function () {
       audio.value.src = getRandomAudio()
+      audio.value.play()
     }
   }
 
   const playAudio = async () => {
     audio.value.play()
-    audio.value.volume = 0.1
-    // await adjustVolume(audio.value, 1)
+    await adjustVolume(audio.value, 0.1)
   }
 
   const pauseAudio = async () => {
     await adjustVolume(audio.value, 0)
-    // audio.value.pause()
   }
 
   async function adjustVolume(
     element,
     newVolume,
-    { duration = 2000, easing = swing, interval = 13 } = {}
+    { duration = 1000, easing = swing, interval = 13 } = {}
   ) {
+    volumeChanging.value = true
+
     const originalVolume = element.volume
     const delta = newVolume - originalVolume
 
     if (!delta || !duration || !easing || !interval) {
       element.volume = newVolume
+      volumeChanging.value = false
+
       return Promise.resolve()
     }
 
@@ -64,24 +68,26 @@ export const useAudio = () => {
 
     return new Promise((resolve) => {
       const timer = setInterval(() => {
-        element.volume = originalVolume + easing(tick / ticks) * delta
+        element.volume = (originalVolume + easing(tick / ticks) * delta).toFixed(2)
 
         if (++tick === ticks + 1) {
           clearInterval(timer)
-          audio.value.pause()
+
+          volumeChanging.value = false
           resolve()
         }
       }, interval)
     })
   }
 
-  function swing(p) {
-    return 0.5 - Math.cos(p * Math.PI) / 2
+  function swing(x) {
+    return 0.5 - Math.cos(x * Math.PI) / 2
   }
 
   return {
     audioLinks,
     audio,
+    volumeChanging,
     playAudio,
     pauseAudio,
     initAudioPlayer,

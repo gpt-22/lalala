@@ -21,31 +21,39 @@
       </div>
 
       <div class="player-btn-container">
-        <button class="player-btn" @click="onPlayClick">
-          <icon-stop v-show="play" />
-          <icon-play v-show="!play" />
-        </button>
-        <button class="player-btn" @click="setNextLocation">
-          <icon-skip />
-        </button>
-        <button class="player-btn" @click="onMuteClick">
-          <icon-mute v-show="!mute" />
-          <icon-unmute v-show="mute" />
-          <input
-            id="volume"
-            type="range"
-            ref="volumeInput"
-            min="0"
-            max="100"
-            value="10"
-            step="1"
-            class="volume"
-            @mousemove="mouseMove"
-          />
-        </button>
-        <button class="player-btn" @click="fullscreen = !fullscreen">
-          <icon-fullscreen />
-        </button>
+        <div class="player-btn-wrapper">
+          <button class="player-btn" @click="onPlayClick">
+            <icon-stop v-show="play" />
+            <icon-play v-show="!play" />
+          </button>
+        </div>
+        <div class="player-btn-wrapper">
+          <button class="player-btn" @click="setNextLocation">
+            <icon-skip />
+          </button>
+        </div>
+        <div class="player-btn-wrapper">
+          <button class="player-btn" @click="onMuteClick">
+            <icon-mute v-show="!mute" />
+            <icon-unmute v-show="mute" />
+          </button>
+          <!--          <input-->
+          <!--            id="volume"-->
+          <!--            type="range"-->
+          <!--            ref="volumeInput"-->
+          <!--            :value="audio.volume"-->
+          <!--            min="0"-->
+          <!--            max="1"-->
+          <!--            step="0.01"-->
+          <!--            class="volume"-->
+          <!--            @input="onVolumeInput"-->
+          <!--          />-->
+        </div>
+        <div class="player-btn-wrapper">
+          <button class="player-btn" @click="toggleFullscreen">
+            <icon-fullscreen />
+          </button>
+        </div>
       </div>
     </div>
   </footer>
@@ -71,27 +79,25 @@ const {
   swiperInstance,
   currentLocation,
   currentIndex,
-  timeLeftPaused,
-  currentSlideProgress,
   totalProgress,
   play,
+  togglePlay,
   mute,
+  toggleMute,
   fullscreen,
+  toggleFullscreen,
   setCurrentSlide,
   setNextLocation,
-  animateProgress
+  animateProgress2
 } = useGallery()
 
 const progressElement = ref()
 const { width } = useElementBounding(progressElement)
 
-onMounted(() => {
-  console.log('PROG', totalProgress.value, currentSlideProgress.value)
-})
-
 const volumeInput = ref()
-const mouseMove = throttle(function (e) {
-  const value = volumeInput.value.value / 100
+const onVolumeInput = throttle(function (e) {
+  console.log('INPUT', e.target.value)
+  const value = volumeInput.value.value
   if (value === audio.value.volume) return
 
   if (value > 0 && mute.value) {
@@ -101,38 +107,36 @@ const mouseMove = throttle(function (e) {
   audio.value.volume = value
 }, 100)
 
-// document.body.addEventListener('keypress', (val) => {
-//   console.log('key', val.code)
-// })
-
-const { audio, playAudio, pauseAudio, initAudioPlayer } = useAudio()
+const { audio, volumeChanging, playAudio, pauseAudio, initAudioPlayer } = useAudio()
 initAudioPlayer()
 
 const onPlayClick = () => {
-  play.value = !play.value
+  togglePlay()
   if (!play.value) pauseAudio()
 }
 const onMuteClick = () => {
+  if (volumeChanging.value) return
   console.log('MUTE')
   mute.value = !mute.value
 }
 
-const togglePlay = () => {
+const onTogglePlay = () => {
   if (play.value) {
     swiperInstance.value.autoplay?.resume()
     if (!mute.value) playAudio()
-    animateProgress()
+    // animateProgress2(100, { duration: swiperInstance.value.autoplay.timeLeft })
   } else {
+    pauseAudio()
     swiperInstance.value.autoplay?.pause()
   }
 }
 
-const toggleAudio = () => {
+const onToggleAudio = () => {
   if (mute.value) pauseAudio()
   else playAudio()
 }
 
-const toggleFullScreen = () => {
+const onToggleFullScreen = () => {
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen()
   } else if (document.exitFullscreen) {
@@ -141,9 +145,9 @@ const toggleFullScreen = () => {
 }
 
 // EFFECTS
-watch(play, togglePlay)
-watch(mute, toggleAudio)
-watch(fullscreen, toggleFullScreen)
+watch(play, onTogglePlay)
+watch(mute, onToggleAudio)
+watch(fullscreen, onToggleFullScreen)
 
 onBeforeRouteLeave(() => {
   pauseAudio()
@@ -207,8 +211,14 @@ onBeforeRouteLeave(() => {
   height: 100%;
 }
 
-.player-btn {
+.player-btn-wrapper {
   position: relative;
+
+  &:hover .volume {
+    opacity: 1;
+  }
+}
+.player-btn {
   width: 24px;
   height: 24px;
   display: flex;
@@ -217,9 +227,6 @@ onBeforeRouteLeave(() => {
 
   & > svg {
     height: 14px;
-  }
-  &:hover .volume {
-    opacity: 1;
   }
 }
 

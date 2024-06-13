@@ -1,3 +1,4 @@
+import { throttle } from '~/utils/decorators'
 import { locations } from '~/pages/gallery.data'
 
 const swiperInstance = ref()
@@ -5,7 +6,8 @@ const currentIndex = ref(0)
 const currentLocation = ref(null)
 const currentSlideProgress = ref(0)
 const currentSlideStartTime = ref(0)
-const timeLeftPaused = ref(0)
+// const slideProgressTimeLeft = ref(0)
+const progressIntervals = ref([])
 
 const play = ref(false)
 const mute = ref(false)
@@ -27,6 +29,17 @@ export const useGallery = () => {
   })
 
   // SETTERS
+  const togglePlay = throttle(() => {
+    console.log('SWIPER', swiperInstance.value)
+    play.value = !play.value
+  }, 30)
+  const toggleMute = throttle(() => {
+    mute.value = !mute.value
+  }, 30)
+  const toggleFullscreen = throttle(() => {
+    fullscreen.value = !fullscreen.value
+  }, 30)
+
   const setCurrentSlide = (index) => {
     console.log('before', index, swiperInstance.value.activeIndex, swiperInstance.value.realIndex)
     currentIndex.value = index
@@ -44,7 +57,6 @@ export const useGallery = () => {
     )
     currentLocation.value =
       locations[locationIndex + 1 > locations.length - 1 ? 0 : locationIndex + 1]
-    console.log('setNextLocation', currentLocation.value.key, swiperInstance.value)
 
     router.push({
       name: 'gallery',
@@ -57,11 +69,10 @@ export const useGallery = () => {
     resetState()
     swiperInstance.value.slideTo(0)
     swiperInstance.value.setProgress(0)
-
-    // swiperInstance.value.start()
+    swiperInstance.value.update()
   }
   const animateProgress = (timestamp) => {
-    console.log('ANIMATE PROGRESS')
+    // console.log('ANIMATE PROGRESS', currentSlideProgress.value)
     if (!currentSlideStartTime.value) currentSlideStartTime.value = timestamp
 
     const timeLeft = timestamp - currentSlideStartTime.value || 0
@@ -70,9 +81,47 @@ export const useGallery = () => {
 
     if (play.value && currentSlideProgress.value < 100) {
       requestAnimationFrame(animateProgress)
-    } else {
-      timeLeftPaused.value = timeLeft
     }
+  }
+
+  async function animateProgress2(
+    newValue = 100,
+    { duration = swiperInstance.value.autoplay.timeLeft, easing = swing, interval = 13 } = {}
+  ) {
+    const originalProgress = currentSlideProgress.value
+    const delta = newValue - originalProgress
+
+    if (!delta || !duration || !easing || !interval) {
+      currentSlideProgress.value = newValue
+      console.log('RESOLVE', currentSlideProgress.value)
+      return Promise.resolve()
+    }
+
+    const ticks = Math.floor(duration / interval)
+    let tick = 1
+    console.log('ANIMATE PROGRESS', originalProgress, delta, ticks)
+
+    return new Promise((resolve) => {
+      const timer = setInterval(() => {
+        if (!play.value) {
+          clearInterval(timer)
+          resolve()
+        }
+
+        currentSlideProgress.value = originalProgress + (tick / ticks) * delta
+
+        if (++tick === ticks + 1) {
+          clearInterval(timer)
+          resolve()
+        }
+      }, interval)
+
+      progressIntervals.value.push(timer)
+    })
+  }
+
+  function swing(x) {
+    return 0.5 - Math.cos(x * Math.PI) / 2
   }
 
   const resetState = () => {
@@ -81,7 +130,6 @@ export const useGallery = () => {
     currentIndex.value = 0
     currentSlideProgress.value = 0
     currentSlideStartTime.value = 0
-    timeLeftPaused.value = 0
   }
 
   // EFFECTS
@@ -93,7 +141,6 @@ export const useGallery = () => {
     currentLocation,
     currentSlideProgress,
     currentSlideStartTime,
-    timeLeftPaused,
     //
     play,
     mute,
@@ -101,10 +148,15 @@ export const useGallery = () => {
     //
     currentSlideStartProgress,
     totalProgress,
+    progressIntervals,
     //
+    togglePlay,
+    toggleMute,
+    toggleFullscreen,
     setLocation,
     setNextLocation,
     setCurrentSlide,
-    animateProgress
+    animateProgress,
+    animateProgress2
   }
 }

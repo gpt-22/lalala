@@ -1,5 +1,6 @@
 <template>
   <swiper
+    :key="currentLocation.key"
     :slides-per-view="1"
     :modules="[Autoplay]"
     :autoplay="{ delay: 5000 }"
@@ -14,7 +15,7 @@
       :key="imageSrc"
       class="slide"
       v-slot="{ isActive }"
-      @click="play = !play"
+      @click="togglePlay"
     >
       <img
         :src="imageSrc"
@@ -44,7 +45,6 @@ import 'swiper/scss'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
 
-const route = useRoute()
 const { preloader } = useLoader()
 const { showEnterOverlay, showLeaveOverlay } = usePageOverlay()
 const {
@@ -52,19 +52,30 @@ const {
   currentLocation,
   currentIndex,
   currentSlideProgress,
-  currentSlideStartTime,
-  totalProgress,
+  progressIntervals,
   play,
-  animateProgress,
+  togglePlay,
+  animateProgress2,
   setNextLocation
 } = useGallery()
 const { playAudio } = useAudio()
 
+document.body.addEventListener('keydown', (event) => {
+  console.log('key', event)
+  if (event.code === 'Space') {
+    togglePlay()
+  }
+  if (event.code === 'ArrowLeft') {
+    swiperInstance.value.slidePrev()
+  }
+  if (event.code === 'ArrowRight') {
+    swiperInstance.value.slideNext()
+  }
+})
+
 const onLoad = (index) => {
   // ENTRY POINT
   if (index === 0 && !preloader.value) {
-    console.log('LOAD', index, imageElements.value[index].complete)
-
     enterGallery()
   }
 }
@@ -83,7 +94,7 @@ const enterGallery = () => {
 
   play.value = true
   swiperInstance.value.autoplay.start()
-  requestAnimationFrame(animateProgress)
+  // animateProgress2(100, { duration: swiperInstance.value.autoplay.timeLeft })
   playAudio()
 }
 
@@ -94,18 +105,17 @@ const onSwiper = (swiper) => {
 }
 
 const onSlideChange = (event) => {
-  console.log('slide change', event.realIndex, event)
+  // console.log('slide change', event.realIndex, event.previousIndex)
 
-  if (event.realIndex === 0) {
+  if (event.realIndex === 0 && event.previousIndex === currentLocation.value?.images.length - 1) {
     setNextLocation()
     return
   }
 
   currentIndex.value = event.realIndex
   currentSlideProgress.value = 0
-  currentSlideStartTime.value = 0
-  animateProgress()
-  // console.log('onSlideChange', totalProgress.value)
+
+  // requestAnimationFrame(() => animateProgress2(100, { duration: 5000 }))
 }
 </script>
 
