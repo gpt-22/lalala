@@ -37,17 +37,19 @@
             <icon-mute v-show="!mute" />
             <icon-unmute v-show="mute" />
           </button>
-          <!--          <input-->
-          <!--            id="volume"-->
-          <!--            type="range"-->
-          <!--            ref="volumeInput"-->
-          <!--            :value="audio.volume"-->
-          <!--            min="0"-->
-          <!--            max="1"-->
-          <!--            step="0.01"-->
-          <!--            class="volume"-->
-          <!--            @input="onVolumeInput"-->
-          <!--          />-->
+          <div class="volume-wrapper">
+            <input
+              id="volume"
+              type="range"
+              ref="volumeInput"
+              :value="audio.volume"
+              min="0"
+              max=".5"
+              step="0.005"
+              class="volume"
+              @input="onVolumeInput"
+            />
+          </div>
         </div>
         <div class="player-btn-wrapper">
           <button class="player-btn" @click="toggleFullscreen">
@@ -125,7 +127,7 @@ const onTogglePlay = () => {
   if (play.value) {
     swiperInstance.value.autoplay?.resume()
     if (!mute.value) playAudio()
-    // animateProgress2(100, { duration: swiperInstance.value.autoplay.timeLeft })
+    animateProgress2(100, { duration: swiperInstance.value.autoplay.timeLeft })
   } else {
     console.log('ON TOGGLE PLAY')
     // pauseAudio()
@@ -215,10 +217,6 @@ onBeforeRouteLeave(() => {
 
 .player-btn-wrapper {
   position: relative;
-
-  &:hover .volume {
-    opacity: 1;
-  }
 }
 .player-btn {
   width: 24px;
@@ -232,17 +230,67 @@ onBeforeRouteLeave(() => {
   }
 }
 
-.volume {
+/// Sound btn
+.player-btn-wrapper {
+  &:hover .volume {
+    opacity: 1;
+  }
+}
+
+.volume-wrapper {
   position: absolute;
   top: -70px;
   left: -36px;
   height: 16px;
   width: 100px;
+  z-index: 10;
+}
 
+.volume {
+  width: 100%;
+  height: 100%;
   opacity: 0;
   transition: 0.3s opacity;
   transform: rotate(-90deg);
-  z-index: 10;
   cursor: pointer;
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04aa6d; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04aa6d; /* Green background */
+  cursor: pointer; /* Cursor on hover */
 }
 </style>

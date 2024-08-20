@@ -102,7 +102,7 @@ const enterGallery = () => {
 
   play.value = true
   swiperInstance.value.autoplay.start()
-  // animateProgress2(100, { duration: swiperInstance.value.autoplay.timeLeft })
+  animateProgress2(100, { duration: swiperInstance.value.autoplay.timeLeft })
   playAudio()
 }
 
@@ -123,7 +123,7 @@ const onSlideChange = (event) => {
   currentIndex.value = event.realIndex
   currentSlideProgress.value = 0
 
-  // requestAnimationFrame(() => animateProgress2(100, { duration: 5000 }))
+  requestAnimationFrame(() => animateProgress2(100, { duration: 5000 }))
 }
 </script>
 
