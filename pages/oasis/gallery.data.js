@@ -1,21 +1,3 @@
-/*
-
-Зона с яхтами | yachts
-Бассейная группа | pool
-Площадка где сидят люди | sitting-place
-Зона на отдыха на крыльях | wings
-Лифтовая зона | elevator
-Смотровая площадка | observation deck
-Аквариум (+ Въездная группа?) | Aquarium
-Ресторан / летняя эстрада | summer stage
-Магазин / Коворкинг | coworking
-Подземный паркинг | underground-parking
-Апартаменты | apartments
-Ресторан на последнем этаже | restaurant
-Бассейн на крыше | roof-pool
-
-* */
-
 export const locations = [
   {
     key: 'dock',
