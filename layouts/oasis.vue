@@ -21,6 +21,12 @@
 
 <script setup>
 import { computed } from 'vue'
+import TheLoader from '~/components/oasis/the-loader.vue'
+import VideoBackground from '~/components/oasis/video-background.vue'
+import TransitionOverlay from '~/components/oasis/transition-overlay.vue'
+import TheHeader from '~/components/oasis/the-header.vue'
+import About from '~/components/oasis/about.vue'
+import ThePreloader from '~/components/oasis/the-preloader.vue'
 
 const { preloader, startView } = useLoader()
 const { showVideo, currentVideo, load1, videos } = useVideo()

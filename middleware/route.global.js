@@ -1,4 +1,8 @@
 export default defineNuxtRouteMiddleware((to, from, kek) => {
+  if (to.name === 'index') {
+    return
+  }
+
   const { width } = useWindowSize()
   const { unavailableReason } = useShow()
 

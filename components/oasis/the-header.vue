@@ -25,7 +25,10 @@
 </template>
 
 <script setup>
-import Contacts from '~/components/contacts.vue'
+import Contacts from '~/components/oasis/contacts.vue'
+import Logo from '~/components/oasis/logo.vue'
+import NavLinks from '~/components/oasis/nav-links.vue'
+import MenuBurger from '~/components/oasis/menu-burger.vue'
 
 const { preloader, startView } = useLoader()
 const { showVideo, isTransition, videoSaturated } = useVideo()

@@ -23,8 +23,8 @@
 
 <script setup>
 import { Power2 } from 'gsap'
-import AppButton from '~/components/ui/app-button.vue'
-import AppCheckbox from '~/components/ui/app-checkbox.vue'
+// import AppButton from '~/components/ui/app-button.vue'
+// import AppCheckbox from '~/components/ui/app-checkbox.vue'
 
 const { preloader } = useLoader()
 

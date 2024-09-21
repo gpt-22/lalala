@@ -2,7 +2,7 @@
   <footer>
     <app-container class="h-full">
       <div class="footer-content">
-        <nuxt-link to="/" class="flex items-center pl-4">
+        <nuxt-link to="/" class="flex items-center">
           <logo />
         </nuxt-link>
 
@@ -22,5 +22,12 @@ import Logo from '~/components/index/header/logo.vue'
   @apply h-full flex items-center justify-between;
 
   padding: 100px 0;
+
+  @media (max-width: 600px) {
+    padding: 40px 0;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    gap: 32px;
+  }
 }
 </style>

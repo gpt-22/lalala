@@ -57,17 +57,22 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 64px;
+  }
 }
 
 .service p {
-  font-size: 1.5vw;
-  line-height: 1.2em;
+  font-size: 18px;
+  line-height: 24px;
   margin-top: 16px;
 }
 
 .service-title {
-  font-size: 2vw;
-  line-height: 2.4vw;
+  font-size: 28px;
+  line-height: 36px;
   font-weight: 700;
   margin-bottom: 24px;
 }

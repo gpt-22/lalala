@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import IconClose from '~/components/icons/icon-close.vue'
+import IconClose from '~/components/oasis/icons/icon-close.vue'
 
 const { showAbout } = useShow()
 const { $gsap } = useNuxtApp()

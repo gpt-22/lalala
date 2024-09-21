@@ -6,4 +6,6 @@
 
 <script setup>
 const { preloader, startView } = useLoader()
+
+setPageLayout('oasis')
 </script>

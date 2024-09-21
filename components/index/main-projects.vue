@@ -184,6 +184,10 @@ const onSwiper = (swiper) => {
   font-family: MontserratBold;
   font-weight: 700;
   transition: 0.5s opacity;
+
+  @media (max-width: 600px) {
+    font-size: 36px;
+  }
 }
 
 .video-kek {

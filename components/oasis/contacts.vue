@@ -16,10 +16,10 @@
 </template>
 
 <script setup>
-import IconCall from '~/components/icons/icon-call.vue'
-import IconTg from '~/components/icons/icon-tg.vue'
-import IconWhatsapp from '~/components/icons/icon-whatsapp.vue'
-import IconMail from '~/components/icons/icon-mail.vue'
+import IconCall from '~/components/oasis/icons/icon-call.vue'
+import IconTg from '~/components/oasis/icons/icon-tg.vue'
+import IconWhatsapp from '~/components/oasis/icons/icon-whatsapp.vue'
+import IconMail from '~/components/oasis/icons/icon-mail.vue'
 </script>
 
 <style scoped lang="scss">

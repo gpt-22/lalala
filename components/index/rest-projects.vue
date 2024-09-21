@@ -56,6 +56,12 @@ import { MEDIA_BASE_URL } from '~/utils/constants'
     &:hover {
       opacity: 1;
     }
+
+    @media (max-width: 600px) {
+      font-size: 36px;
+      backdrop-filter: initial;
+      opacity: 1;
+    }
   }
 }
 </style>

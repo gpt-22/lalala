@@ -2,7 +2,7 @@
   <header id="header" class="header" :class="{ open: isOpen }">
     <app-container class="h-full">
       <div class="header-content">
-        <nuxt-link to="/" class="flex items-center pl-4">
+        <nuxt-link to="/" class="flex items-center">
           <logo />
         </nuxt-link>
 

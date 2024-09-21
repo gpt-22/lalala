@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import AppButton from '~/components/ui/app-button.vue'
+import AppButton from '~/components/oasis/ui/app-button.vue'
 
 const onGoToCinematic = () => {
   setPageLayout('video')
