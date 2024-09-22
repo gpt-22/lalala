@@ -9,6 +9,8 @@
 <script setup>
 import { locations } from '~/pages/gallery.data'
 
+setPageLayout('oasis')
+
 const route = useRoute()
 const { setLocation } = useGallery()
 setLocation(route.query.location || locations[0].key)

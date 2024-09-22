@@ -37,6 +37,8 @@ import { throttle } from '~/utils/decorators'
 import { useVideo } from '~/composables/useVideo'
 import imageBack from '~/assets/images/section1_1.png'
 
+setPageLayout('oasis')
+
 const { $gsap } = useNuxtApp()
 const { videos, isTransition, showVideo } = useVideo()
 

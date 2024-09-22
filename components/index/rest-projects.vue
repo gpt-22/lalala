@@ -57,7 +57,7 @@ import { MEDIA_BASE_URL } from '~/utils/constants'
       opacity: 1;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 1023px) {
       font-size: 36px;
       backdrop-filter: initial;
       opacity: 1;

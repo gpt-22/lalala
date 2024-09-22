@@ -185,7 +185,7 @@ const onSwiper = (swiper) => {
   font-weight: 700;
   transition: 0.5s opacity;
 
-  @media (max-width: 600px) {
+  @media (max-width: 1023px) {
     font-size: 36px;
   }
 }

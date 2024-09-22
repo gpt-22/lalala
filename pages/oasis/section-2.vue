@@ -47,6 +47,8 @@ import { IMAGE_BASE_URL } from '~/utils/constants'
 import { throttle } from '~/utils/decorators'
 import { useVideo } from '~/composables/useVideo'
 
+setPageLayout('oasis')
+
 const { showVideo, isTransition, videoSaturated, currentVideoKey } = useVideo()
 
 const section2 = ref()
