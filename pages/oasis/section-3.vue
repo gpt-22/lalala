@@ -50,7 +50,7 @@
 import { IMAGE_BASE_URL } from '~/utils/constants'
 import { throttle } from '~/utils/decorators'
 import { useVideo } from '~/composables/useVideo'
-import AppButton from '~/components/ui/app-button.vue'
+import AppButton from '~/components/oasis/ui/app-button.vue'
 
 setPageLayout('oasis')
 

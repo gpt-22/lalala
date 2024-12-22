@@ -30,7 +30,6 @@
  *
  * */
 import { useIntersectionObserver } from '@vueuse/core'
-import { vIntersectionObserver } from '@vueuse/components'
 import Lenis from 'lenis'
 import { throttle } from '~/utils/decorators'
 

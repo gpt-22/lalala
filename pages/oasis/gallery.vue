@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { locations } from '~/pages/gallery.data'
+import { locations } from './gallery.data'
 
 setPageLayout('oasis')
 

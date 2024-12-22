@@ -24,8 +24,8 @@
 
 <script setup>
 import { VIDEO_BASE_URL } from '~/utils/constants'
-import AppButton from '~/components/ui/app-button.vue'
-import IconHouse from '~/components/icon-house.vue'
+// import AppButton from '~/components/ui/app-button.vue'
+import IconHouse from '~/components/oasis/icon-house.vue'
 
 definePageMeta({
   layout: 'video'

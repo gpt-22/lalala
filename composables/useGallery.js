@@ -1,5 +1,5 @@
 import { throttle } from '~/utils/decorators'
-import { locations } from '~/pages/gallery.data'
+import { locations } from '~/pages/oasis/gallery.data'
 
 const swiperInstance = ref()
 const currentIndex = ref(0)
