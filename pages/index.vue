@@ -6,6 +6,7 @@
     <main-projects />
     <rest-projects />
     <services />
+    <callback-form />
 
     <index-footer />
   </div>
@@ -18,6 +19,7 @@ import MainProjects from '~/components/index/main-projects.vue'
 import RestProjects from '~/components/index/rest-projects.vue'
 import Services from '~/components/index/services.vue'
 import IndexFooter from '~/components/index/index-footer.vue'
+import CallbackForm from '~/components/index/callback-form.vue'
 
 import Lenis from 'lenis'
 
